@@ -32,6 +32,7 @@ NeoBundle 'vim-scripts/paredit.vim'
 
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'marijnh/tern_for_vim'
 
 NeoBundle 'jnwhiteh/vim-golang'
@@ -180,7 +181,12 @@ if has('gui_running')
 else
     set background=dark
 endif
-colorscheme solarized
+
+if $vim_color == "jelly"
+    colorscheme jellybeans
+else
+    colorscheme solarized
+endif
 
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
