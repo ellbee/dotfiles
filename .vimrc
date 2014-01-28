@@ -85,6 +85,7 @@ set winwidth=84
 set showcmd
 set showmatch
 set switchbuf=useopen
+set tildeop
 
 set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
