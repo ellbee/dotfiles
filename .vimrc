@@ -18,6 +18,8 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
+NeoBundle 'mbbill/undotree'
+
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'scrooloose/nerdcommenter'
@@ -33,6 +35,7 @@ NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
+NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
 
 NeoBundle 'jnwhiteh/vim-golang'
@@ -85,6 +88,7 @@ set showmatch
 set switchbuf=useopen
 set tildeop
 set wildmenu
+set clipboard=unnamed
 
 set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
@@ -170,29 +174,31 @@ if !exists(":DiffOrig")
 endif
 
 map <leader>. :nohlsearch<CR>
+nnoremap <leader>re :edit $MYVIMRC<CR>
+nnoremap <leader>rs :source $MYVIMRC<CR>
+inoremap <C-j> <Esc>
 
 syntax enable
 
 if has('gui_running')
-    set background=light
     set guifont=menlo\ regular:h13
     set timeout
     set timeoutlen=500
 else
-    set background=dark
+    set ttimeoutlen=50
 endif
 
-if $vim_color == "jelly"
-    colorscheme jellybeans
-else
+set background=dark
+if $vim_color == ""
     colorscheme solarized
+else
+    colorscheme $vim_color
 endif
 
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
 let g:user_zen_leader_key = '<c-m>'
-set clipboard=unnamed
 
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>
@@ -217,3 +223,6 @@ let g:jedi#usages_command = '<leader><leader>n'
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0
 
+function! TmuxSendKeys(command, window)
+    :call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
+endfunction
