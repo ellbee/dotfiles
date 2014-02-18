@@ -201,6 +201,8 @@ let g:user_zen_leader_key = '<c-m>'
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>
 nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>. :set hlsearch! hlsearch?<cr>
+nnoremap K i<cr><esc>
 "remove trailing whitespace
 map <leader>w :%s/\s\+$//<CR>
 
@@ -230,5 +232,3 @@ augroup GoAwayPreviewWindow
 augroup end
 
 let g:sneak#use_ic_scs = 1
-
-nnoremap <leader>. :set hlsearch! hlsearch?<cr>
