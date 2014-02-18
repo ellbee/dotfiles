@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 getNeobundle() {
     if [ -d ~/.vim/bundle/neobundle.vim ]; then
@@ -11,10 +11,12 @@ getNeobundle() {
 
 copyDotfiles() {
     echo "copying dotfiles into user directory"
-    cd ~/dotfiles
-    cp .vimrc ~
-    cp .tmux.conf ~
-    cp .gitconfig .gitignore_global .githelpers ~
+    cd configfiles
+    for file in *; do
+        echo "copying $file"
+        rm ~/."$file"
+        ln -s ~/dotfiles/configfiles/"$file" ~/."$file"
+    done
 }
 
 getNeobundle
