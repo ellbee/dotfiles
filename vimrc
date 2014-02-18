@@ -50,6 +50,8 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'justinmk/vim-sneak'
 "NeoBundle 'klen/python-mode'
 
+"NeoBundle 'vim-scripts/AnsiEsc.vim'
+
 filetype plugin indent on     " required!
 
 NeoBundleCheck
@@ -68,6 +70,7 @@ else
     set backup		" keep a backup file
 endif
 
+set nohlsearch
 set history=1000		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -86,7 +89,7 @@ set winwidth=84
 set showcmd
 set showmatch
 set switchbuf=useopen
-set tildeop
+"set tildeop
 set wildmenu
 set clipboard=unnamed
 
@@ -123,13 +126,6 @@ if has('mouse')
     set mouse=a
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-    syntax on
-    set hlsearch
-endif
-
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -140,6 +136,8 @@ if has("autocmd")
     filetype plugin indent on
     "turn off docstring window for jedi
     autocmd FileType python setlocal completeopt-=preview
+    "turn off docstring window for ternjs
+    autocmd FileType javascript setlocal completeopt-=preview
 
     "Put these in an autocmd group, so that we can delete them easily.
     augroup vimrcEx
@@ -224,5 +222,13 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0
 
 function! TmuxSendKeys(command, window)
-    :call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
+    call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
 endfunction
+
+augroup GoAwayPreviewWindow
+    autocmd! InsertLeave * wincmd z
+augroup end
+
+let g:sneak#use_ic_scs = 1
+
+nnoremap <leader>. :set hlsearch! hlsearch?<cr>
