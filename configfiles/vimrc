@@ -83,6 +83,7 @@ set cursorline
 set scrolloff=3
 set ignorecase
 set smartcase
+set smartindent
 set winwidth=84
 set showcmd
 set showmatch
@@ -192,7 +193,7 @@ endif
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
-let g:user_zen_leader_key = '<c-m>'
+let g:user_emmet_leader_key = '<c-m>'
 
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>

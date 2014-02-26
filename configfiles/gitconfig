@@ -2,7 +2,7 @@
 	email = l_bannard@yahoo.co.uk
 	name = Lee Bannard
 [core]
-	excludesfile = /Users/leebannard/.gitignore_global
+	excludesfile = ~/.gitignore_global
     editor = /usr/local/bin/vim
 [diff]
 [color]
