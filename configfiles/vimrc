@@ -22,6 +22,7 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
@@ -191,7 +192,7 @@ else
 endif
 
 "turn off auto syntax checking for html because it doesn't like Angular
-let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
 
 let user_emmet_expandabbr_key = '<C-Y>y'
 
@@ -205,13 +206,13 @@ map <leader>w :%s/\s\+$//<CR>
 
 let g:ctrlp_max_height = 30
 
-"turn off most off of pymode by default
+"turn most off of pymode by default
 let g:pymode_rope = 0
 let g:pymode_syntax = 1
 let g:pymode_folding = 0
 let g:pymode_rope_autocomplete_map = ""
 let g:pymode_rope_vim_completion = 0
-let g:pymode_lint=1
+let g:pymode_lint=0
 let g:pymode_options = 0
 
 let g:jedi#show_call_signatures = 0
