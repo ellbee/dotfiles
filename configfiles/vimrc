@@ -198,6 +198,7 @@ let user_emmet_expandabbr_key = '<C-Y>y'
 
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>
+map <leader>e :Explore<CR>
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
 nnoremap K i<cr><esc>
