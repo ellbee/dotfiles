@@ -49,7 +49,7 @@ NeoBundle 'MarcWeber/vim-addon-mw-utils'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'honza/vim-snippets'
 
-"NeoBundle 'klen/python-mode'
+NeoBundle 'klen/python-mode'
 
 filetype plugin indent on     " required!
 
