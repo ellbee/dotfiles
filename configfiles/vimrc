@@ -41,7 +41,7 @@ NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
 
 NeoBundle 'jnwhiteh/vim-golang'
-NeoBundle 'jakar/vim-json'
+"NeoBundle 'jakar/vim-json'
 
 "snipmate needs vim-addon-mw-utils and tlib_vim
 NeoBundle 'garbas/vim-snipmate'
@@ -50,6 +50,7 @@ NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'klen/python-mode'
+NeoBundle 'pangloss/vim-javascript'
 
 filetype plugin indent on     " required!
 
