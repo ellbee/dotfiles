@@ -40,7 +40,8 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
 
-NeoBundle 'jnwhiteh/vim-golang'
+"NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'Blackrush/vim-gocode'
 "NeoBundle 'jakar/vim-json'
 
 "snipmate needs vim-addon-mw-utils and tlib_vim
@@ -139,6 +140,8 @@ if has("autocmd")
     autocmd FileType python setlocal completeopt-=preview
     "turn off docstring window for ternjs
     autocmd FileType javascript setlocal completeopt-=preview
+
+    "autocmd FileType go setlocal omnifunc=syntaxcomplete#Complete
 
     "Put these in an autocmd group, so that we can delete them easily.
     augroup vimrcEx
