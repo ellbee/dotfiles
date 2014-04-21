@@ -16,6 +16,9 @@ NeoBundle 'Shougo/vimproc', {
             \    },
             \ }
 
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
 
