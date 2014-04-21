@@ -180,16 +180,17 @@ endif
 
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
-nnoremap <leader>rn :call ToggleRelativeNumbers()<CR>
+"nnoremap <leader>rn :call ToggleRelativeNumbers()<CR>
+nnoremap <leader>rn :set relativenumber!<CR>
 inoremap <C-j> <Esc>
 
-function! ToggleRelativeNumbers()
-    if &relativenumber == "norelativenumber"
-        set relativenumber
-    else
-        set norelativenumber
-    endif
-endfunction
+"function! ToggleRelativeNumbers()
+    "if &relativenumber == "norelativenumber"
+        "set relativenumber
+    "else
+        "set norelativenumber
+    "endif
+"endfunction
 
 syntax enable
 
