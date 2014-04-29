@@ -18,6 +18,8 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+"look at installing neosnipper
 
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
@@ -180,17 +182,8 @@ endif
 
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
-"nnoremap <leader>rn :call ToggleRelativeNumbers()<CR>
 nnoremap <leader>rn :set relativenumber!<CR>
 inoremap <C-j> <Esc>
-
-"function! ToggleRelativeNumbers()
-    "if &relativenumber == "norelativenumber"
-        "set relativenumber
-    "else
-        "set norelativenumber
-    "endif
-"endfunction
 
 syntax enable
 
@@ -250,3 +243,9 @@ endfunction
 augroup GoAwayPreviewWindow
     autocmd! InsertLeave * wincmd z
 augroup end
+
+"enable the vim-vinegar features that I like
+let g:netrw_banner = 0
+nnoremap - :Explore<CR>
+let g:netrw_list_hide='^\.\/'
+autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
