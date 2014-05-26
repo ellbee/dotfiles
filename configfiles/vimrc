@@ -93,7 +93,7 @@ set scrolloff=3
 set ignorecase
 set smartcase
 set smartindent
-set winwidth=84
+"set winwidth=84
 set showcmd
 set showmatch
 set switchbuf=useopen
@@ -104,18 +104,20 @@ set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
 
 let mapleader=","
+nnoremap <silent> <Leader>, ,
 
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>s :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+"map <C-h> <C-w>h
+"map <C-j> <C-w>j
+"map <C-k> <C-w>k
+"map <C-l> <C-w>l
 map <S-up> <C-w>+
 map <S-down> <C-w>-
 map <S-left> <C-w><
 map <S-right> <C-w>>
+
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
@@ -183,6 +185,7 @@ endif
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rn :set relativenumber!<CR>
+nnoremap <leader>rw <C-w>r<C-w><C-w>
 inoremap <C-j> <Esc>
 
 syntax enable
@@ -210,7 +213,7 @@ let user_emmet_expandabbr_key = '<C-Y>y'
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>
 map <leader>e :Explore<CR>
-nnoremap <leader>u :Gundokoggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
 nnoremap K i<cr><esc>
 "remove trailing whitespace
@@ -249,3 +252,11 @@ let g:netrw_banner = 0
 nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
 autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
+
+""another try with Unite
+"call unite#custom#source('file,file_rec,buffers,file_rec/async,file_mru', 'sorters', 'sorter_rank')
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"nnoremap <leader>gf :<C-u>Unite -start-insert -sync file_rec<CR>
+"nnoremap <leader>gm :<C-u>Unite -start-insert file_mru<CR>
+"let g:unite_source_history_yank_enable = 1
+"nnoremap <leader>gh :<C-u>Unite -start-insert history/yank<CR>
