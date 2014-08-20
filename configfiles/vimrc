@@ -48,9 +48,10 @@ NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'fatih/vim-go'
 
 "snipmate needs vim-addon-mw-utils and tlib_vim
-NeoBundle 'garbas/vim-snipmate'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'tomtom/tlib_vim'
+"NeoBundle 'garbas/vim-snipmate'
+"NeoBundle 'MarcWeber/vim-addon-mw-utils'
+"NeoBundle 'tomtom/tlib_vim'
+NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'klen/python-mode'
@@ -237,6 +238,13 @@ let g:jedi#show_call_signatures = 0
 
 "Change default HTML indentation to include more tags
 let g:html_indent_inctags = "html,body,head,tbody,p"
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<leader>ss"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="horizontal"
+nnoremap <leader>rn :UltiSnipsEdit<CR>
 
 function! TmuxSendKeys(command, window)
     call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
