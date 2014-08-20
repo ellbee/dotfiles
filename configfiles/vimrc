@@ -145,8 +145,7 @@ if has("autocmd")
     "turn off docstring window for jedi
     autocmd FileType python setlocal completeopt-=preview
     "turn off docstring window for ternjs
-    autocmd FileType javascript setlocal completeopt-=preview
-
+    autocmd FileType javascript setlocal completeopt-=preview shiftwidth=2 tabstop=2
     "autocmd FileType go setlocal omnifunc=syntaxcomplete#Complete
 
     "Put these in an autocmd group, so that we can delete them easily.
@@ -207,8 +206,9 @@ endif
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
 
+imap <C-Y>s <Plug>snipMateNextOrTrigger
+smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
-
 map <leader>m :CtrlPMRU<CR>
 map <leader>g :CtrlPBuffer<CR>
 map <leader>e :Explore<CR>
