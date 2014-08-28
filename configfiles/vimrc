@@ -255,6 +255,9 @@ nmap <leader>fc Sfuvf{]}c
 nmap <leader>fd Sfuvf{]}d
 nmap <leader>fy Sfuvf{]}y<C-o><C-o>
 
+vmap af :normal [{F(Ffvf{%<CR>
+omap af :normal Vaf<CR>
+
 function! TmuxSendKeys(command, window)
     call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
 endfunction
