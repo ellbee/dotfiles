@@ -248,6 +248,13 @@ function! ListSnippets()
 endfunction
 command! Snips :call ListSnippets()<CR>
 
+" select, change, delete, yank a js function from within
+" relies upon vim-sneak
+nmap <leader>ff Sfuvf{]}
+nmap <leader>fc Sfuvf{]}c
+nmap <leader>fd Sfuvf{]}d
+nmap <leader>fy Sfuvf{]}y<C-o><C-o>
+
 function! TmuxSendKeys(command, window)
     call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
 endfunction
