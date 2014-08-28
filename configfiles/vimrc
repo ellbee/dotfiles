@@ -19,7 +19,6 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/vimfiler.vim'
-"look at installing neosnipper
 
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
@@ -33,6 +32,8 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'justinmk/vim-sneak'
 
 "clojure
 NeoBundle 'tpope/vim-fireplace'
@@ -47,10 +48,6 @@ NeoBundle 'marijnh/tern_for_vim'
 
 NeoBundle 'fatih/vim-go'
 
-"snipmate needs vim-addon-mw-utils and tlib_vim
-"NeoBundle 'garbas/vim-snipmate'
-"NeoBundle 'MarcWeber/vim-addon-mw-utils'
-"NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
@@ -104,7 +101,7 @@ set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
 
 let mapleader=","
-nnoremap <silent> <Leader>, ,
+nnoremap <silent> <Leader>, , " use double comma for find backwards
 
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>s :sp<cr>
@@ -240,11 +237,16 @@ let g:jedi#show_call_signatures = 0
 let g:html_indent_inctags = "html,body,head,tbody,p"
 
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<leader>ss"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="horizontal"
 nnoremap <leader>rn :UltiSnipsEdit<CR>
+
+"HACK to get the snippets list from command mode
+function! ListSnippets()
+    exec g:_uspy "UltiSnips_Manager.list_snippets()"
+endfunction
+command! Snips :call ListSnippets()<CR>
 
 function! TmuxSendKeys(command, window)
     call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
