@@ -207,9 +207,9 @@ let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
 imap <C-Y>s <Plug>snipMateNextOrTrigger
 smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
-map <leader>m :CtrlPMRU<CR>
-map <leader>g :CtrlPBuffer<CR>
-map <leader>e :Explore<CR>
+nmap <leader>m :CtrlPMRU<CR>
+nmap <leader>g :CtrlPBuffer<CR>
+nmap <leader>e :Explore<CR>
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
 nnoremap K i<cr><esc>
@@ -240,7 +240,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="horizontal"
-nnoremap <leader>rn :UltiSnipsEdit<CR>
+nnoremap <leader>sn :UltiSnipsEdit<CR>
 
 "HACK to get the snippets list from command mode
 function! ListSnippets()

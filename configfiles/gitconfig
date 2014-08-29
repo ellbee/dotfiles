@@ -1,8 +1,8 @@
 [user]
-	email = l_bannard@yahoo.co.uk
+	email = lee@ambrit.com
 	name = Lee Bannard
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/lee/.gitignore_global
     editor = /usr/local/bin/vim
 [diff]
 [color]
@@ -49,3 +49,12 @@
 
 [merge]
     tool = vimdiff
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
