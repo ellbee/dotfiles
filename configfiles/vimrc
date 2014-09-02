@@ -272,6 +272,7 @@ nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
 autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
+nmap <leader>cd :cd %:p:h<CR>
 ""another try with Unite
 "call unite#custom#source('file,file_rec,buffers,file_rec/async,file_mru', 'sorters', 'sorter_rank')
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
