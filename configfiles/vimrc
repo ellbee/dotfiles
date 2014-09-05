@@ -27,7 +27,7 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
@@ -247,13 +247,6 @@ function! ListSnippets()
     exec g:_uspy "UltiSnips_Manager.list_snippets()"
 endfunction
 command! Snips :call ListSnippets()<CR>
-
-" select, change, delete, yank a js function from within
-" relies upon vim-sneak
-nmap <leader>ff Sfuvf{]}
-nmap <leader>fc Sfuvf{]}c
-nmap <leader>fd Sfuvf{]}d
-nmap <leader>fy Sfuvf{]}y<C-o><C-o>
 
 vmap af :normal [{F(Ffvf{%<CR>
 omap af :normal Vaf<CR>
