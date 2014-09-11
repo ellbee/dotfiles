@@ -206,8 +206,13 @@ let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
 imap <C-Y>s <Plug>snipMateNextOrTrigger
 smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
+
+let g:ctrlp_open_new_file = 'r'
 nmap <leader>m :CtrlPMRU<CR>
-nmap <leader>g :CtrlPBuffer<CR>
+nmap <leader>gb :CtrlPBuffer<CR>
+nmap <leader>ga :CtrlP app<CR>
+nmap <leader>gj :CtrlP app/__tests__<CR>
+
 nmap <leader>e :Explore<CR>
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
