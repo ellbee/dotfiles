@@ -100,6 +100,9 @@ set clipboard=unnamed
 set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
 
+set nojoinspaces
+set autoread
+
 let mapleader=","
 nnoremap <silent> <Leader>, , " use double comma for find backwards
 
@@ -282,6 +285,18 @@ function! SwitchToTest()
 endfunction
 
 command! A :call SwitchToTest()
+
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+
+map <leader>rf :call RenameFile()<cr>
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
