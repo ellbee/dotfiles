@@ -50,6 +50,6 @@ export GOPATH=~/exercises/go
 export PATH=~/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.cask/bin:$GOPATH/bin
 # Customize to your needs...
 #export PATH=/Users/leebannard/.rvm/gems/ruby-3.0.0-p0/bin:/Users/leebannard/.rvm/gems/ruby-2.0.0-p0@global/bin:/Users/leebannard/.rvm/rubies/ruby-2.0.0-p0/bin:/Users/leebannard/.rvm/bin:~/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.cask/bin:$GOPATH/bin
-
+ulimit -n 10000
 hash rbenv 2> /dev/null && eval "$(rbenv init -)"
 export EDITOR="/usr/local/bin/vim"
