@@ -97,6 +97,7 @@ set showcmd
 set showmatch
 set switchbuf=useopen
 set wildmenu
+set wildmode=longest,full
 set clipboard=unnamed
 set splitbelow
 set splitright
