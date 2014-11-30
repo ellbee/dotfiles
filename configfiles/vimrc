@@ -103,7 +103,7 @@ let mapleader=","
 nnoremap <silent> <Leader>, , " use double comma for find backwards
 
 " Useful shortcuts for working with splits
-nnoremap <silent> <Leader>s :sp<cr>
+nnoremap <silent> <Leader>h :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
 map <S-up> <C-w>+
 map <S-down> <C-w>-
