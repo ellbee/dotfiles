@@ -105,10 +105,10 @@ nnoremap <silent> <Leader>, , " use double comma for find backwards
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>h :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
-map <S-up> <C-w>+
-map <S-down> <C-w>-
-map <S-left> <C-w><
-map <S-right> <C-w>>
+map <S-up> 2<C-w>+
+map <S-down> 2<C-w>-
+map <S-left> 4<C-w><
+map <S-right> 4<C-w>>
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
