@@ -7,19 +7,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-"NeoBundle 'Shougo/vimproc', {
-            "\ 'build' : {
-            "\     'windows' : 'make -f make_mingw32.mak',
-            "\     'cygwin' : 'make -f make_cygwin.mak',
-            "\     'mac' : 'make -f make_mac.mak',
-            "\     'unix' : 'make -f make_unix.mak',
-            "\    },
-            "\ }
-
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'Shougo/neomru.vim'
-"NeoBundle 'Shougo/vimfiler.vim'
-
 NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
 
@@ -35,6 +22,7 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'christoomey/vim-tmux-navigator'
+NeoBundle 'jpalardy/vim-slime'
 
 "clojure
 NeoBundle 'tpope/vim-fireplace'
@@ -229,7 +217,7 @@ map <leader>w :%s/\s\+$//<CR>
 
 let g:ctrlp_max_height = 30
 
-"turn most off of pymode by default
+"turn off most of pymode by default
 let g:pymode_rope = 0
 let g:pymode_syntax = 1
 let g:pymode_folding = 0
@@ -259,8 +247,7 @@ function! ListSnippets()
 endfunction
 command! Snips :call ListSnippets()<CR>
 
-vmap af :normal [{F(Ffvf{%<CR>
-omap af :normal Vaf<CR>
+let g:slime_target = "tmux"
 
 function! TmuxSendKeys(command, window)
     call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
@@ -276,6 +263,7 @@ nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
 autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
+"change current directory to that of the current file
 nmap <leader>cd :cd %:p:h<CR>
 
 function! SwitchToTest()
