@@ -60,9 +60,9 @@ set backspace=indent,eol,start
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 if has("vms")
-    set nobackup		" do not keep a backup file, use versions instead
+  set nobackup		" do not keep a backup file, use versions instead
 else
-    set backup		" keep a backup file
+  set backup		" keep a backup file
 endif
 
 set nohlsearch
@@ -71,7 +71,7 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 set shiftwidth=2
-set ts=2
+set tabstop=2
 set number
 set expandtab
 set hidden
@@ -124,52 +124,40 @@ inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-    set mouse=a
+  set mouse=a
 endif
 
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
+"turn off docstring window for jedi
+autocmd filetype python setlocal completeopt-=preview
+"turn off docstring window for ternjs
+autocmd filetype javascript setlocal completeopt-=preview
 
-    " Enable file type detection.
-    " Use the default filetype settings, so that mail gets 'tw' set to 72,
-    " 'cindent' is on in C files, etc.
-    " Also load indent files, to automatically do language-dependent indenting.
-    filetype plugin indent on
-    "turn off docstring window for jedi
-    autocmd FileType python setlocal completeopt-=preview
-    "turn off docstring window for ternjs
-    autocmd FileType javascript setlocal completeopt-=preview shiftwidth=2 tabstop=2
+"put these in an autocmd group, so that we can delete them easily.
+augroup vimrcex
+  autocmd!
 
-    "Put these in an autocmd group, so that we can delete them easily.
-    augroup vimrcEx
-        au!
+  " for all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
 
-        " For all text files set 'textwidth' to 78 characters.
-        autocmd FileType text setlocal textwidth=78
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
 
-        " When editing a file, always jump to the last known cursor position.
-        " Don't do it when the position is invalid or when inside an event handler
-        " (happens when dropping a file on gvim).
-        " Also don't do it when the mark is in the first line, that is the default
-        " position when opening a file.
-        autocmd BufReadPost *
-                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                    \   exe "normal! g`\"" |
-                    \ endif
+augroup END
 
-    augroup END
-
-else
-    set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                \ | wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+        \ | wincmd p | diffthis
 endif
 
 nnoremap <leader>re :edit $MYVIMRC<CR>
@@ -181,18 +169,18 @@ inoremap <C-j> <Esc>
 syntax enable
 
 if has('gui_running')
-    set guifont=Inconsolata\ for\ Powerline:h15
-    set timeout
-    set timeoutlen=500
+  set guifont=Inconsolata\ for\ Powerline:h15
+  set timeout
+  set timeoutlen=500
 else
-    set ttimeoutlen=50
+  set ttimeoutlen=50
 endif
 
 set background=dark
 if $vim_color == ""
-    colorscheme solarized
+  colorscheme solarized
 else
-    colorscheme $vim_color
+  colorscheme $vim_color
 endif
 
 "turn off auto syntax checking for html because it doesn't like Angular
@@ -243,19 +231,19 @@ nnoremap <leader>sn :UltiSnipsEdit<CR>
 
 "HACK to get the snippets list from command mode
 function! ListSnippets()
-    exec g:_uspy "UltiSnips_Manager.list_snippets()"
+  exec g:_uspy "UltiSnips_Manager.list_snippets()"
 endfunction
 command! Snips :call ListSnippets()<CR>
 
 let g:slime_target = "tmux"
 
 function! TmuxSendKeys(command, window)
-    call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
+  call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
 endfunction
 
 augroup GoAwayPreviewWindow
-    autocmd! InsertLeave * wincmd z
-augroup end
+  autocmd! InsertLeave * wincmd z
+augroup END
 
 "enable the vim-vinegar features that I like
 let g:netrw_banner = 0
@@ -267,25 +255,25 @@ autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 nmap <leader>cd :cd %:p:h<CR>
 
 function! SwitchToTest()
-    let b:root = expand('%:r:r')
-    let b:ext = expand('%:e:e')
-    if b:root =~ '-test'
-        execute 'edit ' . substitute(expand('%'), '-test', '', '')
-    else
-        execute 'edit ' . b:root . '-test\.' . b:ext
-    endif
+  let b:root = expand('%:r:r')
+  let b:ext = expand('%:e:e')
+  if b:root =~ '-test'
+    execute 'edit ' . substitute(expand('%'), '-test', '', '')
+  else
+    execute 'edit ' . b:root . '-test\.' . b:ext
+  endif
 endfunction
 
 command! A :call SwitchToTest()
 
 function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
 endfunction
 
 map <leader>rf :call RenameFile()<cr>
@@ -320,4 +308,34 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+"set path for gf when working with require in Node
+function! Nodegf()
+python << EOF
+import os
+import sys
+import vim
+
+vim.command(r"set suffixesadd+=.js")
+
+#
+# walk up and check every folder for node_modules folder, 
+# and if found add it to the path
+#
+current_folder = os.path.dirname(vim.eval("expand('%:p')"))
+while current_folder is not "/":
+	# print "Will check " + current_folder
+	current = os.path.join(current_folder, 'node_modules')
+	if os.path.exists(current): 
+		# print "Will add " + current
+		vim.command(r"set path+=%s" % (current.replace(" ", r"\ ")))
+	current_folder = os.path.abspath(os.path.join(current_folder, '..'))
+	
+EOF
+endfunction
+
+augroup Node
+  autocmd!
+  autocmd filetype javascript :call Nodegf()
+augroup END 
 
