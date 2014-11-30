@@ -34,6 +34,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'justinmk/vim-sneak'
+NeoBundle 'christoomey/vim-tmux-navigator'
 
 "clojure
 NeoBundle 'tpope/vim-fireplace'
@@ -108,16 +109,14 @@ set directory=~/.vim/swap/
 set nojoinspaces
 set autoread
 
+set t_Co=256
+
 let mapleader=","
 nnoremap <silent> <Leader>, , " use double comma for find backwards
 
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>s :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
-"map <C-h> <C-w>h
-"map <C-j> <C-w>j
-"map <C-k> <C-w>k
-"map <C-l> <C-w>l
 map <S-up> <C-w>+
 map <S-down> <C-w>-
 map <S-left> <C-w><
@@ -188,7 +187,7 @@ endif
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rn :set relativenumber!<CR>
-nnoremap <leader>rw <C-w>r<C-w><C-w>
+nnoremap <leader>rw <C-w>x
 inoremap <C-j> <Esc>
 
 syntax enable
@@ -330,4 +329,3 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-set t_Co=256
