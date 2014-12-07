@@ -90,6 +90,13 @@ set wildmode=longest,full
 set clipboard=unnamed
 set splitbelow
 set splitright
+"Autocomplete settings
+set completeopt=menuone,longest
+"enter key selects menu item
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+"select an item by default
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 set backupdir=~/.vim/backup/
 set directory=~/.vim/swap/
