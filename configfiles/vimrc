@@ -285,6 +285,14 @@ endfunction
 
 map <leader>rf :call RenameFile()<cr>
 
+function! AckIntoArgsList()
+  let name = input('Search for: ')
+  let search_dir = input('Search in directory: ', 'app')
+  exec ':args `ack ' . name . ' ' . search_dir . ' -l`'
+endfunction
+
+map <leader>a :call AckIntoArgsList()<cr>
+
 " settings for vim-jsx
 let g:jsx_pragma_required = 0
 let g:jsx_ext_required = 1
