@@ -20,7 +20,6 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'justinmk/vim-sneak'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jpalardy/vim-slime'
 
@@ -34,7 +33,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
-
 NeoBundle 'fatih/vim-go'
 
 NeoBundle 'sirVer/ultisnips'
@@ -292,6 +290,16 @@ function! AckIntoArgsList()
 endfunction
 
 map <leader>a :call AckIntoArgsList()<cr>
+
+function! Ack(args)
+ let grepprg_bak=&grepprg
+ set grepprg=ack\ -H\ --nocolor\ --nogroup
+ execute ":silent grep " . a:args
+ execute ":redraw!"
+ let &grepprg=grepprg_bak
+endfunction
+
+command! -nargs=* -complete=file Ack call Ack(<q-args>)
 
 " settings for vim-jsx
 let g:jsx_pragma_required = 0
