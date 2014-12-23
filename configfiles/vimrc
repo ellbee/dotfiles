@@ -22,8 +22,8 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jpalardy/vim-slime'
+NeoBundle 'Wolfy87/vim-expand'
 
-"clojure
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'vim-scripts/paredit.vim'
@@ -31,6 +31,7 @@ NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
+
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'fatih/vim-go'
@@ -122,6 +123,8 @@ nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
+" Make Y follow the same pattern as C and D
+map Y y$
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
