@@ -80,6 +80,7 @@ set scrolloff=3
 set ignorecase
 set smartcase
 set smartindent
+set smarttab
 "set winwidth=84
 set showcmd
 set showmatch
