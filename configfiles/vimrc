@@ -238,11 +238,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="horizontal"
 nnoremap <leader>sn :UltiSnipsEdit<CR>
 
-"HACK to get the snippets list from command mode
-function! ListSnippets()
-  exec g:_uspy "UltiSnips_Manager.list_snippets()"
-endfunction
-command! Snips :call ListSnippets()<CR>
+command! Snips :call UltiSnips#ListSnippets()
 
 let g:slime_target = "tmux"
 
