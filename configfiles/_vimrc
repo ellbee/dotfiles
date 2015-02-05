@@ -1,10 +1,9 @@
 "install git and enable it to run on the command line
 "install PS-Get for Powershell
 "install Posh-Git
-"install Python
+"install Python (Make sure that the versions of python match vim)
 "clone neobundle into vimfiles in home dir
 "copy _vimrc into home dir
-"TODO: Ultisnips is complaining that I don't have python
 
 set nocompatible
 source $VIMRUNTIME/mswin.vim
@@ -32,7 +31,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 
 NeoBundle 'fatih/vim-go'
 
-"NeoBundle 'sirVer/ultisnips'
+NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'pangloss/vim-javascript'
