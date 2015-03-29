@@ -42,6 +42,7 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'klen/python-mode'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
+NeoBundle 'scrooloose/syntastic'
 
 call neobundle#end()
 
@@ -147,6 +148,7 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
+  autocmd BufEnter *.hs set formatprg=pointfree
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -331,6 +333,11 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+let g:syntastic_haskell_ghc_mod_args = '-g -fno-warn-unused-binds'
+nnoremap <leader>sc :SyntasticCheck<cr>
+nnoremap <leader>st :SyntasticToggleMode<cr>
+nnoremap <leader>se :Errors<cr>
 
 "set path for gf when working with require in Node
 function! Nodegf()
