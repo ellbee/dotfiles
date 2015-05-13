@@ -138,10 +138,11 @@ if has('mouse')
   set mouse=a
 endif
 
-"turn off docstring window for jedi
-autocmd filetype python setlocal completeopt-=preview
-"turn off docstring window for ternjs
-autocmd filetype javascript setlocal completeopt-=preview
+"turn off docstring window for jedi and ternjs
+autocmd filetype python, javascript setlocal completeopt-=preview
+
+"run GoImports on write
+autocmd BufWritePre *.go call go#fmt#Format(1)
 
 "put these in an autocmd group, so that we can delete them easily.
 augroup vimrcex
@@ -350,23 +351,23 @@ import vim
 vim.command(r"set suffixesadd+=.js")
 
 #
-# walk up and check every folder for node_modules folder, 
+# walk up and check every folder for node_modules folder,
 # and if found add it to the path
 #
 current_folder = os.path.dirname(vim.eval("expand('%:p')"))
 while current_folder is not "/":
 	# print "Will check " + current_folder
 	current = os.path.join(current_folder, 'node_modules')
-	if os.path.exists(current): 
+	if os.path.exists(current):
 		# print "Will add " + current
 		vim.command(r"set path+=%s" % (current.replace(" ", r"\ ")))
 	current_folder = os.path.abspath(os.path.join(current_folder, '..'))
-	
+
 EOF
 endfunction
 
 augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
-augroup END 
+augroup END
 
