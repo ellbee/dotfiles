@@ -145,6 +145,10 @@ autocmd filetype python, javascript setlocal completeopt-=preview
 "run GoImports on write
 autocmd BufWritePre *.go call go#fmt#Format(1)
 
+"turn off showmatch for rust (beeps on >)
+autocmd filetype rust setlocal noshowmatch
+
+
 "put these in an autocmd group, so that we can delete them easily.
 augroup vimrcex
   autocmd!
