@@ -35,6 +35,7 @@ NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'fatih/vim-go'
+NeoBundle 'rust-lang/rust.vim'
 
 NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
