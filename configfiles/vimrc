@@ -33,7 +33,6 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
 
 NeoBundle 'chriskempson/vim-tomorrow-theme'
-NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'fatih/vim-go'
 NeoBundle 'rust-lang/rust.vim'
 
@@ -139,8 +138,8 @@ if has('mouse')
   set mouse=a
 endif
 
-"turn off docstring window for jedi and ternjs
-autocmd filetype python, javascript setlocal completeopt-=preview
+"turn off docstring window for jedi
+autocmd filetype python setlocal completeopt-=preview
 
 "run GoImports on write
 autocmd BufWritePre *.go call go#fmt#Format(1)
