@@ -262,6 +262,7 @@ let g:netrw_banner = 0
 nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
 let g:netrw_altfile=1
+let g:netrw_liststyle=1
 autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
 "change current directory to that of the current file
