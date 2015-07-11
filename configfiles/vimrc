@@ -11,7 +11,6 @@ NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
 
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'ctrlpvim/ctrlp.vim'
@@ -40,6 +39,8 @@ NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'klen/python-mode'
+NeoBundle 'davidhalter/jedi-vim'
+
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'scrooloose/syntastic'
@@ -202,6 +203,7 @@ endif
 
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
+let g:syntastic_javascript_checkers = ['eslint']
 
 imap <C-Y>s <Plug>snipMateNextOrTrigger
 smap <C-Y>s <Plug>snipMateNextOrTrigger
