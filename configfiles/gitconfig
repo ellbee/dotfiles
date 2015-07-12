@@ -10,6 +10,7 @@
 [alias]
     # Based on Gary Bernhardt's .gitconfig
     st = status
+    s = status -sb
     ci = commit
     co = checkout
     di = diff
