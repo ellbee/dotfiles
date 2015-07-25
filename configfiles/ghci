@@ -1,1 +1,3 @@
-:set prompt "ghci>"
+:set -DGHC_INTERACTIVE
+:set -XNoMonomorphismRestriction
+:set prompt "ghci> "
