@@ -294,14 +294,6 @@ endfunction
 
 map <leader>rf :call RenameFile()<cr>
 
-function! AckIntoArgsList()
-  let name = input('Search for: ')
-  let search_dir = input('Search in directory: ', 'app')
-  exec ':args `ack ' . name . ' ' . search_dir . ' -l`'
-endfunction
-
-map <leader>a :call AckIntoArgsList()<cr>
-
 function! Ack(args)
  let grepprg_bak=&grepprg
  set grepprg=ack\ -H\ --nocolor\ --nogroup
