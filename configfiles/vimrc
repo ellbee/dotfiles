@@ -110,7 +110,7 @@ set autoread
 set t_Co=256
 
 let mapleader=","
-nnoremap <silent> <Leader>, , " use double comma for find backwards
+nnoremap <Leader>, ,
 
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>h :sp<cr>
