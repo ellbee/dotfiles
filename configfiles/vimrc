@@ -112,6 +112,9 @@ set t_Co=256
 let mapleader=","
 nnoremap <Leader>, ,
 
+nnoremap j gj
+nnoremap k gk
+
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>h :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
