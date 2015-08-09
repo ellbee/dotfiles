@@ -7,7 +7,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'sjl/clam.vim'
 NeoBundle 'sjl/gundo.vim'
 
 NeoBundle 'godlygeek/tabular'
