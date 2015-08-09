@@ -30,8 +30,8 @@ NeoBundle 'vim-scripts/paredit.vim'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
-
 NeoBundle 'chriskempson/vim-tomorrow-theme'
+
 NeoBundle 'fatih/vim-go'
 NeoBundle 'rust-lang/rust.vim'
 
@@ -43,7 +43,6 @@ NeoBundle 'davidhalter/jedi-vim'
 
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
-NeoBundle 'scrooloose/syntastic'
 
 call neobundle#end()
 
