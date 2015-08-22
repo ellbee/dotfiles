@@ -212,7 +212,7 @@ function! CtrlPSetDir()
 endfunction
 
 nmap <leader>m :CtrlPMRU<CR>
-nmap <leader>gb CtrlPBuffer<CR>
+nmap <leader>gb :CtrlPBuffer<CR>
 nmap <leader>ga :call CtrlPOpen()<CR>
 nmap <silent> <leader>gh :call CtrlPSetDir()<CR>
 
