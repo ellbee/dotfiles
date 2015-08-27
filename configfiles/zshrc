@@ -43,7 +43,6 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
-alias jvim="vim_color=jellybeans vim"
 
 export GOPATH=~/exercises/go
 
@@ -58,3 +57,7 @@ export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
 export EDITOR="/usr/local/bin/vim"
+
+alias vim=nvim
+alias vi=nvim
+alias jvim="vim_color=jellybeans vim"
