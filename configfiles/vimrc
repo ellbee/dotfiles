@@ -78,6 +78,7 @@ set smarttab
 set showcmd
 set showmatch
 set switchbuf=useopen
+set wildignorecase
 set wildmenu
 set wildmode=longest,full
 set clipboard=unnamed
