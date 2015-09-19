@@ -58,7 +58,7 @@ set backspace=indent,eol,start
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set backup		" keep a backup file
 set nomodeline
-set nohlsearch
+set hlsearch
 set history=1000		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -184,13 +184,14 @@ inoremap <C-j> <Esc>
 
 syntax enable
 
-
 set background=dark
 if $vim_color == ""
   colorscheme solarized
 else
   colorscheme $vim_color
 endif
+
+nnoremap <CR> :nohlsearch<CR>
 
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
