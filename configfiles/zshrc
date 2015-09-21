@@ -58,6 +58,4 @@ source $(brew --prefix nvm)/nvm.sh
 
 export EDITOR="/usr/local/bin/vim"
 
-alias vim=nvim
-alias vi=nvim
 alias jvim="vim_color=jellybeans vim"
