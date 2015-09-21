@@ -194,7 +194,7 @@ else
   colorscheme $vim_color
 endif
 
-nnoremap <CR> :nohlsearch<CR>
+nnoremap <space> :nohlsearch<CR>
 
 "turn off auto syntax checking for html because it doesn't like Angular
 let syntastic_mode_map = { 'mode': 'passive', 'passive_filetypes': ['html'] }
