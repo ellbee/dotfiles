@@ -3,7 +3,7 @@
 	name = Lee Bannard
 [core]
 	excludesfile = ~/.gitignore_global
-    editor = /usr/local/bin/vim
+    editor = /usr/local/bin/nvim
 [diff]
 [color]
     ui = auto
