@@ -7,9 +7,9 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 
 NeoBundle 'bling/vim-airline'
@@ -270,6 +270,8 @@ let g:netrw_list_hide='^\.\/'
 let g:netrw_altfile=1
 let g:netrw_liststyle=1
 autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
+
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 "change current directory to that of the current file
 nmap <leader>cd :cd %:p:h<CR>
