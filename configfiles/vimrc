@@ -222,8 +222,15 @@ nmap <leader>e :Explore<CR>
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
 nnoremap K i<cr><esc>
-"remove trailing whitespace
-map <leader>w :%s/\s\+$//<CR>
+
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>w :call StripWhitespace()<CR>
 
 let g:ctrlp_max_height = 30
 
