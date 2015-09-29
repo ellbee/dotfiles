@@ -218,10 +218,15 @@ nmap <leader>gb :CtrlPBuffer<CR>
 nmap <leader>ga :call CtrlPOpen()<CR>
 nmap <silent> <leader>gh :call CtrlPSetDir()<CR>
 
-nmap <leader>e :Explore<CR>
+" dir path for current file
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+map <leader>e :edit %%
+
+" change current directory to that of the current file
+nmap <leader>cd :cd %:p:h<CR>
+
 nnoremap <leader>u :GundoToggle<CR>
 nnoremap <silent> <leader>. :set hlsearch!<cr>
-nnoremap K i<cr><esc>
 
 function! StripWhitespace()
   let save_cursor = getpos(".")
@@ -234,7 +239,7 @@ noremap <leader>w :call StripWhitespace()<CR>
 
 let g:ctrlp_max_height = 30
 
-"turn off most of pymode by default
+" turn off most of pymode by default
 let g:pymode_rope = 0
 let g:pymode_syntax = 1
 let g:pymode_folding = 0
@@ -249,7 +254,7 @@ let g:jedi#usages_command = '<leader><leader>n'
 let g:jedi#popup_on_dot = 0
 let g:jedi#show_call_signatures = 0
 
-"Change default HTML indentation to include more tags
+" Change default HTML indentation to include more tags
 let g:html_indent_inctags = "html,body,head,tbody,p"
 
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -270,7 +275,7 @@ augroup GoAwayPreviewWindow
   autocmd! InsertLeave * wincmd z
 augroup END
 
-"enable the vim-vinegar features that I like
+" enable the vim-vinegar features that I like
 let g:netrw_banner = 0
 nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
@@ -280,8 +285,6 @@ autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-"change current directory to that of the current file
-nmap <leader>cd :cd %:p:h<CR>
 
 function! SwitchToTest()
   let b:root = expand('%:r:r')
