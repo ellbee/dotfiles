@@ -104,7 +104,8 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 "select an item by default
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
+inoremap <expr> <C-x><C-l> pumvisible() ? '<C-x><C-l>' :
+  \ '<C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 let mapleader=","
 nnoremap <Leader>, ,
