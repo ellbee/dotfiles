@@ -39,9 +39,6 @@ NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
-NeoBundle 'klen/python-mode'
-NeoBundle 'davidhalter/jedi-vim'
-
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 
@@ -142,9 +139,6 @@ if has('mouse')
   set mouse=a
 endif
 
-"turn off docstring window for jedi
-autocmd filetype python setlocal completeopt-=preview
-
 "run GoImports on write
 autocmd BufWritePre *.go call go#fmt#Format(1)
 
@@ -238,21 +232,6 @@ endfunction
 noremap <leader>w :call StripWhitespace()<CR>
 
 let g:ctrlp_max_height = 30
-
-" turn off most of pymode by default
-let g:pymode_rope = 0
-let g:pymode_syntax = 1
-let g:pymode_folding = 0
-let g:pymode_rope_autocomplete_map = ""
-let g:pymode_rope_vim_completion = 0
-let g:pymode_lint=0
-let g:pymode_options = 0
-
-let g:jedi#show_call_signatures = 0
-let g:jedi#goto_assignments_command = ''
-let g:jedi#usages_command = '<leader><leader>n'
-let g:jedi#popup_on_dot = 0
-let g:jedi#show_call_signatures = 0
 
 " Change default HTML indentation to include more tags
 let g:html_indent_inctags = "html,body,head,tbody,p"
