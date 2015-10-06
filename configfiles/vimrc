@@ -42,6 +42,8 @@ NeoBundle 'honza/vim-snippets'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 
+NeoBundle 'lambdatoast/elm.vim'
+
 call neobundle#end()
 
 filetype plugin indent on     " required!
