@@ -341,6 +341,10 @@ nnoremap <leader>sc :SyntasticCheck<cr>
 nnoremap <leader>st :SyntasticToggleMode<cr>
 nnoremap <leader>se :Errors<cr>
 
+nnoremap <leader>el :ElmEvalLine<CR>
+vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
+nnoremap <leader>em :ElmMakeCurrentFile<CR>
+
 "set path for gf when working with require in Node
 function! Nodegf()
 python << EOF
