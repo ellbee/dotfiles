@@ -92,6 +92,7 @@ set directory=~/.vim/swap/
 set nojoinspaces
 set autoread
 set t_Co=256
+set lazyredraw
 
 if has('gui_running')
   set guifont=Inconsolata\ for\ Powerline:h15
