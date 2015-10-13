@@ -50,9 +50,11 @@ filetype plugin indent on     " required!
 
 NeoBundleCheck
 
-" Set augroup
+" Turn on cursorline only on active window
 augroup MyAutoCmd
   autocmd!
+  autocmd WinLeave * setlocal nocursorline
+  autocmd WinEnter,BufRead * setlocal cursorline
 augroup END
 
 " allow backspacing over everything in insert mode
