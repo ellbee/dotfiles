@@ -1,5 +1,6 @@
 " Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
+syntax enable
 
 set rtp+=~/.vim/bundle/neobundle.vim
 
@@ -185,8 +186,6 @@ nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rn :set relativenumber!<CR>
 nnoremap <leader>rw <C-w>x
-
-syntax enable
 
 set background=dark
 if $vim_color == ""
