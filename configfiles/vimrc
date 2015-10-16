@@ -300,6 +300,8 @@ function! CtrlPSetDir()
   let g:ctrlp_open_dir = expand('%:p:h')
 endfunction
 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 nmap <leader>m :CtrlPMRU<CR>
 nmap <leader>gb :CtrlPBuffer<CR>
 nmap <leader>ga :call CtrlPOpen()<CR>
