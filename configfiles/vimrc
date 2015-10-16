@@ -144,15 +144,17 @@ map Y y$
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
+nnoremap <leader>s :mksession<CR>
+
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
 
-"run GoImports on write
+" run GoImports on write
 autocmd BufWritePre *.go call go#fmt#Format(1)
 
-"turn off showmatch for rust (beeps on >)
+" turn off showmatch for rust (beeps on >)
 autocmd filetype rust setlocal noshowmatch
 
 "put these in an autocmd group, so that we can delete them easily.
