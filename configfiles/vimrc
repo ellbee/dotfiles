@@ -94,17 +94,11 @@ set splitright
 set switchbuf=useopen
 set t_Co=256
 set tabstop=2
+set ttimeoutlen=50
 set wildignorecase
 set wildmenu
 set wildmode=longest,full
 
-if has('gui_running')
-  set guifont=Inconsolata\ for\ Powerline:h15
-  set timeout
-  set timeoutlen=500
-else
-  set ttimeoutlen=50
-endif
 
 "enter key selects menu item
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
