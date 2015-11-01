@@ -25,25 +25,24 @@ NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jpalardy/vim-slime'
 NeoBundle 'Wolfy87/vim-expand'
 
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'guns/vim-clojure-static'
-NeoBundle 'vim-scripts/paredit.vim'
-
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'nanotech/jellybeans.vim'
 NeoBundle 'chriskempson/vim-tomorrow-theme'
 
-NeoBundle 'fatih/vim-go'
-NeoBundle 'rust-lang/rust.vim'
-
 NeoBundle 'sirVer/ultisnips'
 NeoBundle 'honza/vim-snippets'
 
+NeoBundle 'fatih/vim-go'
+NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
-
+NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'lambdatoast/elm.vim'
+NeoBundle 'guns/vim-clojure-static'
+
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'vim-scripts/paredit.vim'
 
 call neobundle#end()
 
