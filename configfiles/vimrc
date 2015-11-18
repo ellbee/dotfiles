@@ -361,7 +361,6 @@ autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-
 function! SwitchToTest()
   let b:root = expand('%:r:r')
   let b:ext1 = expand('%:e')
@@ -433,3 +432,5 @@ augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
 augroup END
+
+nnoremap <leader>t :!npm test<cr>
