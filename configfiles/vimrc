@@ -39,6 +39,7 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'mxw/vim-jsx'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'lambdatoast/elm.vim'
+NeoBundle 'raichoo/purescript-vim'
 NeoBundle 'guns/vim-clojure-static'
 
 NeoBundle 'tpope/vim-fireplace'
