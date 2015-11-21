@@ -318,7 +318,6 @@ map <leader>e :edit %%
 nmap <leader>cd :cd %:p:h<CR>
 
 nnoremap <leader>u :GundoToggle<CR>
-nnoremap <silent> <leader>. :set hlsearch!<cr>
 
 function! StripWhitespace()
   let save_cursor = getpos(".")
