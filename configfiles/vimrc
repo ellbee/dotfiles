@@ -433,4 +433,4 @@ augroup Node
   autocmd filetype javascript :call Nodegf()
 augroup END
 
-nnoremap <leader>t :!npm test<cr>
+nnoremap <leader>t :w\|:!npm test<cr>
