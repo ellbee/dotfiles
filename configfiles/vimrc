@@ -303,7 +303,8 @@ function! CtrlPSetDir()
   let g:ctrlp_open_dir = expand('%:p:h')
 endfunction
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+" TODO: if there is a src directory ignore the lib directory
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|coverage\|build'
 
 nmap <leader>m :CtrlPMRU<CR>
 nmap <leader>gb :CtrlPBuffer<CR>
