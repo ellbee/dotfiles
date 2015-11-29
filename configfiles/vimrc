@@ -303,8 +303,15 @@ function! CtrlPSetDir()
   let g:ctrlp_open_dir = expand('%:p:h')
 endfunction
 
-" TODO: if there is a src directory ignore the lib directory
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|coverage\|build'
+" TODO: Make a custom matcher funtion that ignores lib if src/ exists
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|coverage\|build\|lib'
+function! ToggleIgnoreLib()
+  let g:ctrlp_custom_ignore = g:ctrlp_custom_ignore =~ '|lib' ?
+    \ 'node_modules\|DS_Store\|git\|coverage\|build' :
+    \ 'node_modules\|DS_Store\|git\|coverage\|build\|lib'
+  exec ':CtrlPClearCache'
+endfunction
+command! ToggleIgnoreLib :call ToggleIgnoreLib()
 
 nmap <leader>m :CtrlPMRU<CR>
 nmap <leader>gb :CtrlPBuffer<CR>
