@@ -158,6 +158,9 @@ augroup vimrcex
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
   autocmd BufEnter *.hs set formatprg=pointfree
+  autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
+  autocmd BufEnter *.ex nnoremap <leader>t :w\|:!mix test<cr>
+  autocmd BufEnter *.exs nnoremap <leader>t :w\|:!mix test<cr>
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -440,5 +443,3 @@ augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
 augroup END
-
-nnoremap <leader>t :w\|:!npm test<cr>
