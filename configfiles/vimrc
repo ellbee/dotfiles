@@ -160,6 +160,8 @@ augroup vimrcex
   autocmd BufEnter *.hs set formatprg=pointfree
   autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
   autocmd BufEnter *.ex nnoremap <leader>t :w\|:!mix test<cr>
+  autocmd BufEnter *.ex nnoremap <leader>b :w\|:!mix compile<cr>
+  autocmd BufLeave *.ex nunmap <leader>b
   autocmd BufEnter *.exs nnoremap <leader>t :w\|:!mix test<cr>
 
   " When editing a file, always jump to the last known cursor position.
