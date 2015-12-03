@@ -158,12 +158,12 @@ augroup vimrcex
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
   autocmd BufEnter *.hs set formatprg=pointfree
-  autocmd BufEnter *.js,*.ex,*.exs :call SetCtrlpIgnore() 
   autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
-  autocmd BufEnter *.ex nnoremap <leader>t :w\|:!mix test<cr>
+  autocmd BufEnter *.js :call SetTestDirs('src', 'test', '.js', '.spec.js')
+  autocmd BufEnter *.ex,*exs :call SetTestDirs('lib', 'test', 'ex', 'exs')
+  autocmd BufEnter *.ex,*exs nnoremap <leader>t :w\|:!mix test<cr>
   autocmd BufEnter *.ex nnoremap <leader>b :w\|:!mix compile<cr>
   autocmd BufLeave *.ex nunmap <leader>b
-  autocmd BufEnter *.exs nnoremap <leader>t :w\|:!mix test<cr>
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -373,18 +373,28 @@ autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 
+let g:src_dir = 'src'
+let g:test_dir = 'test'
+let g:src_ext = 'js'
+let g:test_ext = 'spec.js'
+
 function! SwitchToTest()
   let b:root = expand('%:r:r')
-  let b:ext1 = expand('%:e')
-  let b:ext2 = expand('%:e:e')
-  if b:ext2 != b:ext1
-    execute 'edit ' . substitute(b:root, 'test', 'src', '') . '.' . b:ext1
+  if b:root =~ g:test_dir
+    echom
+    execute 'edit ' . substitute(b:root, g:test_dir, g:src_dir, '') . '.' . g:src_ext
   else
-    execute 'edit ' . substitute(b:root, 'src', 'test', '') . '.spec.' . b:ext1
+    execute 'edit ' . substitute(b:root, g:src_dir, g:test_dir, '') . '.' . g:test_ext
   endif
 endfunction
-
 command! A :call SwitchToTest()
+
+function! SetTestDirs(src_dir, test_dir, src_ext, test_ext)
+  let g:src_dir = a:src_dir
+  let g:test_dir = a:test_dir
+  let g:src_ext = a:src_ext
+  let g:test_ext = a:test_ext
+endfunction
 
 function! RenameFile()
   let old_name = expand('%')
