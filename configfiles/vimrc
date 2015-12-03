@@ -158,6 +158,7 @@ augroup vimrcex
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
   autocmd BufEnter *.hs set formatprg=pointfree
+  autocmd BufEnter *.js,*.ex,*.exs :call SetCtrlpIgnore() 
   autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
   autocmd BufEnter *.ex nnoremap <leader>t :w\|:!mix test<cr>
   autocmd BufEnter *.ex nnoremap <leader>b :w\|:!mix compile<cr>
@@ -308,15 +309,13 @@ function! CtrlPSetDir()
   let g:ctrlp_open_dir = expand('%:p:h')
 endfunction
 
-" TODO: Make a custom matcher funtion that ignores lib if src/ exists
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|coverage\|build\|lib'
-function! ToggleIgnoreLib()
-  let g:ctrlp_custom_ignore = g:ctrlp_custom_ignore =~ '|lib' ?
-    \ 'node_modules\|DS_Store\|git\|coverage\|build' :
-    \ 'node_modules\|DS_Store\|git\|coverage\|build\|lib'
+function! SetCtrlpIgnore()
+  let g:ctrlp_custom_ignore = isdirectory("src") ?
+    \ 'node_modules\|DS_Store\|git\|coverage\|build\|lib' :
+    \ 'node_modules\|DS_Store\|git\|coverage\|build'
   exec ':CtrlPClearCache'
 endfunction
-command! ToggleIgnoreLib :call ToggleIgnoreLib()
 
 nmap <leader>m :CtrlPMRU<CR>
 nmap <leader>gb :CtrlPBuffer<CR>
