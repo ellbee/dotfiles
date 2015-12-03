@@ -159,8 +159,9 @@ augroup vimrcex
   autocmd FileType text setlocal textwidth=78
   autocmd BufEnter *.hs set formatprg=pointfree
   autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
-  autocmd BufEnter *.js :call SetTestDirs('src', 'test', '.js', '.spec.js')
-  autocmd BufEnter *.ex,*exs :call SetTestDirs('lib', 'test', 'ex', 'exs')
+  autocmd BufEnter *.js :call SetTestDirs('src', 'test', '.js', '', '.spec.js')
+  autocmd BufEnter *.ex,*exs :call SetTestDirs('lib', 'test', '.ex', '_test', '.exs')
+  autocmd BufEnter *.rs :call SetTestDirs('src', 'tests', '.rs', '', '.rs')
   autocmd BufEnter *.ex,*exs nnoremap <leader>t :w\|:!mix test<cr>
   autocmd BufEnter *.ex nnoremap <leader>b :w\|:!mix compile<cr>
   autocmd BufLeave *.ex nunmap <leader>b
@@ -376,27 +377,24 @@ autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-let g:src_dir = 'src'
-let g:test_dir = 'test'
-let g:src_ext = 'js'
-let g:test_ext = 'spec.js'
-
 function! SwitchToTest()
-  let b:root = expand('%:r:r')
-  if b:root =~ g:test_dir
-    echom
-    execute 'edit ' . substitute(b:root, g:test_dir, g:src_dir, '') . '.' . g:src_ext
+  let l:root = expand('%:h')
+  if l:root =~ b:test_dir
+    execute 'edit ' . substitute(l:root, b:test_dir, b:src_dir, '')
+          \. '/' . substitute(expand('%:t:r:r'), b:test_post, '', '') . b:src_ext
   else
-    execute 'edit ' . substitute(b:root, g:src_dir, g:test_dir, '') . '.' . g:test_ext
+    execute 'edit ' . substitute(l:root, b:src_dir, b:test_dir, '')
+          \. '/' . expand('%:t:r:r'). b:test_post . b:test_ext
   endif
 endfunction
 command! A :call SwitchToTest()
 
-function! SetTestDirs(src_dir, test_dir, src_ext, test_ext)
-  let g:src_dir = a:src_dir
-  let g:test_dir = a:test_dir
-  let g:src_ext = a:src_ext
-  let g:test_ext = a:test_ext
+function! SetTestDirs(src_dir, test_dir, src_ext, test_post, test_ext)
+  let b:src_dir = a:src_dir
+  let b:test_dir = a:test_dir
+  let b:src_ext = a:src_ext
+  let b:test_post = a:test_post
+  let b:test_ext = a:test_ext
 endfunction
 
 function! RenameFile()
