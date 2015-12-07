@@ -44,7 +44,7 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-export GOPATH=~/exercises/go
+export GOPATH=~/projects/go
 
 PATH=~/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.cask/bin:$GOPATH/bin
 export PATH=$HOME/.cabal/bin:$PATH
