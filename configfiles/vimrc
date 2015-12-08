@@ -300,15 +300,6 @@ smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
 
 let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_open_dir = '.'
-
-function! CtrlPOpen()
-  exec ':CtrlP ' . g:ctrlp_open_dir
-endfunction
-
-function! CtrlPSetDir()
-  let g:ctrlp_open_dir = expand('%:p:h')
-endfunction
 
 if executable('ag')
   " Use ag over grep
@@ -323,8 +314,7 @@ endif
 
 nmap <leader>m :CtrlPMRU<CR>
 nmap <leader>gb :CtrlPBuffer<CR>
-nmap <leader>ga :call CtrlPOpen()<CR>
-nmap <silent> <leader>gh :call CtrlPSetDir()<CR>
+nmap <leader>ga :CtrlP<CR>
 
 " dir path for current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
