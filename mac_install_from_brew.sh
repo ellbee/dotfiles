@@ -1,7 +1,7 @@
 #!/bin/bash
 
 programs=(ack ag git node nvm pstree ranger 
-  reattach-to-user-namespace rlwrap tmux trash tree vim zsh
+  reattach-to-user-namespace rlwrap tmux trash tree vim xz zsh
 )
 
 for program in "${programs[@]}"; do
