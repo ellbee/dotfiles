@@ -326,6 +326,8 @@ nmap <leader>cd :cd %:p:h<CR>
 
 nnoremap <leader>u :GundoToggle<CR>
 
+nnoremap <leader>q :ccl<CR>
+
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
