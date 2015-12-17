@@ -446,13 +446,3 @@ augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
 augroup END
-
-" Copy quickfix list to args list (so we can use argdo after an Ack)
-command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-function! QuickfixFilenames()
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(values(buffer_numbers))
-endfunction
