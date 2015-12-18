@@ -402,16 +402,6 @@ endfunction
 
 map <leader>rf :call RenameFile()<cr>
 
-function! Ack(args)
- let grepprg_bak=&grepprg
- set grepprg=ack\ -H\ --nocolor\ --nogroup
- execute ":silent grep " . a:args
- execute ":redraw!"
- let &grepprg=grepprg_bak
-endfunction
-
-command! -nargs=* -complete=file Ack call Ack(<q-args>)
-
 let g:jsx_pragma_required = 0
 let g:jsx_ext_required = 0
 
