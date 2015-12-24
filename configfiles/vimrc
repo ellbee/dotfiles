@@ -193,14 +193,18 @@ nnoremap <leader>rn :set relativenumber!<CR>
 nnoremap <leader>rw <C-w>x
 
 set background=dark
-if $vim_color == ""
-  colorscheme solarized
-	let g:lightline = {
-		\ 'colorscheme': 'solarized',
-		\ }
-else
-  colorscheme $vim_color
-endif
+
+try
+  if $vim_color == ""
+      colorscheme solarized
+      let g:lightline = {
+        \ 'colorscheme': 'solarized',
+        \ }
+  else
+      colorscheme $vim_color
+  endif
+catch
+endtry
 
 let g:lightline = {
       \ 'colorscheme': 'solarized',
