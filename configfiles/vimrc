@@ -165,6 +165,7 @@ augroup vimrcex
   autocmd BufEnter *.rs :call SetTestDirs('src', 'tests', '.rs', '', '.rs')
   autocmd BufEnter *.ex,*exs nnoremap <leader>t :w\|:!mix test<cr>
   autocmd BufEnter *.ex nnoremap <leader>b :w\|:!mix compile<cr>
+  autocmd BufEnter *.ex nnoremap <leader>d :w\|:!mix deps.get<cr>
   autocmd BufLeave *.ex nunmap <leader>b
 
   " When editing a file, always jump to the last known cursor position.
