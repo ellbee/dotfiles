@@ -56,7 +56,11 @@ hash rbenv 2> /dev/null && eval "$(rbenv init -)"
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
-export EDITOR="/usr/local/bin/vim"
 
 alias jvim="vim_color=jellybeans vim"
 alias 'cd..'="cd .."
+alias vim=nvim
+alias vi=vim
+alias ovim=/usr/local/bin/vim
+
+export EDITOR=nvim
