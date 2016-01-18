@@ -46,6 +46,8 @@ NeoBundle 'guns/vim-clojure-static'
 NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'vim-scripts/paredit.vim'
 
+NeoBundle 'justinmk/vim-dirvish'
+
 call neobundle#end()
 
 filetype plugin indent on     " required!
@@ -356,13 +358,14 @@ augroup END
 
 " enable the vim-vinegar features that I like
 let g:netrw_banner = 0
-nnoremap - :Explore<CR>
 let g:netrw_list_hide='^\.\/'
 let g:netrw_altfile=1
 let g:netrw_liststyle=1
-autocmd FileType netrw nnoremap <buffer>gg :Rex<CR>
 
+let g:NERDTreeHijackNetrw=0
 nnoremap <leader>n :NERDTreeToggle<CR>
+
+nnoremap - :Dirvish<CR>
 
 function! SwitchToTest()
   let l:root = expand('%:h')
