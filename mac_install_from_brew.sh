@@ -1,6 +1,6 @@
 #!/bin/bash
 
-programs=(ag git node nvm pstree ranger 
+programs=(ag git neovim node nvm pstree ranger
   reattach-to-user-namespace rlwrap tmux trash tree vim xz zsh
 )
 

@@ -5,4 +5,11 @@ disable_path_helper() {
     sudo chmod ugo-x /usr/libexec/path_helper
 }
 
+# see https://github.com/neovim/neovim/issues/2048#issuecomment-78045837
+change_delete_code_from_ctrl_h_to_ascii_del() {
+  infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
+  tic $TERM.ti
+}
+
 disable_path_helper
+change_delete_code_from_ctrl_h_to_ascii_del
