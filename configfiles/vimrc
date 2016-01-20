@@ -365,7 +365,7 @@ let g:netrw_liststyle=1
 let g:NERDTreeHijackNetrw=0
 nnoremap <leader>n :NERDTreeToggle<CR>
 
-nnoremap - :Dirvish<CR>
+nnoremap - :Dirvish %:p:h<CR>
 
 function! SwitchToTest()
   let l:root = expand('%:h')
