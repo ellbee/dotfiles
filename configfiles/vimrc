@@ -170,6 +170,9 @@ augroup vimrcex
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>t
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>b
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>d
+  autocmd BufLeave *.css,*.less,*scss normal! mC
+  autocmd BufLeave *.html             normal! mH
+  autocmd BufLeave *.js               normal! mJ
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
