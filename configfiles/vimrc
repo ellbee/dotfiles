@@ -21,6 +21,7 @@ NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tpope/vim-repeat'
 
 NeoBundle 'simnalamburt/vim-mundo'
+NeoBundle 'cohama/lexima.vim'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'jpalardy/vim-slime'
