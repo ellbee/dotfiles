@@ -114,6 +114,9 @@ inoremap <expr> <C-x><C-l> pumvisible() ? '<C-x><C-l>' :
 inoremap <expr> <C-x><C-o> pumvisible() ? '<C-x><C-o>' :
   \ '<C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+inoremap <c-e> <c-o>$
+inoremap <c-a> <c-o>0
+
 let mapleader=","
 nnoremap <Leader>, ,
 
