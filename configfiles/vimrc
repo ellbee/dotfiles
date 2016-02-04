@@ -2,57 +2,56 @@
 set nocompatible
 syntax enable
 
-set rtp+=~/.vim/bundle/neobundle.vim
+call plug#begin('~/.config/nvim/plugged')
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'benekastah/neomake'
+Plug 'rking/ag.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
 
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'benekastah/neomake'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'ctrlpvim/ctrlp.vim'
+Plug 'simnalamburt/vim-mundo'
+Plug 'godlygeek/tabular'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jpalardy/vim-slime'
+Plug 'Wolfy87/vim-expand'
 
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-repeat'
+Plug 'mattn/emmet-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nanotech/jellybeans.vim'
+Plug 'chriskempson/vim-tomorrow-theme'
 
-NeoBundle 'simnalamburt/vim-mundo'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'jpalardy/vim-slime'
-NeoBundle 'Wolfy87/vim-expand'
+" ultisnips is slow to load, so defer until going into insert mode
+Plug 'SirVer/ultisnips', { 'on': [] }
+augroup load_ultisnips
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips') | autocmd! load_ultisnips
+augroup END
 
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'chriskempson/vim-tomorrow-theme'
+Plug 'elixir-lang/vim-elixir'
+Plug 'fatih/vim-go'
+Plug 'rust-lang/rust.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
+Plug 'lambdatoast/elm.vim'
+Plug 'raichoo/purescript-vim'
+Plug 'guns/vim-clojure-static'
 
-NeoBundle 'sirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'elixir-lang/vim-elixir'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'rust-lang/rust.vim'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'lambdatoast/elm.vim'
-NeoBundle 'raichoo/purescript-vim'
-NeoBundle 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+Plug 'vim-scripts/paredit.vim'
 
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'vim-scripts/paredit.vim'
+Plug 'justinmk/vim-dirvish'
 
-NeoBundle 'justinmk/vim-dirvish'
-
-call neobundle#end()
+call plug#end()
 
 filetype plugin indent on     " required!
-
-NeoBundleCheck
 
 " Turn on cursorline only on active window
 augroup MyAutoCmd
