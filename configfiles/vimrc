@@ -45,7 +45,7 @@ Plug 'raichoo/purescript-vim'
 Plug 'guns/vim-clojure-static'
 
 Plug 'tpope/vim-fireplace'
-Plug 'vim-scripts/paredit.vim'
+Plug 'kovisoft/paredit'
 
 Plug 'justinmk/vim-dirvish'
 
