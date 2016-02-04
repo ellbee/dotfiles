@@ -1,13 +1,5 @@
 #!/bin/bash
 
-get_neobundle() {
-    if [ ! -d ~/.vim/bundle/neobundle.vim ]; then
-        echo "downloading neoBundle..."
-        mkdir -p ~/.vim/bundle
-        git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-    fi
-}
-
 copy_dotfiles() {
     echo "copying dotfiles into user directory"
     cd configfiles
@@ -19,13 +11,13 @@ copy_dotfiles() {
 }
 
 vim_swap_and_backup_dirs() {
-    if [ ! -d ~/.vim/backup ]; then
+    if [ ! -d ~/.config/nvim/backup ]; then
         echo "creating vim backup dir"
-        mkdir -p ~/.vim/backup/
+        mkdir -p ~/.config/nvim/backup
     fi
-    if [ ! -d ~/.vim/swap ]; then
+    if [ ! -d ~/.config/nvim/swap ]; then
         echo "creating vim swap dir"
-        mkdir ~/.vim/swap/
+        mkdir ~/.config/nvim/swap
     fi
 }
 
@@ -36,5 +28,4 @@ install_oh_my_zsh() {
 }
 
 vim_swap_and_backup_dirs
-get_neobundle
 copy_dotfiles

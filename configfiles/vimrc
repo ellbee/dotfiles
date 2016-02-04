@@ -63,12 +63,12 @@ augroup END
 set autoread
 set backspace=indent,eol,start
 set backup
-set backupdir=~/.vim/backup/
+set backupdir=~/.config/nvim/backup/
 set clipboard=unnamed
 set complete-=i
 set completeopt=menuone,longest
 set cursorline
-set directory=~/.vim/swap/
+set directory=~/.config/nvim/swap/
 set expandtab
 set hidden
 set history=1000
