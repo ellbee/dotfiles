@@ -61,6 +61,7 @@ augroup MyAutoCmd
 augroup END
 
 set autoread
+set background=dark
 set backspace=indent,eol,start
 set backup
 set backupdir=~/.config/nvim/backup/
@@ -94,7 +95,6 @@ set smarttab
 set splitbelow
 set splitright
 set switchbuf=useopen
-set t_Co=256
 set tabstop=2
 set ttimeoutlen=50
 set wildignorecase
@@ -102,9 +102,9 @@ set wildmenu
 set wildmode=longest,full
 
 
-"enter key selects menu item
+" Enter key selects menu item
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-"select an item by default
+" Select an item by default
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <C-x><C-l> pumvisible() ? '<C-x><C-l>' :
@@ -176,6 +176,8 @@ augroup vimrcex
   autocmd BufLeave *.html             normal! mH
   autocmd BufLeave *.js               normal! mJ
 
+  autocmd VimEnter * nested colorscheme solarized
+
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
@@ -200,20 +202,6 @@ nnoremap <leader>rd :DiffOrig<CR>
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rw <C-w>x
-
-set background=dark
-
-try
-  if $vim_color == ""
-      colorscheme solarized
-      let g:lightline = {
-        \ 'colorscheme': 'solarized',
-        \ }
-  else
-      colorscheme $vim_color
-  endif
-catch
-endtry
 
 let g:lightline = {
       \ 'colorscheme': 'solarized',
@@ -411,7 +399,7 @@ nnoremap <leader>el :ElmEvalLine<CR>
 vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
 
-"set path for gf when working with require in Node
+" set path for gf when working with require in Node
 function! Nodegf()
 python << EOF
 import os

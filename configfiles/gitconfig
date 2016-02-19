@@ -3,48 +3,48 @@
 	name = Lee Bannard
 [core]
 	excludesfile = ~/.gitignore_global
-    editor = /usr/local/bin/vim
+  editor = NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim
 [diff]
 [color]
-    ui = auto
+  ui = auto
 [alias]
-    # Based on Gary Bernhardt's .gitconfig
-    st = status
-    s = status -sb
-    ci = commit
-    co = checkout
-    di = diff
-    dc = diff --cached
-    pr = pull --rebase
-    amend = commit --amend
-    aa = add --all
-    ff = merge --ff-only
-    pullff = pull --ff-only
-    noff = merge --no-ff
-    fa = fetch --all
-    pom = push origin master
-    b = branch
-    ds = diff --stat=160,120
-    dh1 = diff HEAD~1
-    ri = rebase -i
+  # Based on Gary Bernhardt's .gitconfig
+  st = status
+  s = status -sb
+  ci = commit
+  co = checkout
+  di = diff
+  dc = diff --cached
+  pr = pull --rebase
+  amend = commit --amend
+  aa = add --all
+  ff = merge --ff-only
+  pullff = pull --ff-only
+  noff = merge --no-ff
+  fa = fetch --all
+  pom = push origin master
+  b = branch
+  ds = diff --stat=160,120
+  dh1 = diff HEAD~1
+  ri = rebase -i
 
-    # Fancy logging.
-    #   h = head
-    #   hp = head with patch
-    #   r = recent commits, only current branch
-    #   ra = recent commits, all reachable refs
-    #   l = all commits, only current branch
-    #   la = all commits, all reachable refs
-    head = !git l -1
-    h = !git head
-    hp = "!. ~/.githelpers && show_git_head"
-    r = !git l -30
-    ra = !git r --all
-    l = "!. ~/.githelpers && pretty_git_log"
-    la = !git l --all
+  # Fancy logging.
+  #   h = head
+  #   hp = head with patch
+  #   r = recent commits, only current branch
+  #   ra = recent commits, all reachable refs
+  #   l = all commits, only current branch
+  #   la = all commits, all reachable refs
+  head = !git l -1
+  h = !git head
+  hp = "!. ~/.githelpers && show_git_head"
+  r = !git l -30
+  ra = !git r --all
+  l = "!. ~/.githelpers && pretty_git_log"
+  la = !git l --all
 
 [merge]
-    tool = vimdiff
+  tool = vimdiff
 [filter "media"]
 	clean = git-media-clean %f
 	smudge = git-media-smudge %f
