@@ -1,4 +1,3 @@
-" Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
 syntax enable
 
@@ -23,9 +22,6 @@ Plug 'jpalardy/vim-slime'
 Plug 'Wolfy87/vim-expand'
 
 Plug 'mattn/emmet-vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'nanotech/jellybeans.vim'
-Plug 'chriskempson/vim-tomorrow-theme'
 
 " ultisnips is slow to load, so defer until going into insert mode
 Plug 'SirVer/ultisnips', { 'on': [] }
@@ -48,6 +44,7 @@ Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
 
 Plug 'justinmk/vim-dirvish'
+Plug 'flazz/vim-colorschemes'
 
 call plug#end()
 
@@ -176,7 +173,7 @@ augroup vimrcex
   autocmd BufLeave *.html             normal! mH
   autocmd BufLeave *.js               normal! mJ
 
-  autocmd VimEnter * nested colorscheme solarized
+  autocmd VimEnter * nested colorscheme jellybeans
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -204,7 +201,7 @@ nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rw <C-w>x
 
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
