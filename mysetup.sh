@@ -11,14 +11,19 @@ copy_dotfiles() {
 }
 
 vim_swap_and_backup_dirs() {
-  if [ ! -d ~/.config/nvim/backup ]; then
+  if [ ! -d ~/.vim/backup ]; then
     echo "creating vim backup dir"
-    mkdir -p ~/.config/nvim/backup
+    mkdir -p ~/.vim/backup
   fi
-  if [ ! -d ~/.config/nvim/swap ]; then
+  if [ ! -d ~/.vim/swap ]; then
     echo "creating vim swap dir"
-    mkdir ~/.config/nvim/swap
+    mkdir ~/.vim/swap
   fi
+}
+
+vim_install_plug() {
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 install_oh_my_zsh() {
@@ -28,4 +33,5 @@ install_oh_my_zsh() {
 }
 
 vim_swap_and_backup_dirs
+vim_install_plug
 copy_dotfiles
