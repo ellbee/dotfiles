@@ -46,6 +46,8 @@ Plug 'kovisoft/paredit'
 Plug 'justinmk/vim-dirvish'
 Plug 'flazz/vim-colorschemes'
 
+Plug 'janko-m/vim-test'
+
 call plug#end()
 
 filetype plugin indent on     " required!
@@ -159,14 +161,11 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-  autocmd BufEnter *.js nnoremap <leader>t :w\|:!npm test<cr>
   autocmd BufEnter *.js :call SetTestDirs('src', 'test', '.js', '', '.spec.js')
   autocmd BufEnter *.ex,*exs :call SetTestDirs('lib', 'test', '.ex', '_test', '.exs')
   autocmd BufEnter *.rs :call SetTestDirs('src', 'tests', '.rs', '', '.rs')
-  autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>t :w\|:!mix test<cr>
   autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>b :w\|:!mix compile<cr>
   autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>d :w\|:!mix deps.get<cr>
-  autocmd BufLeave *.ex,*exs,*eex nunmap <leader>t
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>b
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>d
   autocmd BufLeave *.css,*.less,*scss normal! mC
@@ -186,6 +185,14 @@ augroup vimrcex
         \ endif
 
 augroup END
+
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+
+let g:test#javascript#mocha#executable = 'npm test -- '
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
