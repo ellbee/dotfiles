@@ -86,7 +86,6 @@ set ruler
 set scrolloff=3
 set shiftwidth=2
 set showcmd
-set showcmd
 set showmatch
 set smartcase
 set smartindent
