@@ -14,6 +14,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-tbone'
 
 Plug 'simnalamburt/vim-mundo'
 Plug 'godlygeek/tabular'
@@ -411,10 +412,8 @@ import vim
 
 vim.command(r"set suffixesadd+=.js")
 
-#
 # walk up and check every folder for node_modules folder,
 # and if found add it to the path
-#
 current_folder = os.path.dirname(vim.eval("expand('%:p')"))
 while current_folder is not "/":
 	# print "Will check " + current_folder
@@ -431,3 +430,8 @@ augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
 augroup END
+
+
+
+" Open tmux split beneath in cwd below current pane
+command! -nargs=0 Spwd exe 'Tmux split-window -l 12 -c '.shellescape(getcwd())
