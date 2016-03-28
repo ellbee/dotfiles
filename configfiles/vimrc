@@ -23,6 +23,7 @@ Plug 'jpalardy/vim-slime'
 Plug 'Wolfy87/vim-expand'
 
 Plug 'mattn/emmet-vim'
+Plug 'wellle/targets.vim'
 
 " ultisnips is slow to load, so defer until going into insert mode
 Plug 'SirVer/ultisnips', { 'on': [] }
