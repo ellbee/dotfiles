@@ -25,13 +25,6 @@ Plug 'Wolfy87/vim-expand'
 Plug 'mattn/emmet-vim'
 Plug 'wellle/targets.vim'
 
-" ultisnips is slow to load, so defer until going into insert mode
-Plug 'SirVer/ultisnips', { 'on': [] }
-augroup load_ultisnips
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips') | autocmd! load_ultisnips
-augroup END
-
 Plug 'elixir-lang/vim-elixir'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
@@ -49,6 +42,14 @@ Plug 'justinmk/vim-dirvish'
 Plug 'flazz/vim-colorschemes'
 
 Plug 'janko-m/vim-test'
+
+Plug 'SirVer/ultisnips', { 'on': [] }
+
+" ultisnips is slow to load, so defer until going into insert mode
+augroup load_ultisnips
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips') | autocmd! load_ultisnips
+augroup END
 
 call plug#end()
 
