@@ -178,7 +178,6 @@ augroup vimrcex
   autocmd BufLeave *.css,*.less,*scss normal! mC
   autocmd BufLeave *.html             normal! mH
   autocmd BufLeave *.js               normal! mJ
-  autocmd BufWritePost,BufEnter *.js Neomake
 
   autocmd VimEnter * nested colorscheme jellybeans
 
@@ -192,7 +191,24 @@ augroup vimrcex
         \   exe "normal! g`\"" |
         \ endif
 
-augroup END
+augroup end
+
+function! ToggleLintOnSave()
+  if exists('#javascript_lint#BufWritePost')
+    augroup javascript_lint
+      autocmd! BufWritePost *.js
+    augroup end
+    echom 'Linting on save disabled'
+    sign unplace *
+  else
+    augroup javascript_lint
+      autocmd! BufWritePost *.js Neomake
+    augroup end
+    echom 'Linting on save enabled'
+  endif
+endfunction
+
+command! ToggleLintOnSave :call ToggleLintOnSave()
 
 nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
