@@ -64,7 +64,7 @@ alias ovim=/usr/local/bin/vim
 
 alias tmux=~/build_from_source/tmux/tmux
 
-export EDITOR='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+export EDITOR=vim
 export LSCOLORS="Exfxcxdxbxegedabagacad"
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
