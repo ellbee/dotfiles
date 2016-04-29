@@ -6,6 +6,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'benekastah/neomake'
+Plug 'kassio/neoterm'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -215,6 +216,7 @@ nmap <silent> <leader>tf :TestFile<CR>
 nmap <silent> <leader>ts :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
+let test#strategy = 'neoterm'
 
 let g:test#javascript#mocha#executable = 'npm test -- '
 
