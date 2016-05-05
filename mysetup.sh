@@ -2,7 +2,7 @@
 
 create_dot_vim() {
   mkdir ~/.vim
-  ln -s ~./dotfiles/configfiles/UltiSnips ~/.vim/UltiSnips 
+  ln -s ~/dotfiles/configfiles/UltiSnips ~/.vim/UltiSnips
 }
 
 copy_dotfiles() {
