@@ -1,8 +1,7 @@
 #!/bin/bash
 
-mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config/nvim}
-ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+ln -s ~/.vim ${XDG_CONFIG_HOME:=~/.config/nvim}
+ln -s ~/.vimrc ~/.vim/init.vim
 
 curl -fLo ~/./config/nvim/autoload/plug.vim --create-dirs \
   https://raw.github.com/junegunn/vim-plug/master/plug.vim

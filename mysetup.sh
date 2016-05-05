@@ -1,5 +1,10 @@
 #!/bin/bash
 
+create_dot_vim() {
+  mkdir ~/.vim
+  ln -s ~./dotfiles/configfiles/UltiSnips ~/.vim/UltiSnips 
+}
+
 copy_dotfiles() {
   echo "copying dotfiles into user directory"
   cd configfiles
@@ -32,6 +37,7 @@ install_oh_my_zsh() {
   chsh -s /bin/zsh
 }
 
+create_dot_vim
 vim_swap_and_backup_dirs
 vim_install_plug
 copy_dotfiles
