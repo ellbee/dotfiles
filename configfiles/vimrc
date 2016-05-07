@@ -320,7 +320,7 @@ imap <C-Y>s <Plug>snipMateNextOrTrigger
 smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
 " custom emmet expander to split tags and open line between
-imap <C-Y>o <C-Y>y<CR><C-o>O
+imap <C-Y>o <C-Y>y<CR><C-o>O<C-i>
 
 let g:ctrlp_open_new_file = 'r'
 
