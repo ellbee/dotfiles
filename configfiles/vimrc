@@ -15,6 +15,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-projectionist'
 
 Plug 'tpope/vim-tbone'
 Plug 'christoomey/vim-tmux-navigator'
@@ -169,9 +170,6 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-  autocmd BufEnter *.js :call SetTestDirs('src', 'test', '.js', '', '.spec.js')
-  autocmd BufEnter *.ex,*exs :call SetTestDirs('lib', 'test', '.ex', '_test', '.exs')
-  autocmd BufEnter *.rs :call SetTestDirs('src', 'tests', '.rs', '', '.rs')
   autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>b :w\|:!mix compile<cr>
   autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>d :w\|:!mix deps.get<cr>
   autocmd BufLeave *.ex,*exs,*eex nunmap <leader>b
@@ -393,18 +391,6 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 
 nnoremap - :Dirvish %:p:h<CR>
 
-function! SwitchToTest()
-  let l:root = expand('%:h')
-  if l:root =~ b:test_dir
-    execute 'edit ' . substitute(l:root, b:test_dir, b:src_dir, '')
-          \. '/' . substitute(expand('%:t:r:r'), b:test_post, '', '') . b:src_ext
-  else
-    execute 'edit ' . substitute(l:root, b:src_dir, b:test_dir, '')
-          \. '/' . expand('%:t:r:r'). b:test_post . b:test_ext
-  endif
-endfunction
-command! A :call SwitchToTest()
-
 function! SetTestDirs(src_dir, test_dir, src_ext, test_post, test_ext)
   let b:src_dir = a:src_dir
   let b:test_dir = a:test_dir
@@ -463,3 +449,48 @@ augroup END
 command! -nargs=0 Spwd exe 'Tmux split-window -l 12 -c '.shellescape(getcwd())
 
 let g:neomake_javascript_enabled_makers = ['eslint']
+
+let g:projectionist_heuristics = {
+  \ "package.json": {
+    \ "src/*.js": {
+    \   "alternate": "test/{}.spec.js"
+    \ },
+    \ "test/*.spec.js": {
+    \   "alternate": "src/{}.js"
+    \ }
+  \ },
+  \ "Cargo.toml": {
+    \ "src/*.rs": {
+    \   "alternate": "tests/{}.rs"
+    \ },
+    \ "tests/*.rs": {
+    \   "alternate": "src/{}.rs"
+    \ }
+  \ },
+  \ "mix.exs": {
+    \ "web/channels/*_channel.ex": {
+    \   "alternate": "test/channels/{}_channel_test.exs"
+    \ },
+    \ "web/controllers/*_controller.ex": {
+    \   "alternate": "test/controllers/{}_controller_test.exs"
+    \ },
+    \ "web/views/*_view.ex": {
+    \   "alternate": "test/views/{}_view_test.exs"
+    \ },
+    \ "web/models/*.ex": {
+    \   "alternate": "test/models/{}_test.exs"
+    \ },
+    \ "test/channels/*_channel_test.exs": {
+    \   "alternate": "web/channels/{}_channel.ex"
+    \ },
+    \ "test/controllers/*_controller_test.exs": {
+    \   "alternate": "web/controllers/{}_controller.ex"
+    \ },
+    \ "test/views/*_view_test.exs": {
+    \   "alternate": "web/views/{}_view.ex"
+    \ },
+    \ "test/models/*_test.exs": {
+    \   "alternate": "web/models/{}.ex"
+    \ }
+\   }
+\ }
