@@ -468,6 +468,9 @@ let g:projectionist_heuristics = {
     \ }
   \ },
   \ "mix.exs": {
+    \ "lib/*.ex": {
+    \   "alternate": "test/{}.exs"
+    \ },
     \ "web/channels/*_channel.ex": {
     \   "alternate": "test/channels/{}_channel_test.exs"
     \ },
