@@ -123,8 +123,7 @@ inoremap <expr> <C-x><C-o> pumvisible() ? '<C-x><C-o>' :
 inoremap <c-e> <c-o>$
 inoremap <c-a> <c-o>0
 
-let mapleader=","
-nnoremap <Leader>, ,
+let mapleader="\<Space>"
 
 nnoremap j gj
 nnoremap k gk
@@ -312,7 +311,7 @@ function! CtrlPStatusFunc_2(str)
   return lightline#statusline(0)
 endfunction
 
-nnoremap <space> :nohlsearch<CR>
+nnoremap <leader><Space> :nohlsearch<CR>
 
 imap <C-Y>s <Plug>snipMateNextOrTrigger
 smap <C-Y>s <Plug>snipMateNextOrTrigger
