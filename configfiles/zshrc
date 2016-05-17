@@ -56,13 +56,12 @@ hash rbenv 2> /dev/null && eval "$(rbenv init -)"
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
-alias jvim="vim_color=jellybeans vim"
-alias 'cd..'="cd .."
-alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
-alias vi=vim
-alias ovim=/usr/local/bin/vim
-
 alias tmux=~/build_from_source/tmux/tmux
+
+alias 'cd..'="cd .."
+alias vim=nvim
+alias vi=nvim
+alias ovim=/usr/local/bin/vim
 
 export EDITOR=vim
 export LSCOLORS="Exfxcxdxbxegedabagacad"
