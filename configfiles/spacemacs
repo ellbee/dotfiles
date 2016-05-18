@@ -293,5 +293,5 @@ before packages are loaded. etq evil-toggle-key f you are unsure, you should try
 
   (setq-default js2-mode-show-strict-warnings nil)
   (setq-default js2-mode-show-parse-errors nil)
-
+  (setq powerline-default-separator nil)
   )
