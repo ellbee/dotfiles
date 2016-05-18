@@ -17,9 +17,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-projectionist'
 
-Plug 'tpope/vim-tbone'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'jpalardy/vim-slime'
+Plug 'epeli/slimux'
 
 Plug 'simnalamburt/vim-mundo'
 Plug 'godlygeek/tabular'
@@ -372,11 +371,8 @@ nnoremap <leader>sn :UltiSnipsEdit<CR>
 
 command! Snips :call UltiSnips#ListSnippets()
 
-let g:slime_target = "tmux"
-
-function! TmuxSendKeys(command, window)
-  call system("tmux send-keys -t" . a:window . " '" . a:command . "' C-m")
-endfunction
+nmap <C-c><C-c> :SlimuxREPLSendLine<CR>
+vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
 
 augroup GoAwayPreviewWindow
   autocmd! InsertLeave * wincmd z
@@ -446,9 +442,6 @@ augroup Node
   autocmd!
   autocmd filetype javascript :call Nodegf()
 augroup END
-
-" Open tmux split beneath in cwd below current pane
-command! -nargs=0 Spwd exe 'Tmux split-window -l 12 -c '.shellescape(getcwd())
 
 let g:neomake_javascript_enabled_makers = ['eslint']
 
