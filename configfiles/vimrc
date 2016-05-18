@@ -171,10 +171,6 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-  autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>b :w\|:!mix compile<cr>
-  autocmd BufEnter *.ex,*exs,*eex nnoremap <leader>d :w\|:!mix deps.get<cr>
-  autocmd BufLeave *.ex,*exs,*eex nunmap <leader>b
-  autocmd BufLeave *.ex,*exs,*eex nunmap <leader>d
   autocmd BufLeave *.css,*.less,*scss normal! mC
   autocmd BufLeave *.html             normal! mH
   autocmd BufLeave *.js               normal! mJ
