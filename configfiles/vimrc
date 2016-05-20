@@ -65,6 +65,11 @@ if has('termguicolors')
   set termguicolors
 endif
 
+" Workaround for C-h not working with vim-tmux-navigator in neovim
+if has('nvim')
+  nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+endif
+
 " Turn on cursorline only on active window
 augroup MyAutoCmd
   autocmd!
