@@ -64,6 +64,7 @@ alias 'cd..'="cd .."
 alias vim=nvim
 alias vi=nvim
 alias ovim=/usr/local/bin/vim
+alias c=clear
 
 export EDITOR=vim
 export LSCOLORS="Exfxcxdxbxegedabagacad"
