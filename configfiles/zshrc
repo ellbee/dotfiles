@@ -64,6 +64,10 @@ alias 'cd..'="cd .."
 alias {v,vi,vim}=nvim
 alias ovim=/usr/local/bin/vim
 alias c=clear
+alias t=tmux
+alias ta='tmux attach'
+alias tl='tmux list-sessions'
+alias td='tmux detach'
 
 export EDITOR=vim
 export LSCOLORS="Exfxcxdxbxegedabagacad"
