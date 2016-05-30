@@ -61,8 +61,7 @@ source $(brew --prefix nvm)/nvm.sh
 alias tmux=~/build_from_source/tmux/tmux
 
 alias 'cd..'="cd .."
-alias vim=nvim
-alias vi=nvim
+alias {v,vi,vim}=nvim
 alias ovim=/usr/local/bin/vim
 alias c=clear
 
