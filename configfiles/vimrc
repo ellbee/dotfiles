@@ -435,7 +435,6 @@ while current_folder is not "/":
 		# print "Will add " + current
 		vim.command(r"set path+=%s" % (current.replace(" ", r"\ ")))
 	current_folder = os.path.abspath(os.path.join(current_folder, '..'))
-
 EOF
 endfunction
 
