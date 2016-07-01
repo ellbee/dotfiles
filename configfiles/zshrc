@@ -48,22 +48,41 @@ autoload -U compinit && compinit
 
 export GOPATH=~/projects/go
 
-PATH=~/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.cask/bin:$GOPATH/bin
+if [ -x /home/$(whoami)/.linuxbrew/bin/brew ]; then
+  PATH=/home/$(whoami)/.linuxbrew/bin:/$PATH
+  PATH=/home/$(whoami)/.linuxbrew/sbin:/$PATH
+  PATH=/home/$(whoami)/.linuxbrew/git/bin:/$PATH
+fi
+
+if [ -x /usr/local/bin/brew ]; then
+  PATH=/usr/local/bin:$PATH
+  PATH=/usr/local/sbin:$PATH
+  PATH=/usr/local/git/bin:$PATH
+fi
+
+PATH=/bin:/~/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$(brew --prefix)/git/bin:$HOME/.cask/bin:$GOPATH/bin
 export PATH=$HOME/.cabal/bin:$PATH
 
 # Customize to your needs...
 ulimit -n 10000
-hash rbenv 2> /dev/null && eval "$(rbenv init -)"
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+if [ -d ~/.nvm ]; then
+  export NVM_DIR=~/.nvm
+  source $(brew --prefix nvm)/nvm.sh
+fi
 
-alias tmux=~/build_from_source/tmux/tmux
+if [ -d ~/build_from_source ]; then
+  alias tmux=~/build_from_source/tmux/tmux
+fi
 
 alias 'cd..'="cd .."
-alias {v,vi,vim}=nvim
-alias ovim=/usr/local/bin/vim
 alias c=clear
+
+if [ -x $(brew --prefix)/bin/nvim ]; then
+  alias {v,vi,vim}=nvim
+  alias ovim=$(brew --prefix)/bin/vim
+fi
+
 alias t=tmux
 alias ta='tmux attach'
 alias tl='tmux list-sessions'
@@ -79,3 +98,6 @@ ZSH_THEME_GIT_PROMPT_PREFIX="(%{$fg[blue]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[white]%}) %{$fg[red]%}✗%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[white]%})"
+
+MANPATH=$(brew --prefix)/share/man:
+INFOPATH=$(brew --prefix)/share/info:

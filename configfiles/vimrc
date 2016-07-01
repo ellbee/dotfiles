@@ -82,11 +82,11 @@ set background=dark
 set backspace=indent,eol,start
 set backup
 set backupdir=~/.config/nvim/backup/
+set directory=~/.config/nvim/swap/
 set clipboard=unnamed
 set complete-=i
 set completeopt=menuone,longest
 set cursorline
-set directory=~/.config/nvim/swap/
 set expandtab
 set hidden
 set history=1000
