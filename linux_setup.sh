@@ -6,7 +6,7 @@ apt install build-essential
 apt install ruby
 
 # linuxbrew
-ruby -e "$curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
 
 # zsh
 brew install zsh
