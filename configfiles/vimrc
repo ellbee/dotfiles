@@ -36,6 +36,7 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'gavocanov/vim-js-indent', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
+Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -494,3 +495,6 @@ let g:projectionist_heuristics = {
     \ }
 \   }
 \ }
+
+let g:flow#enable = 0
+nmap <leader>f :FlowMake<cr>
