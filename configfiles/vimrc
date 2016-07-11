@@ -497,4 +497,6 @@ let g:projectionist_heuristics = {
 \ }
 
 let g:flow#enable = 0
-nmap <leader>f :FlowMake<cr>
+nmap <leader>fm :FlowMake<cr>
+nmap <leader>ft :FlowType<cr>
+nmap <leader>fo :FlowToggle<cr>
