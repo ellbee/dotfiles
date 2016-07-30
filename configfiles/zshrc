@@ -61,7 +61,7 @@ if [ -x /usr/local/bin/brew ]; then
 fi
 
 PATH=/bin:/~/bin:$(brew --prefix)/bin:$(brew --prefix)/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$(brew --prefix)/git/bin:$HOME/.cask/bin:$GOPATH/bin
-export PATH=$HOME/.cabal/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
 
 # Customize to your needs...
 ulimit -n 10000

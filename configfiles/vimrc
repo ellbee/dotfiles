@@ -31,6 +31,8 @@ Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim', { 'for': ['elixir', 'eelixir'] }
 Plug 'powerman/vim-plugin-AnsiEsc'
 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
@@ -41,6 +43,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 
 Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
@@ -500,3 +504,17 @@ let g:flow#enable = 0
 nmap <leader>fm :FlowMake<cr>
 nmap <leader>ft :FlowType<cr>
 nmap <leader>fo :FlowToggle<cr>
+
+nmap <leader>tw :GhcModTypeInsert<CR>
+nmap <leader>ts :GhcModSplitFunCase<CR>
+nmap <leader>tq :GhcModType<CR>
+nmap <leader>te :GhcModTypeClear<CR>
+
+augroup Haskell
+  autocmd!
+  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+augroup END
+
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a- :Tabularize /-><CR>
