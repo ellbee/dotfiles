@@ -1,12 +1,13 @@
 #! /bin/bash
 
 set -e
-apt install git
-apt install build-essential
-apt install ruby
+sudo apt install git
+sudo apt install build-essential
+sudo apt install ruby
 
 # linuxbrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+sudo apt install linuxbrew-wrapper
 
 # zsh
 brew install zsh
