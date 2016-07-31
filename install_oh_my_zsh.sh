@@ -1,9 +1,17 @@
 #! /bin/bash
 set -e
 
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-mv ~/.zshrc{,-backup}
- ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+if [ ! -d ~/.oh-my-zsh ]; then
+  git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+fi
+
+if [ -e ~/.zshrc ]; then
+  mv ~/.zshrc{,-backup}
+fi
+
 ln -s ~/dotfiles/configfiles/zshrc ~/.zshrc
 sudo chsh -s $(which zsh) $(whoami)
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+
+if [ ! -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]; then
+  git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+fi

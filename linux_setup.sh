@@ -6,8 +6,10 @@ sudo apt install build-essential
 sudo apt install ruby
 
 # linuxbrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
-sudo apt install linuxbrew-wrapper
+if [ ! -e /usr/bin/brew ]; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install)"
+  sudo apt install linuxbrew-wrapper
+fi
 
 # zsh
 sudo apt install zsh 
