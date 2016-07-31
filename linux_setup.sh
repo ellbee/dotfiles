@@ -10,7 +10,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master
 sudo apt install linuxbrew-wrapper
 
 # zsh
-brew install zsh
+sudo apt install zsh 
 ./install_oh_my_zsh.sh
 
 # link dotfiles
