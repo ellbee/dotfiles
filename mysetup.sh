@@ -2,12 +2,19 @@
 
 set -e
 
+create_dot_config() {
+  if [ ! -d ~/.config ]; then
+    echo "creating .config file"
+    mkdir ~/.config
+  fi
+}
+
 create_dot_vim() {
   if [ ! -d ~/.vim ]; then
     echo "creating .vim file"
     mkdir -p ~/.vim/backup
   fi
-  if [ ! -e ~/.vim/Ultisnips ]; then
+  if [ ! -e ~/.vim/UltiSnips ]; then
     ln -s ~/dotfiles/configfiles/UltiSnips ~/.vim/UltiSnips
   fi
   if [ -e ~/.config/nvim ]; then
@@ -44,6 +51,7 @@ vim_install_plug() {
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
+create_dot_config
 create_dot_vim
 vim_swap_and_backup_dirs
 vim_install_plug
