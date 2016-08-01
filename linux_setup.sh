@@ -13,7 +13,7 @@ fi
 
 # zsh
 sudo apt install zsh 
-./install_oh_my_zsh.sh
+~/dotfiles/install_oh_my_zsh.sh
 
 # link dotfiles
-./mysetup.sh
+~/dotfiles/mysetup.sh
