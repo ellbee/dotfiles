@@ -51,7 +51,7 @@ Plug 'kovisoft/paredit'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'flazz/vim-colorschemes'
-
+Plug 'ekalinin/Dockerfile.vim'
 Plug 'janko-m/vim-test'
 
 Plug 'SirVer/ultisnips', { 'on': [] }
