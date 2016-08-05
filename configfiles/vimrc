@@ -496,6 +496,12 @@ let g:projectionist_heuristics = {
     \ },
     \ "test/models/*_test.exs": {
     \   "alternate": "web/models/{}.ex"
+    \ },
+    \ "web/static/js/src/*.js": {
+    \   "alternate": "test/{}.spec.js"
+    \ },
+    \ "web/static/js/test/*.spec.js": {
+    \   "alternate": "src/{}.js"
     \ }
 \   }
 \ }
