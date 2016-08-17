@@ -524,3 +524,5 @@ augroup END
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+
+nmap <leader>p viw"0p
