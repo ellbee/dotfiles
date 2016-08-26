@@ -67,6 +67,9 @@ call plug#end()
 
 filetype plugin indent on     " required!
 
+let $TERM='xterm-256color'
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 if has('termguicolors')
   set termguicolors
 endif
