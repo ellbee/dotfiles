@@ -63,10 +63,6 @@ if [ -d ~/.nvm ]; then
   source $(brew --prefix nvm)/nvm.sh
 fi
 
-if [ -d ~/build_from_source ]; then
-  alias tmux=~/build_from_source/tmux/tmux
-fi
-
 alias 'cd..'="cd .."
 alias c=clear
 
@@ -93,3 +89,5 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[white]%})"
 
 MANPATH=$(brew --prefix)/share/man:
 INFOPATH=$(brew --prefix)/share/info:
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

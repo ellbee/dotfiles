@@ -9,6 +9,7 @@ Plug 'benekastah/neomake'
 Plug 'kassio/neoterm'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
