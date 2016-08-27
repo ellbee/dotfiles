@@ -91,3 +91,6 @@ MANPATH=$(brew --prefix)/share/man:
 INFOPATH=$(brew --prefix)/share/info:
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
