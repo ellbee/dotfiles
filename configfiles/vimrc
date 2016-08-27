@@ -7,9 +7,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'benekastah/neomake'
 Plug 'kassio/neoterm'
-Plug 'rking/ag.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -336,17 +336,7 @@ let g:ctrlp_open_new_file = 'r'
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
 endif
-
-nmap <leader>m :CtrlPMRU<CR>
-nmap <leader>gb :CtrlPBuffer<CR>
-nmap <leader>ga :CtrlP<CR>
 
 " dir path for current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -529,4 +519,10 @@ vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
 
+" replace word under cursor with last yank
 nmap <leader>p viw"0p
+
+" FZF mappings
+nmap <C-p> :FZF<cr>
+nmap <leader>m :History<cr>
+nmap <leader>b :Buffers<cr>
