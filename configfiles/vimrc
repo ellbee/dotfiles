@@ -269,7 +269,7 @@ endfunction
 function! LightLineFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' ? g:lightline.ctrlp_item :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname =~ '__Mundo\|NERD_tree' ? '' :
         \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
@@ -277,7 +277,7 @@ endfunction
 
 function! LightLineFugitive()
   try
-    if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && exists('*fugitive#head')
+    if expand('%:t') !~? 'Tagbar\|Mundo\|NERD' && exists('*fugitive#head')
       return fugitive#head()
     endif
   catch
@@ -299,9 +299,8 @@ endfunction
 
 function! LightLineMode()
   let fname = expand('%:t')
-  return fname == 'ControlP' ? 'CtrlP' :
-        \ fname == '__Gundo__' ? 'Gundo' :
-        \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+  return  fname == '__Mundo__' ? 'Mundo' :
+        \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
         \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
@@ -345,7 +344,7 @@ map <leader>e :edit %%
 " change current directory to that of the current file
 nmap <leader>cd :cd %:p:h<CR>
 
-nnoremap <leader>u :GundoToggle<CR>
+nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>q :ccl<CR>
 
