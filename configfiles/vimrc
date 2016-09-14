@@ -525,3 +525,4 @@ nmap <leader>p viw"0p
 nmap <C-p> :FZF<cr>
 nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
+nmap <leader>a :Files<cr>
