@@ -42,7 +42,7 @@ Plug 'gavocanov/vim-js-indent', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
 Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim'
-Plug 'lambdatoast/elm.vim', { 'for': 'elm' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
@@ -167,7 +167,7 @@ map Y y$
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
-
+inoremap <C-j> <Esc>
 nnoremap <leader>s :mksession<CR>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
@@ -528,3 +528,5 @@ nmap <C-p> :FZF<cr>
 nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
+
+let g:elm_setup_keybindings = 0
