@@ -111,6 +111,7 @@ set nojoinspaces
 set nomodeline
 set nrformats-=octal
 set number
+set path+=**
 set ruler
 set scrolloff=3
 set shiftwidth=2
