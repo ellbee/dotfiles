@@ -1,7 +1,8 @@
 #!/bin/bash
 
 programs=(
-  ag ctags elixir git neovim node nvm pstree ranger
+  ag ctags elixir git neovim node nvm 
+  pstree ranger reattach-to-user-namespace
   rlwrap tmux trash tree vim xz zsh
 )
 
