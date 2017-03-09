@@ -19,6 +19,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-projectionist'
 
+Plug 'jiangmiao/auto-pairs'
+
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'epeli/slimux'
 
