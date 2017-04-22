@@ -90,7 +90,11 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[white]%})"
 MANPATH=$(brew --prefix)/share/man:
 INFOPATH=$(brew --prefix)/share/info:
 
+# Initialise fzf fuzzyfinder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Initialise opam
+source /Users/leebannard/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
