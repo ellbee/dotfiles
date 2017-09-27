@@ -58,11 +58,6 @@ export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
 # Customize to your needs...
 ulimit -n 10000
 
-if [ -d ~/.nvm ]; then
-  export NVM_DIR=~/.nvm
-  source $(brew --prefix nvm)/nvm.sh
-fi
-
 alias 'cd..'="cd .."
 alias c=clear
 
