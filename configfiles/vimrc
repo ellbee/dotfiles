@@ -10,7 +10,7 @@ Plug 'kassio/neoterm'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -533,3 +533,9 @@ nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 
 let g:elm_setup_keybindings = 0
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+cnoreabbrev Ag Ack
