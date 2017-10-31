@@ -132,6 +132,10 @@ set wildignorecase
 set wildmenu
 set wildmode=longest,full
 
+if has('nvim')
+  set inccommand=nosplit
+endif
+
 " Enter key selects menu item
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " Select an item by default
