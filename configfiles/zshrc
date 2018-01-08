@@ -50,7 +50,6 @@ export GOPATH=~/projects/go
 
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
-PATH=/usr/local/git/bin:$PATH
 
 PATH=$PATH:/bin:/~/bin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cask/bin:$GOPATH/bin
 export PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
