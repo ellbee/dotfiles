@@ -62,6 +62,8 @@ Plug 'janko-m/vim-test'
 
 Plug 'SirVer/ultisnips', { 'on': [] }
 
+Plug 'will133/vim-dirdiff'
+
 " ultisnips is slow to load, so defer until going into insert mode
 augroup load_ultisnips
   autocmd!
