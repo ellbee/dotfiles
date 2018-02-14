@@ -93,5 +93,7 @@ source /Users/leebannard/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || tr
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # Initialise asdf
 source /usr/local/opt/asdf/asdf.sh
