@@ -3,6 +3,11 @@ syntax enable
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'benekastah/neomake'
@@ -51,7 +56,8 @@ Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
 Plug 'idris-hackers/idris-vim'
-Plug 'reasonml/vim-reason'
+Plug 'reasonml-editor/vim-reason-plus'
+Plug 'roxma/nvim-completion-manager'
 Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
 
@@ -524,3 +530,12 @@ if executable('ag')
 endif
 
 cnoreabbrev Ag Ack
+
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['ocaml-language-server', '--stdio'],
+    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ }
+
+nnoremap <silent> <leader>ld :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<cr>
