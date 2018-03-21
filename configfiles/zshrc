@@ -90,6 +90,7 @@ INFOPATH=$(brew --prefix)/share/info:
 
 # Initialise opam
 source /Users/leebannard/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+eval $(opam config env)
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
