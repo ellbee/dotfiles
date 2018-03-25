@@ -42,7 +42,6 @@ ZSH=$HOME/.oh-my-zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(docker git history npm node z zsh-completions)
 
-
 source $ZSH/oh-my-zsh.sh
 # initialize zsh-completions
 autoload -U compinit && compinit
@@ -72,6 +71,11 @@ alias tl='tmux list-sessions'
 alias td='tmux detach'
 
 export EDITOR=vim
+
+# Add base16 support
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
 export LSCOLORS="Exfxcxdxbxegedabagacad"
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"

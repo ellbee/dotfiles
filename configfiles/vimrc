@@ -41,8 +41,6 @@ Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim', { 'for': ['elixir', 'eelixir'] }
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
@@ -62,9 +60,10 @@ Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
 
 Plug 'justinmk/vim-dirvish'
-Plug 'flazz/vim-colorschemes'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'janko-m/vim-test'
+Plug 'chriskempson/base16-vim'
+Plug 'daviesjamie/vim-base16-lightline'
 
 Plug 'SirVer/ultisnips', { 'on': [] }
 
@@ -82,6 +81,7 @@ filetype plugin indent on     " required!
 
 let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+colorscheme base16-spacemacs
 
 if has('termguicolors')
   set termguicolors
@@ -207,11 +207,6 @@ augroup vimrcex
   autocmd BufLeave *.html             normal! mH
   autocmd BufLeave *.js               normal! mJ
 
-  autocmd VimEnter * nested colorscheme jellybeans
-
-  let g:jellybeans_overrides = {
-  \  'Comment': { 'bg': 'none' },
-  \}
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -265,7 +260,7 @@ nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rw <C-w>x
 
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'base16',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -331,18 +326,6 @@ let g:ctrlp_status_func = {
       \ 'main': 'CtrlPStatusFunc_1',
       \ 'prog': 'CtrlPStatusFunc_2',
       \ }
-
-function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-  let g:lightline.ctrlp_regex = a:regex
-  let g:lightline.ctrlp_prev = a:prev
-  let g:lightline.ctrlp_item = a:item
-  let g:lightline.ctrlp_next = a:next
-  return lightline#statusline(0)
-endfunction
-
-function! CtrlPStatusFunc_2(str)
-  return lightline#statusline(0)
-endfunction
 
 nnoremap <leader><Space> :nohlsearch<CR>
 

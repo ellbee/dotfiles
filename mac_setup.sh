@@ -21,3 +21,5 @@ install_asdf_plugins() {
 disable_path_helper
 change_delete_code_from_ctrl_h_to_ascii_del
 install_asdf_plugins
+
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
