@@ -41,12 +41,9 @@ Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim', { 'for': ['elixir', 'eelixir'] }
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'gavocanov/vim-js-indent', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': 'javascript.jsx' }
-Plug 'flowtype/vim-flow', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'leafgarland/typescript-vim'
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -63,8 +60,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'janko-m/vim-test'
 Plug 'chriskempson/base16-vim'
-Plug 'daviesjamie/vim-base16-lightline'
-
+Plug 'felixjung/vim-base16-lightline'
 Plug 'SirVer/ultisnips', { 'on': [] }
 
 Plug 'will133/vim-dirdiff'
@@ -81,7 +77,7 @@ filetype plugin indent on     " required!
 
 let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-colorscheme base16-spacemacs
+colorscheme base16-chalk
 
 if has('termguicolors')
   set termguicolors
@@ -175,8 +171,6 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> <Leader>> :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
 nnoremap <silent> <Leader>< :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
 " Make Y follow the same pattern as C and D
 map Y y$
 
@@ -184,7 +178,6 @@ map Y y$
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-j> <Esc>
-nnoremap <leader>s :mksession<CR>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -203,10 +196,8 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-  autocmd BufLeave *.css,*.less,*scss normal! mC
-  autocmd BufLeave *.html             normal! mH
-  autocmd BufLeave *.js               normal! mJ
-
+  autocmd FileType javascript set formatprg=prettier\ --stdin
+  autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -219,23 +210,6 @@ augroup vimrcex
         \ endif
 
 augroup end
-
-function! ToggleLintOnSave()
-  if exists('#javascript_lint#BufWritePost')
-    augroup javascript_lint
-      autocmd! BufWritePost *.js
-    augroup end
-    echom 'Linting on save disabled'
-    sign unplace *
-  else
-    augroup javascript_lint
-      autocmd! BufWritePost *.js Neomake
-    augroup end
-    echom 'Linting on save enabled'
-  endif
-endfunction
-
-command! ToggleLintOnSave :call ToggleLintOnSave()
 
 nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
@@ -260,7 +234,7 @@ nnoremap <leader>rs :source $MYVIMRC<CR>
 nnoremap <leader>rw <C-w>x
 
 let g:lightline = {
-      \ 'colorscheme': 'base16',
+      \ 'colorscheme': 'base16_chalk',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
@@ -351,8 +325,6 @@ nmap <leader>cd :cd %:p:h<CR>
 
 nnoremap <leader>u :MundoToggle<CR>
 
-nnoremap <leader>q :ccl<CR>
-
 function! StripWhitespace()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
@@ -382,13 +354,6 @@ augroup GoAwayPreviewWindow
   autocmd! InsertLeave * wincmd z
 augroup END
 
-" enable the vim-vinegar features that I like
-let g:netrw_banner = 0
-let g:netrw_list_hide='^\.\/'
-let g:netrw_altfile=1
-let g:netrw_liststyle=1
-
-let g:NERDTreeHijackNetrw=0
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 nnoremap - :Dirvish %:p:h<CR>
@@ -477,11 +442,6 @@ let g:projectionist_heuristics = {
     \ }
 \   }
 \ }
-
-let g:flow#enable = 0
-nmap <leader>fm :FlowMake<cr>
-nmap <leader>ft :FlowType<cr>
-nmap <leader>fo :FlowToggle<cr>
 
 nmap <leader>tw :GhcModTypeInsert<CR>
 nmap <leader>ts :GhcModSplitFunCase<CR>
