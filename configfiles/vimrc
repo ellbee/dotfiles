@@ -157,7 +157,8 @@ let mapleader="\<Space>"
 
 nnoremap j gj
 nnoremap k gk
-
+" 'Stamp' over the current word with the contents of the last yanked text
+nnoremap S diw"0P
 " Useful shortcuts for working with splits
 nnoremap <silent> <Leader>h :sp<cr>
 nnoremap <silent> <Leader>v :vsp<cr>
