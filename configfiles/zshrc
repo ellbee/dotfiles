@@ -46,13 +46,11 @@ source $ZSH/oh-my-zsh.sh
 # initialize zsh-completions
 autoload -U compinit && compinit
 
-if [[ -z $TMUX ]]; then
-  export GOPATH=~/projects/go
-  PATH=/usr/local/bin:$PATH
-  PATH=/usr/local/sbin:$PATH
-  PATH=$PATH:/bin:/~/bin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cask/bin:$GOPATH/bin
-  PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
-fi
+export GOPATH=~/projects/go
+PATH=/usr/local/bin:$PATH
+PATH=/usr/local/sbin:$PATH
+PATH=$PATH:/bin:/~/bin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cask/bin:$GOPATH/bin
+PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
 
 # Customize to your needs...
 ulimit -n 10000
