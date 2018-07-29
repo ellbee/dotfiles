@@ -38,7 +38,6 @@ Plug 'mattn/emmet-vim'
 Plug 'wellle/targets.vim'
 
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim', { 'for': ['elixir', 'eelixir'] }
 Plug 'powerman/vim-plugin-AnsiEsc'
 
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
@@ -64,6 +63,10 @@ Plug 'felixjung/vim-base16-lightline'
 Plug 'SirVer/ultisnips', { 'on': [] }
 
 Plug 'will133/vim-dirdiff'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " ultisnips is slow to load, so defer until going into insert mode
 augroup load_ultisnips
@@ -198,8 +201,6 @@ augroup vimrcex
 
   " for all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
-  autocmd FileType javascript set formatprg=prettier\ --stdin
-  autocmd BufWritePre *.js exe "normal! gggqG\<C-o>\<C-o>"
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
