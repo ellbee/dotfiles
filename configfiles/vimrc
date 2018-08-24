@@ -49,7 +49,6 @@ Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'idris-hackers/idris-vim'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'roxma/nvim-completion-manager'
 Plug 'tpope/vim-fireplace'
 Plug 'kovisoft/paredit'
 
