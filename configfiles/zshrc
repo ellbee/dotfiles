@@ -100,6 +100,5 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Initialise asdf
-source /usr/local/opt/asdf/asdf.sh
-
+source $HOME/.asdf/asdf.sh
 export PATH
