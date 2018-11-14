@@ -23,6 +23,6 @@ change_delete_code_from_ctrl_h_to_ascii_del
 
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.5.1
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.1
 source $HOME/.asdf/asdf.sh
 install_asdf_plugins
