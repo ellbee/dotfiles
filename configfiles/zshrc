@@ -63,6 +63,8 @@ if [ -x $(brew --prefix)/bin/nvim ]; then
   alias ovim=$(brew --prefix)/bin/vim
 fi
 
+# The -2 option forces tmux to assume 256 color support
+alias tmux='tmux -2'
 alias t=tmux
 alias ta='tmux attach'
 alias tl='tmux list-sessions'
