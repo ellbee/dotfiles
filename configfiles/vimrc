@@ -29,6 +29,7 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'epeli/slimux'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'simnalamburt/vim-mundo'
 Plug 'godlygeek/tabular'
@@ -43,7 +44,10 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'peitalin/vim-jsx-typescript'
+
 Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
@@ -296,11 +300,6 @@ function! LightLineMode()
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-let g:ctrlp_status_func = {
-      \ 'main': 'CtrlPStatusFunc_1',
-      \ 'prog': 'CtrlPStatusFunc_2',
-      \ }
-
 nnoremap <leader><Space> :nohlsearch<CR>
 
 imap <C-Y>s <Plug>snipMateNextOrTrigger
@@ -383,8 +382,6 @@ let g:jsx_ext_required = 0
 nnoremap <leader>el :ElmEvalLine<CR>
 vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
 nnoremap <leader>em :ElmMakeCurrentFile<CR>
-
-let g:neomake_javascript_enabled_makers = ['eslint']
 
 let g:projectionist_heuristics = {
   \ "package.json": {
@@ -472,3 +469,11 @@ let g:LanguageClient_serverCommands = {
 nnoremap <silent> <leader>ld :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<cr>
+let g:deoplete#enable_at_startup = 1
+
+nnoremap <silent> <leader>td :TSDef<cr>
+nnoremap <silent> <leader>tp :TSDefPreview<cr>
+nnoremap <silent> <leader>tt :TSType<cr>
+nnoremap <silent> <leader>th :TSDoc<cr>
+
+let g:neomake_javascript_enabled_makers = ['eslint']
