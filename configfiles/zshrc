@@ -70,6 +70,8 @@ alias ta='tmux attach'
 alias tl='tmux list-sessions'
 alias td='tmux detach'
 
+alias ec='emacsclient -a "" -c'
+
 export EDITOR=vim
 
 # Add base16 support
