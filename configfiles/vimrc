@@ -36,7 +36,7 @@ Plug 'Wolfy87/vim-expand'
 
 Plug 'mattn/emmet-vim'
 Plug 'wellle/targets.vim'
-
+Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'elixir-lang/vim-elixir', { 'for': ['elixir', 'eelixir'] }
 Plug 'powerman/vim-plugin-AnsiEsc'
 
