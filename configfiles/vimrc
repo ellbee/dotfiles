@@ -9,7 +9,6 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'benekastah/neomake'
 Plug 'kassio/neoterm'
 
@@ -264,7 +263,7 @@ endfunction
 function! LightLineFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' ? g:lightline.ctrlp_item :
-        \ fname =~ '__Mundo\|NERD_tree' ? '' :
+        \ fname =~ '__Mundo' ? '' :
         \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ ('' != fname ? fname : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
@@ -272,7 +271,7 @@ endfunction
 
 function! LightLineFugitive()
   try
-    if expand('%:t') !~? 'Tagbar\|Mundo\|NERD' && exists('*fugitive#head')
+    if expand('%:t') !~? 'Tagbar\|Mundo' && exists('*fugitive#head')
       return fugitive#head()
     endif
   catch
@@ -296,7 +295,6 @@ function! LightLineMode()
   let fname = expand('%:t')
   return  fname == '__Mundo__' ? 'Mundo' :
         \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-        \ fname =~ 'NERD_tree' ? 'NERDTree' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
@@ -352,8 +350,6 @@ vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
 augroup GoAwayPreviewWindow
   autocmd! InsertLeave * wincmd z
 augroup END
-
-nnoremap <leader>n :NERDTreeToggle<CR>
 
 nnoremap - :Dirvish %:p:h<CR>
 
