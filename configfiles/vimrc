@@ -3,13 +3,7 @@ syntax enable
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
 Plug 'scrooloose/nerdcommenter'
-Plug 'benekastah/neomake'
 Plug 'kassio/neoterm'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -28,11 +22,9 @@ Plug 'jiangmiao/auto-pairs'
 
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'epeli/slimux'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'simnalamburt/vim-mundo'
 Plug 'godlygeek/tabular'
-Plug 'Wolfy87/vim-expand'
 
 Plug 'mattn/emmet-vim'
 Plug 'wellle/targets.vim'
@@ -44,16 +36,11 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'peitalin/vim-jsx-typescript'
 
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'idris-hackers/idris-vim'
 Plug 'reasonml-editor/vim-reason-plus'
-Plug 'tpope/vim-fireplace'
-Plug 'kovisoft/paredit'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'ekalinin/Dockerfile.vim'
@@ -63,10 +50,8 @@ Plug 'felixjung/vim-base16-lightline'
 Plug 'SirVer/ultisnips', { 'on': [] }
 
 Plug 'will133/vim-dirdiff'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 " ultisnips is slow to load, so defer until going into insert mode
 augroup load_ultisnips
@@ -128,6 +113,8 @@ set shiftwidth=2
 set showcmd
 set showmatch
 set smartcase
+set shortmess+=c
+set signcolumn=yes
 set smartindent
 set smarttab
 set splitbelow
@@ -375,10 +362,6 @@ map <leader>rf :call RenameFile()<cr>
 
 let g:jsx_ext_required = 0
 
-nnoremap <leader>el :ElmEvalLine<CR>
-vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
-nnoremap <leader>em :ElmMakeCurrentFile<CR>
-
 let g:projectionist_heuristics = {
   \ "package.json": {
     \ "src/*.js": {
@@ -449,27 +432,8 @@ nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 
-let g:elm_setup_keybindings = 0
-
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
 cnoreabbrev Ag Ack
-
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'ocaml': ['ocaml-language-server', '--stdio'],
-    \ }
-
-nnoremap <silent> <leader>ld :call LanguageClient_textDocument_definition()<cr>
-nnoremap <silent> <leader>lf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<cr>
-let g:deoplete#enable_at_startup = 1
-
-nnoremap <silent> <leader>td :TSDef<cr>
-nnoremap <silent> <leader>tp :TSDefPreview<cr>
-nnoremap <silent> <leader>tt :TSType<cr>
-nnoremap <silent> <leader>th :TSDoc<cr>
-
-let g:neomake_javascript_enabled_makers = ['eslint']
