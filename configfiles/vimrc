@@ -432,5 +432,4 @@ nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 
-
 nnoremap <leader>g :Grepper -tool rg<cr>
