@@ -8,7 +8,7 @@ Plug 'kassio/neoterm'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
+Plug 'mhinz/vim-grepper'
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -432,8 +432,5 @@ nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 
-if executable('rg')
-  let g:ackprg = 'rg --vimgrep'
-endif
 
-command! -nargs=+ Rg Ack <args>
+nnoremap <leader>g :Grepper -tool rg<cr>
