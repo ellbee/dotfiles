@@ -436,4 +436,4 @@ if executable('rg')
   let g:ackprg = 'rg --vimgrep'
 endif
 
-cnoreabbrev Ag Ack
+command! -nargs=+ Rg Ack <args>
