@@ -3,7 +3,7 @@ syntax enable
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'scrooloose/nerdcommenter'
+Plug 'janko-m/vim-test'
 Plug 'kassio/neoterm'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -17,6 +17,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
 
 Plug 'jiangmiao/auto-pairs'
 
@@ -44,7 +45,6 @@ Plug 'reasonml-editor/vim-reason-plus'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'janko-m/vim-test'
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'SirVer/ultisnips', { 'on': [] }
