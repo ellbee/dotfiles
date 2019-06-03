@@ -431,4 +431,7 @@ nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 
+runtime plugin/grepper.vim
+let g:grepper.rg.grepprg .= ' --smart-case'
+let g:grepper.prompt_text = '$t> '
 nnoremap <leader>g :Grepper -tool rg<cr>
