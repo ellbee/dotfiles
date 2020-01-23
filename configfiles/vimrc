@@ -175,9 +175,6 @@ if has('mouse')
   set mouse=a
 endif
 
-" run GoImports on write
-autocmd BufWritePre *.go call go#fmt#Format(1)
-
 " turn off showmatch for rust (beeps on >)
 autocmd filetype rust setlocal noshowmatch
 
@@ -207,8 +204,6 @@ nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 let test#strategy = 'neoterm'
 
-let g:test#javascript#mocha#executable = 'npm test -- '
-
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
@@ -220,7 +215,6 @@ endif
 nnoremap <leader>rd :DiffOrig<CR>
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
-nnoremap <leader>rw <C-w>x
 
 let g:lightline = {
       \ 'colorscheme': 'base16_chalk',
@@ -286,8 +280,6 @@ endfunction
 
 nnoremap <leader><Space> :nohlsearch<CR>
 
-imap <C-Y>s <Plug>snipMateNextOrTrigger
-smap <C-Y>s <Plug>snipMateNextOrTrigger
 let user_emmet_expandabbr_key = '<C-Y>y'
 " custom emmet expander to split tags and open line between
 imap <C-Y>o <C-Y>y<CR><C-o>O<C-i>
@@ -317,8 +309,6 @@ function! StripWhitespace()
 endfunction
 noremap <leader>w :call StripWhitespace()<CR>
 
-let g:ctrlp_max_height = 30
-
 " Change default HTML indentation to include more tags
 let g:html_indent_inctags = "html,body,head,tbody,p"
 
@@ -332,10 +322,6 @@ command! Snips :call UltiSnips#ListSnippets()
 
 nmap <C-c><C-c> :SlimuxREPLSendLine<CR>
 vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
-
-augroup GoAwayPreviewWindow
-  autocmd! InsertLeave * wincmd z
-augroup END
 
 nnoremap - :Dirvish %:p:h<CR>
 
