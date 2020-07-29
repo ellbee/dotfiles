@@ -297,14 +297,8 @@ imap <C-Y>o <C-Y>y<CR><C-o>O<C-i>
 
 let g:ctrlp_open_new_file = 'r'
 
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
 " dir path for current file
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
-map <leader>e :edit %%
 
 " change current directory to that of the current file
 nmap <leader>cd :cd %:p:h<CR>
@@ -431,5 +425,5 @@ let g:fzf_preview_window = ''
 runtime plugin/grepper.vim
 let g:grepper.rg.grepprg .= ' --smart-case'
 let g:grepper.prompt_text = '$t> '
-nnoremap <leader>s :Grepper -tool rg<cr>
+nnoremap <leader>f :Grepper -tool rg<cr>
 
