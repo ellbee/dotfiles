@@ -41,7 +41,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'idris-hackers/idris-vim'
-Plug 'reasonml-editor/vim-reason-plus'
+Plug 'rescript-lang/vim-rescript'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'ekalinin/Dockerfile.vim'
