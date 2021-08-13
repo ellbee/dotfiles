@@ -8,7 +8,6 @@ Plug 'kassio/neoterm'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'mhinz/vim-grepper'
 
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -422,8 +421,10 @@ nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 let g:fzf_preview_window = ''
 
-runtime plugin/grepper.vim
-let g:grepper.rg.grepprg .= ' --smart-case'
-let g:grepper.prompt_text = '$t> '
-nnoremap <leader>f :Grepper -tool rg<cr>
 
+set grepprg=rg\ --vimgrep\ --smart-case
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+nnoremap <Leader>f :silent grep!<Space>
+nnoremap gs :silent grep! <C-r><C-w><CR>:copen<CR>
+xnoremap gs "sy:silent grep! <C-r>s<CR>:copen<CR>
