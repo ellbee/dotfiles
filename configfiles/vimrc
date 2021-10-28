@@ -9,13 +9,10 @@ Plug 'kassio/neoterm'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-commentary'
 
 Plug 'tmsvg/pear-tree'
@@ -32,10 +29,11 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'chriskempson/base16-vim'
-Plug 'felixjung/vim-base16-lightline'
 Plug 'SirVer/ultisnips', { 'on': [] }
 
 Plug 'will133/vim-dirdiff'
@@ -48,6 +46,7 @@ augroup load_ultisnips
 augroup END
 
 lua <<EOF
+require'lualine'.setup()
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = {}, -- List of parsers to ignore installing
@@ -67,9 +66,8 @@ EOF
 
 filetype plugin indent on     " required!
 
-let $TERM='xterm-256color'
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-colorscheme base16-chalk
+colorscheme base16-chalk 
 
 if has('termguicolors')
   set termguicolors
@@ -108,6 +106,7 @@ set lazyredraw
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set nojoinspaces
 set nomodeline
+set noshowmode
 set nrformats-=octal
 set number
 set path+=**
@@ -181,9 +180,6 @@ if has('mouse')
   set mouse=a
 endif
 
-" turn off showmatch for rust (beeps on >)
-autocmd filetype rust setlocal noshowmatch
-
 "put these in an autocmd group, so that we can delete them easily.
 augroup vimrcex
   autocmd!
@@ -221,68 +217,6 @@ endif
 nnoremap <leader>rd :DiffOrig<CR>
 nnoremap <leader>re :edit $MYVIMRC<CR>
 nnoremap <leader>rs :source $MYVIMRC<CR>
-
-let g:lightline = {
-      \ 'colorscheme': 'base16_chalk',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename'] ],
-      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive',
-      \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
-      \   'mode': 'LightLineMode'
-      \ }
-      \ }
-
-function! LightLineModified()
-  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! LightLineReadonly()
-  return &ft !~? 'help' && &readonly ? 'RO' : ''
-endfunction
-
-function! LightLineFilename()
-  let fname = expand('%:t')
-  return fname == 'ControlP' ? g:lightline.ctrlp_item :
-        \ fname =~ '__Mundo' ? '' :
-        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != fname ? fname : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-function! LightLineFugitive()
-  try
-    if expand('%:t') !~? 'Tagbar\|Mundo' && exists('*fugitive#head')
-      return fugitive#head()
-    endif
-  catch
-  endtry
-  return ''
-endfunction
-
-function! LightLineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightLineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
-
-function! LightLineFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! LightLineMode()
-  let fname = expand('%:t')
-  return  fname == '__Mundo__' ? 'Mundo' :
-        \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-        \ winwidth(0) > 60 ? lightline#mode() : ''
-endfunction
 
 nnoremap <leader><Space> :nohlsearch<CR>
 
@@ -343,63 +277,6 @@ function! RenameFile()
 endfunction
 
 map <leader>rf :call RenameFile()<cr>
-
-let g:projectionist_heuristics = {
-  \ "package.json": {
-    \ "src/*.js": {
-    \   "alternate": "test/{}.spec.js"
-    \ },
-    \ "test/*.spec.js": {
-    \   "alternate": "src/{}.js"
-    \ }
-  \ },
-  \ "Cargo.toml": {
-    \ "src/*.rs": {
-    \   "alternate": "tests/{}.rs"
-    \ },
-    \ "tests/*.rs": {
-    \   "alternate": "src/{}.rs"
-    \ }
-  \ },
-  \ "mix.exs": {
-    \ "lib/*.ex": {
-    \   "alternate": "test/{}_test.exs"
-    \ },
-    \ "web/channels/*_channel.ex": {
-    \   "alternate": "test/channels/{}_channel_test.exs"
-    \ },
-    \ "web/controllers/*_controller.ex": {
-    \   "alternate": "test/controllers/{}_controller_test.exs"
-    \ },
-    \ "web/views/*_view.ex": {
-    \   "alternate": "test/views/{}_view_test.exs"
-    \ },
-    \ "web/models/*.ex": {
-    \   "alternate": "test/models/{}_test.exs"
-    \ },
-    \ "test/*_test.exs": {
-    \   "alternate": "lib/{}.ex"
-    \ },
-    \ "test/channels/*_channel_test.exs": {
-    \   "alternate": "web/channels/{}_channel.ex"
-    \ },
-    \ "test/controllers/*_controller_test.exs": {
-    \   "alternate": "web/controllers/{}_controller.ex"
-    \ },
-    \ "test/views/*_view_test.exs": {
-    \   "alternate": "web/views/{}_view.ex"
-    \ },
-    \ "test/models/*_test.exs": {
-    \   "alternate": "web/models/{}.ex"
-    \ },
-    \ "web/static/js/src/*.js": {
-    \   "alternate": "test/{}.spec.js"
-    \ },
-    \ "web/static/js/test/*.spec.js": {
-    \   "alternate": "src/{}.js"
-    \ }
-\   }
-\ }
 
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
