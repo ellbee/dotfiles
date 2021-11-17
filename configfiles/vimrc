@@ -46,7 +46,11 @@ augroup load_ultisnips
 augroup END
 
 lua <<EOF
-require'lualine'.setup()
+require'lualine'.setup {
+  options = {
+    theme = 'jellybeans',
+  },
+}
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = {}, -- List of parsers to ignore installing
