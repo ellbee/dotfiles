@@ -27,6 +27,9 @@ Plug 'wellle/targets.vim'
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
+" Elixir plugin required until a regression in treesitter-nvim is fixed
+Plug 'elixir-editors/vim-elixir'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
@@ -53,25 +56,22 @@ require'lualine'.setup {
 }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = {},  -- list of language that will be disabled
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+    disable = { "elixir" },  -- disable elixir until a regression in nvim-tressitter is fixed
   },
 }
-require'lspconfig'.rust_analyzer.setup{}
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.rust_analyzer.setup {}
+require'lspconfig'.tsserver.setup {}
+require'lspconfig'.elixirls.setup {
+  cmd = { '/Users/lee/elixir-ls-1.12/launch.sh' }
+}
 EOF
 
 filetype plugin indent on     " required!
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-colorscheme base16-chalk 
+colorscheme base16-chalk
 
 if has('termguicolors')
   set termguicolors
@@ -101,7 +101,7 @@ set completeopt=menuone,longest
 set cursorline
 set expandtab
 set hidden
-set history=1000
+set history=10000
 set hlsearch
 set ignorecase
 set incsearch
