@@ -27,9 +27,6 @@ Plug 'wellle/targets.vim'
 Plug 'vim-erlang/vim-erlang-runtime'
 Plug 'powerman/vim-plugin-AnsiEsc'
 
-" Elixir plugin required until a regression in treesitter-nvim is fixed
-Plug 'elixir-editors/vim-elixir'
-
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lualine/lualine.nvim'
@@ -57,8 +54,7 @@ require'lualine'.setup {
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "elixir" },  -- disable elixir until a regression in nvim-tressitter is fixed
+    enable = true              -- false will disable the whole extension
   },
 }
 require'lspconfig'.rust_analyzer.setup {}
