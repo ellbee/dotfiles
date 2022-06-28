@@ -46,25 +46,25 @@ augroup load_ultisnips
 augroup END
 
 lua <<EOF
-require'lualine'.setup {
-  options = {
-    theme = 'jellybeans',
-  },
-}
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true              -- false will disable the whole extension
-  },
-}
-require'lspconfig'.rust_analyzer.setup {}
-require'lspconfig'.tsserver.setup {}
-require'lspconfig'.elixirls.setup {
-  cmd = { '/Users/lee/elixir-ls-1.12/launch.sh' }
-}
-require'nvim-autopairs'.setup {
-  map_cr = true
-}
+ require'lualine'.setup {
+   options = {
+     theme = 'jellybeans',
+   },
+ }
+ require'nvim-treesitter.configs'.setup {
+   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+   highlight = {
+     enable = true              -- false will disable the whole extension
+   },
+ }
+ require'lspconfig'.rust_analyzer.setup {}
+ require'lspconfig'.tsserver.setup {}
+ require'lspconfig'.elixirls.setup {
+   cmd = { '/Users/lee/elixir-ls-1.12/launch.sh' }
+ }
+ require'nvim-autopairs'.setup {
+   map_cr = true
+ }
 EOF
 
 filetype plugin indent on     " required!

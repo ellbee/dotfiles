@@ -108,3 +108,6 @@ source $HOME/.asdf/asdf.sh
 export PATH
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.emacs.d/bin/:$PATH"
+
+# Use this instead of the above line for slow postgres check
+# export PATH="/Users/lee/databases/slow_postgres/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.emacs.d/bin/:$PATH"
