@@ -34,16 +34,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'justinmk/vim-dirvish'
 Plug 'chriskempson/base16-vim'
-Plug 'SirVer/ultisnips', { 'on': [] }
 
 Plug 'will133/vim-dirdiff'
 call plug#end()
-
-" ultisnips is slow to load, so defer until going into insert mode
-augroup load_ultisnips
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips') | autocmd! load_ultisnips
-augroup END
 
 lua <<EOF
  require'lualine'.setup {
@@ -248,13 +241,6 @@ noremap <leader>w :call StripWhitespace()<CR>
 
 " Change default HTML indentation to include more tags
 let g:html_indent_inctags = "html,body,head,tbody,p"
-
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="horizontal"
-
-command! Snips :call UltiSnips#ListSnippets()
 
 nmap <C-c><C-c> :SlimuxREPLSendLine<CR>
 vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
