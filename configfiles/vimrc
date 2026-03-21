@@ -11,7 +11,6 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 
@@ -33,31 +32,100 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'justinmk/vim-dirvish'
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'chriskempson/base16-vim'
 
 Plug 'will133/vim-dirdiff'
+
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v2.*', 'do': 'make install_jsregexp'}
+Plug 'rafamadriz/friendly-snippets'
+
 call plug#end()
 
 lua <<EOF
- require'lualine'.setup {
-   options = {
-     theme = 'jellybeans',
-   },
- }
+ -- disable netrw
+ vim.g.loaded_netrw = 1
+ vim.g.loaded_netrwPlugin = 1
+
+ require'lualine'.setup { }
  require'nvim-treesitter.configs'.setup {
-   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+   ensure_installed = {
+     "elixir",
+     "erlang",
+     "javascript",
+     "json",
+     "yaml",
+     "toml",
+     "rust",
+     "c",
+     "cpp",
+     "python",
+     "ruby",
+     "haskell",
+     "go",
+     "tlaplus"
+   }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
    highlight = {
      enable = true              -- false will disable the whole extension
    },
  }
- require'lspconfig'.rust_analyzer.setup {}
- require'lspconfig'.tsserver.setup {}
- require'lspconfig'.elixirls.setup {
-   cmd = { '/Users/lee/elixir-ls-1.12/launch.sh' }
+ vim.lsp.config.rust_analyzer.settings = {
+     ['rust-analyzer'] = {
+       cargo = {
+         allFeatures = true,
+         loadOutDirsFromCheck = true,
+       },
+       checkOnSave = {
+         command = 'clippy',
+       },
+       procMacro = {
+         enable = true,
+       },
+     },
+   }
+
+ vim.lsp.config.ts_ls.setup = {}
+ vim.lsp.config.elixirls.setup = {
+   cmd = { '/Users/lee.bannard/.elixir-ls/release/launch.sh' }
  }
  require'nvim-autopairs'.setup {
    map_cr = true
  }
+ require'nvim-tree'.setup {}
+
+-- Load friendly-snippets
+  require("luasnip.loaders.from_vscode").lazy_load()
+
+  -- LuaSnip setup
+  local ls = require("luasnip")
+
+  -- Configure LuaSnip
+  ls.config.set_config({
+    history = true,
+    updateevents = "TextChanged,TextChangedI",
+    enable_autosnippets = true,
+  })
+
+  -- Keymaps for snippet expansion and navigation
+  vim.keymap.set({"i", "s"}, "<C-k>", function()
+    if ls.expand_or_jumpable() then
+      ls.expand_or_jump()
+    end
+  end, {silent = true})
+
+  -- Optional: Add shift-tab to jump backwards in snippets
+  vim.keymap.set({"i", "s"}, "<C-j>", function()
+    if ls.jumpable(-1) then
+      ls.jump(-1)
+    end
+  end, {silent = true})
+
+  -- Optional: Cycle through choice nodes
+  vim.keymap.set({"i", "s"}, "<C-l>", function()
+    if ls.choice_active() then
+      ls.change_choice(1)
+    end
+  end, {silent = true})
 EOF
 
 filetype plugin indent on     " required!
@@ -130,6 +198,8 @@ if has('nvim')
   set inccommand=nosplit
 endif
 
+set rtp^="/Users/lee.bannard/.opam/default/share/ocp-indent/vim"
+
 " Enter key selects menu item
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 " Select an item by default
@@ -169,7 +239,6 @@ map Y y$
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
-inoremap <C-j> <Esc>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -245,7 +314,7 @@ let g:html_indent_inctags = "html,body,head,tbody,p"
 nmap <C-c><C-c> :SlimuxREPLSendLine<CR>
 vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
 
-nnoremap - :Dirvish %:p:h<CR>
+nnoremap <leader>n :NvimTreeToggle<CR>
 
 function! SetTestDirs(src_dir, test_dir, src_ext, test_post, test_ext)
   let b:src_dir = a:src_dir
@@ -280,7 +349,6 @@ nmap <leader>m :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>a :Files<cr>
 let g:fzf_preview_window = ''
-
 
 set grepprg=rg\ --vimgrep\ --smart-case
 set grepformat=%f:%l:%c:%m,%f:%l:%m
