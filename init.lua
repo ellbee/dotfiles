@@ -90,7 +90,7 @@ require("lazy").setup({
       -- put your config here
     end,
   },
-  
+
   -- Autopairs
   {
     "windwp/nvim-autopairs",
@@ -106,10 +106,13 @@ require("lazy").setup({
 
   -- Undo tree
   {
-    "simnalamburt/vim-mundo",
-    config = function()
-      vim.keymap.set("n", "<leader>u", ":MundoToggle<CR>", { silent = true })
-    end,
+    "jiaoshijie/undotree",
+    opts = {
+      -- your options
+    },
+    keys = { -- load the plugin only when using it's keybinding:
+      { "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
+    },
   },
 
   -- Alignment
@@ -140,7 +143,7 @@ require("lazy").setup({
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
-          "c", "cpp", "eex", "typescript", "elixir", "erlang", "go", 
+          "c", "cpp", "eex", "typescript", "elixir", "erlang", "go",
           "heex", "html", "javascript", "rust", "tlaplus", "toml", "yaml"
         },
         highlight = { enable = true },
@@ -172,7 +175,7 @@ require("lazy").setup({
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
           vim.keymap.set("n", "<leader>lf", function()
-            vim.lsp.buf.format({ async = true })
+          vim.lsp.buf.format({ async = true })
           end, opts)
         end,
       })
@@ -395,6 +398,8 @@ vim.opt.wildmode = { "longest", "full" }
 vim.opt.inccommand = "nosplit"
 vim.opt.termguicolors = true
 vim.opt.mouse = "a"
+vim.opt.undodir = "~/.config/nvim/undo"
+vim.opt.undofile = true
 
 vim.opt.grepprg = "rg --vimgrep --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
