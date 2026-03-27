@@ -40,7 +40,7 @@ ZSH=$HOME/.oh-my-zsh
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(docker git history npm node z)
+plugins=(docker git history npm node)
 
 source $ZSH/oh-my-zsh.sh
 # initialize zsh-completions
@@ -49,8 +49,8 @@ autoload -U compinit && compinit
 export GOPATH=~/projects/go
 PATH=/usr/local/bin:$PATH
 PATH=/usr/local/sbin:$PATH
-PATH=$PATH:/bin:/~/bin:/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cask/bin:$GOPATH/bin
-PATH=$HOME/.local/bin:$HOME/.cabal/bin:$PATH
+PATH=$PATH:/bin:/~/bin:/sbin:/usr/bin:/usr/sbin:$HOME/.cask/bin:$GOPATH/bin
+PATH=$HOME/.local/bin:$HOME/.cabal/bin:~/.config/emacs/bin:$PATH
 
 # Customize to your needs...
 ulimit -n 50000
@@ -96,6 +96,8 @@ INFOPATH=$(brew --prefix)/share/info:
 
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+eval "$(zoxide init zsh --cmd cd)"
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
