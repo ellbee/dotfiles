@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: This is not going to work anymore. Need to sort out neovim (init.lua, lazy_vim etc) and tmux plugins
+
 set -e
 
 create_dot_config() {
@@ -20,7 +22,6 @@ create_dot_vim() {
   if [ -e ~/.config/nvim ]; then
     rm -rf ~/.config/nvim
   fi
-  ln -s ~/.vim ~/.config/nvim
 }
 
 copy_dotfiles() {
