@@ -1,6 +1,3 @@
--- init.lua - Converted from init.vim
--- Plugin manager: lazy.nvim
-
 -- Disable netrw (before plugins load)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

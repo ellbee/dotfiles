@@ -55,16 +55,12 @@ PATH=$HOME/.local/bin:$HOME/.cabal/bin:~/.config/emacs/bin:$PATH
 # Customize to your needs...
 ulimit -n 50000
 
-alias 'cd..'="cd .."
-alias c=clear
-
 if [ -x $(brew --prefix)/bin/nvim ]; then
   alias {v,vi,vim}=nvim
   alias ovim=$(brew --prefix)/bin/vim
 fi
 
 # The -2 option forces tmux to assume 256 color support
-alias tmux='tmux -2'
 alias t=tmux
 alias ta='tmux attach'
 alias tl='tmux list-sessions'
@@ -72,13 +68,7 @@ alias td='tmux detach'
 
 alias ec='emacsclient -a "" -c'
 
-export EDITOR=vim
-
-# Add base16 support
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-export LSCOLORS="Exfxcxdxbxegedabagacad"
+export EDITOR=nvim
 
 local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ %s)"
 PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[white]%}%c%{$fg_bold[white]%}$(git_prompt_info)%{$fg_bold[white]%} % %{$reset_color%}'
@@ -104,4 +94,3 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 # Initialise asdf
 source $HOME/.asdf/asdf.sh
 export PATH
-export PATH="$HOME/Library/Python/3.9/bin:$PATH"
