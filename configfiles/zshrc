@@ -87,7 +87,7 @@ INFOPATH=$(brew --prefix)/share/info:
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init zsh)"
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
