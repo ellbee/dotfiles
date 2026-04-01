@@ -21,6 +21,46 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugin specs
 require("lazy").setup({
 
+  -- Treesitter
+{
+  "nvim-treesitter/nvim-treesitter",
+  branch = "main",
+  build = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter").setup()  -- minimal setup call
+
+    -- Languages to install
+    vim.treesitter.language.add("c")
+    vim.treesitter.language.add("cpp")
+    vim.treesitter.language.add("eex")
+    vim.treesitter.language.add("typescript")
+    vim.treesitter.language.add("elixir")
+    vim.treesitter.language.add("erlang")
+    vim.treesitter.language.add("go")
+    vim.treesitter.language.add("heex")
+    vim.treesitter.language.add("html")
+    vim.treesitter.language.add("javascript")
+    vim.treesitter.language.add("rust")
+    vim.treesitter.language.add("tlaplus")
+    vim.treesitter.language.add("toml")
+    vim.treesitter.language.add("yaml")
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "elixir", "eelixir", "heex" },
+      callback = function()
+        vim.treesitter.start()
+      end,
+    })
+  end,
+  init = function()
+    require("nvim-treesitter").install({
+      "c", "cpp", "eex", "typescript", "elixir", "erlang", "go",
+      "heex", "html", "javascript", "rust", "tlaplus", "toml", "yaml"
+    })
+  end,
+},
+
+
   -- Testing
   {
     "janko-m/vim-test",
@@ -131,23 +171,6 @@ require("lazy").setup({
 
   -- ANSI escape sequences
   { "powerman/vim-plugin-AnsiEsc" },
-
-  -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "c", "cpp", "eex", "typescript", "elixir", "erlang", "go",
-          "heex", "html", "javascript", "rust", "tlaplus", "toml", "yaml"
-        },
-        highlight = { enable = true },
-        indent = { enable = true },
-      })
-    end,
-  },
 
   -- LSP (using Neovim 0.11+ native vim.lsp.config / vim.lsp.enable)
   {
@@ -337,7 +360,7 @@ require("lazy").setup({
   -- Render markdown
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    opts = {},
+    opts = { latex = { enabled = false } },
   },
 
 }, {
@@ -395,8 +418,8 @@ vim.opt.wildmode = { "longest", "full" }
 vim.opt.inccommand = "nosplit"
 vim.opt.termguicolors = true
 vim.opt.mouse = "a"
-vim.opt.undodir = "~/.config/nvim/undo"
 vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 
 vim.opt.grepprg = "rg --vimgrep --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
