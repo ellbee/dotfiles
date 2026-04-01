@@ -1,0 +1,10 @@
+# Alternative ~/.gitconfig-gitlab file
+# These values are used for repositories matching the string 'gitlab.com',
+# and override their corresponding values in ~/.gitconfig
+
+[user]
+email = lee@ambrit.com
+signingkey = 4470E1F739FB2AC9
+
+[commit]
+gpgsign = true
