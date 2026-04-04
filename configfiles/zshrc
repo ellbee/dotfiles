@@ -87,7 +87,21 @@ INFOPATH=$(brew --prefix)/share/info:
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-eval "$(zoxide init zsh)"
+# Initialise zoxide to remember directories we have visited
+eval "$(zoxide init zsh --cmd cd)"
+
+# Open a vertical pane in a zoxide directory
+zp() {
+  tmux split-window -h -c "$(zoxide query "$1")"
+}
+
+cpr() {
+  cp "$1" "$(tmux display-message -p -t {right} '#{pane_current_path}')"
+}
+
+cpl() {
+  cp "$1" "$(tmux display-message -p -t {left} '#{pane_current_path}')"
+}
 
 export GPG_TTY=$(tty)
 
