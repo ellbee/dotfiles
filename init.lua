@@ -363,6 +363,30 @@ require("lazy").setup({
     opts = { latex = { enabled = false } },
   },
 
+  -- Jupyter / REPL (molten-nvim)
+  {
+    "benlubas/molten-nvim",
+    version = "^1.0.0",
+    build = ":UpdateRemotePlugins",
+    init = function()
+      vim.g.molten_image_provider = "none"
+      vim.g.molten_output_win_max_height = 20
+      vim.g.molten_auto_open_output = false
+      vim.g.molten_wrap_output = true
+      vim.g.molten_virt_text_output = true
+    end,
+    keys = {
+      { "<leader>ii", ":MoltenInit<CR>",                    silent = true, desc = "Molten: init kernel" },
+      { "<leader>ie", ":MoltenEvaluateOperator<CR>",        silent = true, desc = "Molten: evaluate operator" },
+      { "<leader>il", ":MoltenEvaluateLine<CR>",            silent = true, desc = "Molten: evaluate line" },
+      { "<leader>ie", ":<C-u>MoltenEvaluateVisual<CR>",     silent = true, mode = "v", desc = "Molten: evaluate selection" },
+      { "<leader>id", ":MoltenDelete<CR>",                  silent = true, desc = "Molten: delete cell" },
+      { "<leader>ih", ":MoltenHideOutput<CR>",              silent = true, desc = "Molten: hide output" },
+      { "<leader>io", ":MoltenShowOutput<CR>",              silent = true, desc = "Molten: show output" },
+      { "<leader>ir", ":MoltenRestart!<CR>",                silent = true, desc = "Molten: restart kernel" },
+    },
+  },
+
 }, {
   -- lazy.nvim options
   checker = { enabled = false },
@@ -420,6 +444,8 @@ vim.opt.termguicolors = true
 vim.opt.mouse = "a"
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
+
+vim.g.python3_host_prog = vim.fn.expand("~/.venvs/neovim/bin/python")
 
 vim.opt.grepprg = "rg --vimgrep --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
