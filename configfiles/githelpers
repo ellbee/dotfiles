@@ -23,7 +23,7 @@ LOG_AUTHOR="%C(bold blue)<%an>%Creset"
 LOG_REFS="%C(bold red)%d%Creset"
 LOG_SUBJECT="%s"
 
-LOG_FORMAT="$LOG_HASH}$LOG_RELATIVE_TIME}$LOG_AUTHOR}$LOG_REFS $LOG_SUBJECT"
+LOG_FORMAT="%x01$LOG_HASH}$LOG_RELATIVE_TIME}$LOG_AUTHOR}$LOG_REFS $LOG_SUBJECT"
 
 BRANCH_PREFIX="%(HEAD)"
 BRANCH_REF="%(color:red)%(color:bold)%(refname:short)%(color:reset)"
@@ -75,8 +75,37 @@ pretty_git_format() {
     sed -Ee 's/(^[^<]*) ago\)/\1)/' |
     # Replace (2 years, 5 months) with (2 years)
     sed -Ee 's/(^[^<]*), [[:digit:]]+ .*months?\)/\1)/' |
-    # Line columns up based on } delimiter
-    column -s '}' -t |
+    # Align columns with ANSI-aware widths; %x01 separates graph prefix from data
+    # so merge commits' wider graph prefix doesn't shift the subject column right
+    perl -e '
+        my @rows;
+        while (<>) { chomp; push @rows, $_ }
+        my @w;
+        for my $row (@rows) {
+            my $data = index($row, "\x01") >= 0 ? (split /\x01/, $row, 2)[1] : $row;
+            next unless index($data, "}") >= 0;
+            (my $d = $data) =~ s/\033\[[0-9;]*m//g;
+            my @c = split /}/, $d;
+            for my $i (0..$#c) {
+                $w[$i] = length($c[$i]) if length($c[$i]) > ($w[$i]//0);
+            }
+        }
+        for my $row (@rows) {
+            my ($pre, $data) = index($row, "\x01") >= 0
+                ? (split /\x01/, $row, 2) : ("", $row);
+            if (index($data, "}") >= 0) {
+                my @c = split /}/, $data, -1;
+                print $pre;
+                for my $i (0..$#c) {
+                    (my $p = $c[$i]) =~ s/\033\[[0-9;]*m//g;
+                    print $c[$i], $i < $#c ? " " x (($w[$i]//0) - length($p) + 2) : "";
+                }
+                print "\n";
+            } else {
+                print "$row\n";
+            }
+        }
+    ' |
     # Color merge commits specially
     sed -Ee "s/(Merge (branch|remote-tracking branch|pull request) .*$)/$(printf $ANSI_RED)\1$(printf $ANSI_RESET)/" |
     # Page only if we're asked to.
