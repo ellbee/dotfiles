@@ -108,5 +108,6 @@ export GPG_TTY=$(tty)
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 # Initialise asdf
-source $HOME/.asdf/asdf.sh
+export ASDF_DATA_DIR=/Users/lee.bannard/.asdf
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
 export PATH
