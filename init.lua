@@ -74,20 +74,76 @@ require("lazy").setup({
     end,
   },
 
-  -- FZF
+  -- Telescope
   {
-    "junegunn/fzf",
-    build = "./install --all",
-  },
-  {
-    "junegunn/fzf.vim",
-    dependencies = { "junegunn/fzf" },
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      vim.g.fzf_preview_window = ""
-      vim.keymap.set("n", "<C-p>", ":FZF<CR>", { silent = true })
-      vim.keymap.set("n", "<leader>m", ":History<CR>", { silent = true })
-      vim.keymap.set("n", "<leader>b", ":Buffers<CR>", { silent = true })
-      vim.keymap.set("n", "<leader>a", ":Files<CR>", { silent = true })
+      require("telescope").setup({
+        defaults = {
+          layout_strategy = "flex",
+          layout_config = {
+            flex = {
+              flip_columns = 120,
+            },
+          },
+        },
+      })
+
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<C-p>", builtin.find_files, { silent = true })
+      vim.keymap.set("n", "<leader>m", builtin.oldfiles, { silent = true })
+      vim.keymap.set("n", "<leader>b", builtin.buffers, { silent = true })
+      vim.keymap.set("n", "<leader>a", builtin.find_files, { silent = true })
+
+      -- Git
+      vim.keymap.set("n", "<leader>gs", builtin.git_status, { silent = true, desc = "Git status" })
+      vim.keymap.set("n", "<leader>gc", builtin.git_commits, { silent = true, desc = "Git commits" })
+      vim.keymap.set("n", "<leader>gb", builtin.git_bcommits, { silent = true, desc = "Git buffer commits" })
+      vim.keymap.set("n", "<leader>gf", builtin.git_files, { silent = true, desc = "Git files" })
+      vim.keymap.set("n", "<leader>gh", function()
+        local pickers = require("telescope.pickers")
+        local finders = require("telescope.finders")
+        local conf = require("telescope.config").values
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+        local previewers = require("telescope.previewers")
+
+        local file = vim.fn.expand("%:p")
+        local relfile = vim.fn.systemlist("git ls-files --full-name " .. vim.fn.shellescape(file))[1]
+        local results = vim.fn.systemlist(
+          "git log --follow --pretty=format:'%h %as %s' -- " .. vim.fn.shellescape(file)
+        )
+
+        local previewer = previewers.new_buffer_previewer({
+          title = "File at revision",
+          define_preview = function(self, entry)
+            local sha = entry[1]:match("^(%S+)")
+            local content = vim.fn.systemlist("git show " .. sha .. ":" .. vim.fn.shellescape(relfile))
+            vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
+            local ft = vim.filetype.match({ filename = relfile }) or ""
+            if ft ~= "" then
+              vim.bo[self.state.bufnr].filetype = ft
+            end
+          end,
+        })
+
+        pickers.new({}, {
+          prompt_title = "File History",
+          finder = finders.new_table({ results = results }),
+          sorter = conf.generic_sorter({}),
+          previewer = previewer,
+          attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              local sha = selection[1]:match("^(%S+)")
+              vim.cmd("Gedit " .. sha .. ":%")
+            end)
+            return true
+          end,
+        }):find()
+      end, { silent = true, desc = "Git file history (full file)" })
     end,
   },
 
@@ -566,18 +622,15 @@ map("v", "<C-c><C-c>", ":SlimuxREPLSendSelection<CR>", { silent = true })
 map("n", "<Leader>p", 'viw"0p')
 
 -- Grep mappings
-map("n", "<Leader>f", ":silent grep! ", { desc = "Grep" })
+map("n", "<Leader>f", function()
+  require("telescope.builtin").live_grep()
+end, { desc = "Grep" })
 map("n", "gs", function()
-  local word = vim.fn.expand("<cword>")
-  vim.cmd("silent grep! " .. word)
-  vim.cmd("copen")
+  require("telescope.builtin").grep_string({ word_match = "-w" })
 end, { silent = true })
 map("x", "gs", function()
-  -- Yank selection into register s, then grep
   vim.cmd('normal! "sy')
-  local selection = vim.fn.getreg("s")
-  vim.cmd("silent grep! " .. selection)
-  vim.cmd("copen")
+  require("telescope.builtin").grep_string({ search = vim.fn.getreg("s") })
 end, { silent = true })
 
 -------------------------------------------------------------------------------
