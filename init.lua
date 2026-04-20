@@ -438,7 +438,7 @@ require("lazy").setup({
       vim.lsp.enable("rust_analyzer")
       vim.lsp.enable("pyright")
       vim.lsp.enable("ts_ls")
-      -- vim.lsp.enable("expert")
+      vim.lsp.enable("expert")
     end,
   },
 
@@ -460,16 +460,6 @@ require("lazy").setup({
   },
   { "nvim-tree/nvim-web-devicons" },
 
-  -- Colorscheme
-  -- {
-  --   "maxmx03/solarized.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("solarized").setup({})
-  --     vim.cmd.colorscheme("solarized")
-  --   end,
-  -- },
   {
     "rebelot/kanagawa.nvim",
     lazy = false,
@@ -540,30 +530,6 @@ require("lazy").setup({
     },
   },
 
-  -- Jupyter / REPL (molten-nvim)
-  {
-    "benlubas/molten-nvim",
-    version = "^1.0.0",
-    build = ":UpdateRemotePlugins",
-    init = function()
-      vim.g.molten_image_provider = "none"
-      vim.g.molten_output_win_max_height = 20
-      vim.g.molten_auto_open_output = false
-      vim.g.molten_wrap_output = true
-      vim.g.molten_virt_text_output = true
-    end,
-    keys = {
-      { "<leader>ii", ":MoltenInit<CR>",                    silent = true, desc = "Molten: init kernel" },
-      { "<leader>ie", ":MoltenEvaluateOperator<CR>",        silent = true, desc = "Molten: evaluate operator" },
-      { "<leader>il", ":MoltenEvaluateLine<CR>",            silent = true, desc = "Molten: evaluate line" },
-      { "<leader>ie", ":<C-u>MoltenEvaluateVisual<CR>",     silent = true, mode = "v", desc = "Molten: evaluate selection" },
-      { "<leader>id", ":MoltenDelete<CR>",                  silent = true, desc = "Molten: delete cell" },
-      { "<leader>ih", ":MoltenHideOutput<CR>",              silent = true, desc = "Molten: hide output" },
-      { "<leader>io", ":MoltenShowOutput<CR>",              silent = true, desc = "Molten: show output" },
-      { "<leader>ir", ":MoltenRestart!<CR>",                silent = true, desc = "Molten: restart kernel" },
-    },
-  },
-
 }, {
   -- lazy.nvim options
   checker = { enabled = false },
@@ -626,9 +592,6 @@ vim.g.python3_host_prog = vim.fn.expand("~/.venvs/neovim/bin/python")
 
 vim.opt.grepprg = "rg --vimgrep --smart-case"
 vim.opt.grepformat = "%f:%l:%c:%m,%f:%l:%m"
-
--- ocp-indent (OCaml)
-vim.opt.rtp:prepend("/Users/lee.bannard/.opam/default/share/ocp-indent/vim")
 
 -------------------------------------------------------------------------------
 -- Keymaps
