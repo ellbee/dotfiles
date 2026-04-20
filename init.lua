@@ -268,7 +268,36 @@ require("lazy").setup({
       -- vim.g.no_go_maps = true
     end,
     config = function()
-      -- put your config here
+      local select = require("nvim-treesitter-textobjects.select")
+      local move = require("nvim-treesitter-textobjects.move")
+
+      require("nvim-treesitter-textobjects").setup({
+        select = { lookahead = true },
+        move = { set_jumps = true },
+      })
+
+      -- Text object keymaps (work with v, d, y, c, etc.)
+      local textobjects = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+      }
+      for key, query in pairs(textobjects) do
+        vim.keymap.set({ "x", "o" }, key, function()
+          select.select_textobject(query, "textobjects")
+        end)
+      end
+
+      -- Motion keymaps
+      vim.keymap.set({ "n", "x", "o" }, "]f", function() move.goto_next_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[f", function() move.goto_previous_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]b", function() move.goto_next_start("@block.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[b", function() move.goto_previous_start("@block.outer", "textobjects") end)
     end,
   },
 
