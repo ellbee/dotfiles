@@ -461,6 +461,9 @@ local map = vim.keymap.set
 -- Workaround for C-h not working with vim-tmux-navigator in neovim
 map("n", "<BS>", ":TmuxNavigateLeft<CR>", { silent = true })
 
+-- Don't clobber register 0 when pasting
+map('x', 'p', '"_dP')
+
 -- Move by visual lines
 map("n", "j", "gj")
 map("n", "k", "gk")
