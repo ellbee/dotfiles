@@ -525,6 +525,11 @@ map("i", "<C-x><C-o>", function()
   end
 end, { expr = true })
 
+-- Toggle relative line number
+map('n', '<Leader>r', function()
+  vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = 'Toggle relative line numbers' })
+
 -- Clear search highlight
 map("n", "<Leader><Space>", ":nohlsearch<CR>", { silent = true })
 
