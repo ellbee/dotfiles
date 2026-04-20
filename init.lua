@@ -33,6 +33,7 @@ require("lazy").setup({
     vim.treesitter.language.add("c")
     vim.treesitter.language.add("cpp")
     vim.treesitter.language.add("eex")
+    vim.treesitter.language.register("eex", "eelixir")
     vim.treesitter.language.add("typescript")
     vim.treesitter.language.add("elixir")
     vim.treesitter.language.add("erlang")
@@ -418,8 +419,8 @@ require("lazy").setup({
       vim.lsp.config("ts_ls", {
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = {
-          "javascript", "javascriptreact", "javascript.jsx",
-          "typescript", "typescriptreact", "typescript.tsx",
+          "javascript", "javascriptreact",
+          "typescript", "typescriptreact",
         },
         root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
       })

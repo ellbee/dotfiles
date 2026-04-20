@@ -52,8 +52,13 @@ vim_install_plug() {
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
+vim_symlink_nvim_config() {
+  ln -s ~/dotfiles/nvim ~/.config/nvim
+}
+
 create_dot_config
 create_dot_vim
 vim_swap_and_backup_dirs
 vim_install_plug
 copy_dotfiles
+vim_symlink_nvim_config
