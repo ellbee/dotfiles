@@ -357,10 +357,14 @@ require("lazy").setup({
     end,
   },
 
-  -- Render markdown
+  -- Markview (markdown previewer)
   {
-    "MeanderingProgrammer/render-markdown.nvim",
-    opts = { latex = { enabled = false } },
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
   },
 
   -- Jupyter / REPL (molten-nvim)
@@ -525,7 +529,7 @@ map("i", "<C-x><C-o>", function()
   end
 end, { expr = true })
 
--- Toggle relative line number
+-- Toggle relative line numbers
 map('n', '<Leader>r', function()
   vim.wo.relativenumber = not vim.wo.relativenumber
 end, { desc = 'Toggle relative line numbers' })
