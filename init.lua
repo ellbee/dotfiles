@@ -99,7 +99,68 @@ require("lazy").setup({
       -- Git
       vim.keymap.set("n", "<leader>gs", builtin.git_status, { silent = true, desc = "Git status" })
       vim.keymap.set("n", "<leader>gc", builtin.git_commits, { silent = true, desc = "Git commits" })
-      vim.keymap.set("n", "<leader>gb", builtin.git_bcommits, { silent = true, desc = "Git buffer commits" })
+      vim.keymap.set("n", "<leader>gb", function()
+        local pickers = require("telescope.pickers")
+        local finders = require("telescope.finders")
+        local conf = require("telescope.config").values
+        local actions = require("telescope.actions")
+        local action_state = require("telescope.actions.state")
+        local previewers = require("telescope.previewers")
+        local entry_display = require("telescope.pickers.entry_display")
+
+        local file = vim.fn.expand("%:p")
+        local relfile = vim.fn.systemlist("git ls-files --full-name " .. vim.fn.shellescape(file))[1]
+        local results = vim.fn.systemlist(
+          "git log --follow --pretty=format:'%h %as %s' -- " .. vim.fn.shellescape(file)
+        )
+
+        local displayer = entry_display.create({
+          separator = " ",
+          items = { { width = 8 }, { width = 10 }, { remaining = true } },
+        })
+
+        local entry_maker = function(line)
+          local sha, date, msg = line:match("^(%S+)%s+(%S+)%s+(.+)$")
+          return {
+            value = line,
+            ordinal = line,
+            sha = sha,
+            display = function()
+              return displayer({
+                { sha, "TelescopeResultsIdentifier" },
+                { date, "TelescopeResultsComment" },
+                msg,
+              })
+            end,
+          }
+        end
+
+        local previewer = previewers.new_buffer_previewer({
+          title = "Diff at revision",
+          define_preview = function(self, entry)
+            local content = vim.fn.systemlist(
+              "git show " .. entry.sha .. " -- " .. vim.fn.shellescape(relfile)
+            )
+            vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
+            vim.bo[self.state.bufnr].filetype = "diff"
+          end,
+        })
+
+        pickers.new({}, {
+          prompt_title = "Buffer Commits",
+          finder = finders.new_table({ results = results, entry_maker = entry_maker }),
+          sorter = conf.generic_sorter({}),
+          previewer = previewer,
+          attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              vim.cmd("Gdiff " .. selection.sha)
+            end)
+            return true
+          end,
+        }):find()
+      end, { silent = true, desc = "Git buffer commits" })
       vim.keymap.set("n", "<leader>gf", builtin.git_files, { silent = true, desc = "Git files" })
       vim.keymap.set("n", "<leader>gh", function()
         local pickers = require("telescope.pickers")
@@ -109,16 +170,43 @@ require("lazy").setup({
         local action_state = require("telescope.actions.state")
         local previewers = require("telescope.previewers")
 
+        local entry_display = require("telescope.pickers.entry_display")
+
         local file = vim.fn.expand("%:p")
         local relfile = vim.fn.systemlist("git ls-files --full-name " .. vim.fn.shellescape(file))[1]
         local results = vim.fn.systemlist(
           "git log --follow --pretty=format:'%h %as %s' -- " .. vim.fn.shellescape(file)
         )
 
+        local displayer = entry_display.create({
+          separator = " ",
+          items = {
+            { width = 8 },
+            { width = 10 },
+            { remaining = true },
+          },
+        })
+
+        local entry_maker = function(line)
+          local sha, date, msg = line:match("^(%S+)%s+(%S+)%s+(.+)$")
+          return {
+            value = line,
+            ordinal = line,
+            sha = sha,
+            display = function()
+              return displayer({
+                { sha, "TelescopeResultsIdentifier" },
+                { date, "TelescopeResultsComment" },
+                msg,
+              })
+            end,
+          }
+        end
+
         local previewer = previewers.new_buffer_previewer({
           title = "File at revision",
           define_preview = function(self, entry)
-            local sha = entry[1]:match("^(%S+)")
+            local sha = entry.sha or entry[1]:match("^(%S+)")
             local content = vim.fn.systemlist("git show " .. sha .. ":" .. vim.fn.shellescape(relfile))
             vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, content)
             local ft = vim.filetype.match({ filename = relfile }) or ""
@@ -130,7 +218,7 @@ require("lazy").setup({
 
         pickers.new({}, {
           prompt_title = "File History",
-          finder = finders.new_table({ results = results }),
+          finder = finders.new_table({ results = results, entry_maker = entry_maker }),
           sorter = conf.generic_sorter({}),
           previewer = previewer,
           attach_mappings = function(prompt_bufnr)
