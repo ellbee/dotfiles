@@ -37,13 +37,13 @@ copy_dotfiles() {
 }
 
 vim_swap_and_backup_dirs() {
-  if [ ! -d ~/.vim/backup ]; then
+  if [ ! -d ~/.config/nvim/backup ]; then
     echo "creating vim backup dir"
-    mkdir -p ~/.vim/backup
+    mkdir -p ~/.config/nvim/backup
   fi
-  if [ ! -d ~/.vim/swap ]; then
+  if [ ! -d ~/.config/nvim/swap ]; then
     echo "creating vim swap dir"
-    mkdir ~/.vim/swap
+    mkdir ~/.config/nvim/swap
   fi
 }
 
@@ -53,7 +53,19 @@ vim_install_plug() {
 }
 
 vim_symlink_nvim_config() {
-  ln -s ~/dotfiles/nvim ~/.config/nvim
+  if [ ! -d ~/.vim/backup ]; then
+    echo "creating vim backup dir"
+    mkdir -p ~/.vim/backup
+  fi
+  if [ ! -e ~/.config/nvim/init.lua ]; then
+    ln -s ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+  fi
+  if [ ! -e ~/.config/nvim/syntax ]; then
+    ln -s ~/dotfiles/nvim/syntax ~/.config/nvim/syntax
+  fi
+  if [ ! -e ~/.config/nvim/queries ]; then
+    ln -s ~/dotfiles/nvim/queries ~/.config/nvim/queries
+  fi
 }
 
 create_dot_config
