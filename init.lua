@@ -313,7 +313,15 @@ require("lazy").setup({
 
   -- Tmux integration
   { "christoomey/vim-tmux-navigator" },
-  { "epeli/slimux" },
+  {
+    "jpalardy/vim-slime",
+    config = function()
+      vim.g.slime_target = "tmux"
+      vim.g.slime_bracketed_paste = 1
+      vim.g.slime_default_config = { socket_name = "default", target_pane = "{last}" }
+      vim.g.slime_dont_ask_default = 1
+    end,
+  },
 
   -- Undo tree
   {
@@ -694,10 +702,6 @@ map("n", "<Leader>cd", ":cd %:p:h<CR>")
 
 -- Emmet custom expander
 map("i", "<C-Y>o", "<C-Y>y<CR><C-o>O<C-i>")
-
--- Slimux
-map("n", "<C-c><C-c>", ":SlimuxREPLSendLine<CR>", { silent = true })
-map("v", "<C-c><C-c>", ":SlimuxREPLSendSelection<CR>", { silent = true })
 
 -- Replace word under cursor with last yank
 map("n", "<Leader>p", 'viw"0p')
