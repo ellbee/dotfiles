@@ -358,12 +358,14 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       -- Shared on_attach for keymaps
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local buf = args.buf
           local opts = { buffer = buf, silent = true }
+          vim.wo.signcolumn = "yes:1"
 
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -380,6 +382,19 @@ require("lazy").setup({
           vim.lsp.buf.format({ async = true })
           end, opts)
         end,
+      })
+
+      vim.api.nvim_create_autocmd("LspDetach", {
+        callback = function(args)
+          if #vim.lsp.get_clients({ bufnr = args.buf }) == 0 then
+            vim.wo.signcolumn = "no"
+          end
+        end,
+      })
+
+      -- Advertise nvim-cmp capabilities to all servers
+      vim.lsp.config("*", {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
       })
 
       -- Rust: rust-analyzer
@@ -529,6 +544,61 @@ require("lazy").setup({
     end,
   },
 
+  -- Completion
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
+    },
+    config = function()
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"]     = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"]     = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<CR>"]      = cmp.mapping.confirm({ select = false }),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+        }, {
+          { name = "buffer" },
+          { name = "path" },
+        }),
+      })
+    end,
+  },
+
   -- Markview (markdown previewer)
   {
     "OXY2DEV/markview.nvim",
@@ -555,7 +625,7 @@ vim.opt.backupdir = vim.fn.expand("~/.config/nvim/backup/")
 vim.opt.directory = vim.fn.expand("~/.config/nvim/swap/")
 vim.opt.clipboard = "unnamed"
 vim.opt.complete:remove("i")
-vim.opt.completeopt = { "menuone", "longest" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.hidden = true
@@ -579,7 +649,7 @@ vim.opt.showcmd = true
 vim.opt.showmatch = true
 vim.opt.smartcase = true
 vim.opt.shortmess:append("c")
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.splitbelow = true
