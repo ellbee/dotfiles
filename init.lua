@@ -703,9 +703,6 @@ map("n", "<Leader>cd", ":cd %:p:h<CR>")
 -- Emmet custom expander
 map("i", "<C-Y>o", "<C-Y>y<CR><C-o>O<C-i>")
 
--- Replace word under cursor with last yank
-map("n", "<Leader>p", 'viw"0p')
-
 -- Grep mappings
 map("n", "<Leader>f", function()
   require("telescope.builtin").live_grep()
