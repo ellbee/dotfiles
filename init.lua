@@ -851,7 +851,8 @@ autocmd("FileType", {
   group = textfile_group,
   pattern = "text",
   callback = function()
-    vim.bo.textwidth = 78
+    vim.bo.textwidth = 0
+    vim.bo.wrapmargin = 0
   end,
 })
 
