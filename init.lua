@@ -348,9 +348,6 @@ require("lazy").setup({
   -- Text objects
   { "wellle/targets.vim" },
 
-  -- Erlang runtime
-  { "vim-erlang/vim-erlang-runtime" },
-
   -- ANSI escape sequences
   { "powerman/vim-plugin-AnsiEsc" },
 
