@@ -351,6 +351,9 @@ require("lazy").setup({
   -- Text objects
   { "wellle/targets.vim" },
 
+  -- Tree-sitter aware matchit replacement
+  { "andymass/vim-matchup", event = "BufReadPost" },
+  
   -- ANSI escape sequences
   { "powerman/vim-plugin-AnsiEsc" },
 
