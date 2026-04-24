@@ -43,6 +43,8 @@ require("lazy").setup({
     vim.treesitter.language.add("javascript")
     vim.treesitter.language.add("rust")
     vim.treesitter.language.add("tlaplus")
+    vim.treesitter.language.add("markdown")
+    vim.treesitter.language.add("markdown_inline")
     vim.treesitter.language.add("toml")
     vim.treesitter.language.add("yaml")
 
@@ -56,7 +58,8 @@ require("lazy").setup({
   init = function()
     require("nvim-treesitter").install({
       "c", "cpp", "eex", "typescript", "elixir", "erlang", "go",
-      "heex", "html", "javascript", "rust", "tlaplus", "toml", "yaml"
+      "heex", "html", "javascript", "markdown", "markdown_inline",
+      "rust", "tlaplus", "toml", "yaml"
     })
   end,
 },
@@ -594,6 +597,30 @@ require("lazy").setup({
         }),
       })
     end,
+  },
+
+  -- Obsidian
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*",
+    lazy = true,
+    ft = "markdown",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      workspaces = {
+        { name = "notes", path = "~/notes" },
+      },
+      completion = { nvim_cmp = true, min_chars = 2 },
+      ui = { enable = false }, -- markview handles rendering
+    },
+    keys = {
+      { "<leader>on", "<cmd>ObsidianNew<cr>",           desc = "New note" },
+      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>",   desc = "Quick switch" },
+      { "<leader>of", "<cmd>ObsidianSearch<cr>",        desc = "Search notes" },
+      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",     desc = "Backlinks" },
+      { "<leader>ot", "<cmd>ObsidianTags<cr>",          desc = "Tags" },
+      { "<leader>od", "<cmd>ObsidianToday<cr>",         desc = "Today's daily note" },
+    },
   },
 
   -- Markview (markdown previewer)
