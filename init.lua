@@ -96,10 +96,11 @@ require("lazy").setup({
 
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<C-p>", builtin.find_files, { silent = true })
-      vim.keymap.set("n", "<leader>m", builtin.oldfiles, { silent = true })
+      vim.keymap.set("n", "<leader>fr", builtin.oldfiles, { silent = true })
       vim.keymap.set("n", "<leader>b", builtin.buffers, { silent = true })
-      vim.keymap.set("n", "<leader>a", builtin.find_files, { silent = true })
-
+      vim.keymap.set("n", "<leader>fl", function()
+        builtin.oldfiles({ cwd_only = true })
+      end, { desc = "Recent files (cwd)" })
       -- Git
       vim.keymap.set("n", "<leader>gs", builtin.git_status, { silent = true, desc = "Git status" })
       vim.keymap.set("n", "<leader>gc", builtin.git_commits, { silent = true, desc = "Git commits" })
@@ -634,6 +635,14 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
+    keys = {
+      { "<leader>mv", "<cmd>Markview toggle<cr>", desc = "Toggle markview preview" },
+      { "<C-Space>", "<cmd>Checkbox toggle<cr>", desc = "Toggle checkbox", ft = "markdown" },
+    },
+    config = function()
+      require("markview").setup()
+      require("markview.extras.checkboxes").setup()
+    end,
   },
 
 }, {
@@ -801,9 +810,9 @@ map("n", "<Leader>cd", ":cd %:p:h<CR>")
 map("i", "<C-Y>o", "<C-Y>y<CR><C-o>O<C-i>")
 
 -- Grep mappings
-map("n", "<Leader>f", function()
+map("n", "<Leader>ff", function()
   require("telescope.builtin").live_grep()
-end, { desc = "Grep" })
+end, { desc = "Rg" })
 map("n", "gs", function()
   require("telescope.builtin").grep_string({ word_match = "-w" })
 end, { silent = true })
