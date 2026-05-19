@@ -87,12 +87,9 @@ INFOPATH=$(brew --prefix)/share/info:
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Initialise zoxide to remember directories we have visited
-eval "$(zoxide init zsh --cmd cd)"
-
-# Open a vertical pane in a zoxide directory
-zp() {
-  tmux split-window -h -c "$(zoxide query "$1")"
+# Split window horizontally and change directory
+op() {
+  tmux split-window -h -c "${1:-$HOME}"
 }
 
 cpr() {
