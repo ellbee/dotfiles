@@ -13,9 +13,6 @@
 --   <CR>      open note at task line
 --   <C-d>     mark task done ([ ] → [x]), refresh picker
 --   <C-t>     toggle display of done tasks
---
--- Normal-mode keymap (set in init.lua):
---   <leader>ad  toggle task done/undone at cursor; appends/removes "| completed: dd/mm/yy hh:mm:ss"
 
 local pickers       = require("telescope.pickers")
 local finders       = require("telescope.finders")
@@ -28,10 +25,6 @@ local M = {}
 
 local NOTES_DIR = vim.fn.expand("~/notes")
 
--- ---------------------------------------------------------------------------
--- Highlights
--- ---------------------------------------------------------------------------
-
 local function setup_highlights()
   vim.api.nvim_set_hl(0, "AgendaOverdue",  { fg = "#E24B4A", bold = true })
   vim.api.nvim_set_hl(0, "AgendaToday",    { fg = "#EF9F27", bold = true })
@@ -40,10 +33,6 @@ local function setup_highlights()
   vim.api.nvim_set_hl(0, "AgendaLabel",    { fg = "#888780" })
   vim.api.nvim_set_hl(0, "AgendaPriority", { fg = "#7F77DD", bold = true })
 end
-
--- ---------------------------------------------------------------------------
--- Date helpers
--- ---------------------------------------------------------------------------
 
 local function parse_date(s)
   if not s or s == "" then return nil end
@@ -73,10 +62,6 @@ local function classify(due, done)
   end
 end
 
--- ---------------------------------------------------------------------------
--- Frontmatter parser
--- ---------------------------------------------------------------------------
-
 local function read_frontmatter(path)
   local f = io.open(path, "r")
   if not f then return nil end
@@ -98,11 +83,6 @@ local function epic_from_path(path)
   local name = path:match("([^/]+)%.md$") or path
   return name:gsub("[-_]", " ")
 end
-
--- ---------------------------------------------------------------------------
--- Task line parser
--- Returns nil if line is not a task
--- ---------------------------------------------------------------------------
 
 local function parse_task_line(line, lnum)
   local done_marker, rest = line:match("^%s*%- %[([x ])%] (.+)$")

@@ -822,11 +822,9 @@ map("x", "gs", function()
   require("telescope.builtin").grep_string({ search = vim.fn.getreg("s") })
 end, { silent = true })
 
-map("n", "<leader>ag", function() require("agenda").open() end, { desc = "Open agenda" })
-map("n", "<leader>ad", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
--------------------------------------------------------------------------------
--- Strip trailing whitespace
--------------------------------------------------------------------------------
+map("n", "<leader>oa", function() require("agenda").open() end, { desc = "Open agenda" })
+map("n", "<leader>og", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
+
 local function strip_whitespace()
   local save_cursor = vim.fn.getpos(".")
   local old_query = vim.fn.getreg("/")
@@ -836,9 +834,6 @@ local function strip_whitespace()
 end
 map("n", "<Leader>w", strip_whitespace, { desc = "Strip trailing whitespace" })
 
--------------------------------------------------------------------------------
--- Rename file
--------------------------------------------------------------------------------
 local function rename_file()
   local old_name = vim.fn.expand("%")
   local new_name = vim.fn.input("New file name: ", vim.fn.expand("%"), "file")
@@ -850,18 +845,6 @@ local function rename_file()
 end
 map("n", "<Leader>rf", rename_file, { desc = "Rename file" })
 
--------------------------------------------------------------------------------
--- SetTestDirs (buffer-local function)
--------------------------------------------------------------------------------
-local function set_test_dirs(src_dir, test_dir, src_ext, test_post, test_ext)
-  vim.b.src_dir = src_dir
-  vim.b.test_dir = test_dir
-  vim.b.src_ext = src_ext
-  vim.b.test_post = test_post
-  vim.b.test_ext = test_ext
-end
--- Expose as a global if needed from other configs
-_G.SetTestDirs = set_test_dirs
 
 -------------------------------------------------------------------------------
 -- Autocommands
