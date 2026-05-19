@@ -605,7 +605,7 @@ require("lazy").setup({
 
   -- Obsidian
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*",
     lazy = true,
     ft = "markdown",
@@ -616,14 +616,15 @@ require("lazy").setup({
       },
       completion = { nvim_cmp = true, min_chars = 2 },
       ui = { enable = false }, -- markview handles rendering
+      legacy_commands = false,
     },
     keys = {
-      { "<leader>on", "<cmd>ObsidianNew<cr>",           desc = "New note" },
-      { "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>",   desc = "Quick switch" },
-      { "<leader>of", "<cmd>ObsidianSearch<cr>",        desc = "Search notes" },
-      { "<leader>ob", "<cmd>ObsidianBacklinks<cr>",     desc = "Backlinks" },
-      { "<leader>ot", "<cmd>ObsidianTags<cr>",          desc = "Tags" },
-      { "<leader>od", "<cmd>ObsidianToday<cr>",         desc = "Today's daily note" },
+      { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New note" },
+      { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Quick switch" },
+      { "<leader>of", "<cmd>Obsidian search<cr>", desc = "Search notes" },
+      { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
+      { "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "Tags" },
+      { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Today's daily note" },
     },
   },
 
@@ -799,7 +800,7 @@ end, {})
 map("n", "<Leader>rd", ":DiffOrig<CR>")
 
 -- Dir path for current file (command-line abbreviation)
-vim.keymap.set("c", "%%", function()
+map("c", "%%", function()
   return vim.fn.expand("%:h") .. "/"
 end, { expr = true })
 
@@ -821,6 +822,8 @@ map("x", "gs", function()
   require("telescope.builtin").grep_string({ search = vim.fn.getreg("s") })
 end, { silent = true })
 
+map("n", "<leader>ag", function() require("agenda").open() end, { desc = "Open agenda" })
+map("n", "<leader>ad", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
 -------------------------------------------------------------------------------
 -- Strip trailing whitespace
 -------------------------------------------------------------------------------

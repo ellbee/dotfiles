@@ -3,7 +3,7 @@
 programs=(
   ag autoconf ctags git gpg neovim pstree
   ranger reattach-to-user-namespace
-  ripgrep rlwrap tmux trash tree vim xz zsh
+  ripgrep rlwrap tmux trash tree xz zsh
 )
 
 for program in "${programs[@]}"; do
