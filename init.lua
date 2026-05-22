@@ -69,7 +69,7 @@ require("lazy").setup({
   {
     "janko-m/vim-test",
     config = function()
-      vim.g["test#strategy"] = "neoterm"
+      vim.g["test#strategy"] = "neovim"
       vim.keymap.set("n", "<leader>tn", ":TestNearest<CR>", { silent = true })
       vim.keymap.set("n", "<leader>tf", ":TestFile<CR>", { silent = true })
       vim.keymap.set("n", "<leader>ts", ":TestSuite<CR>", { silent = true })
