@@ -100,6 +100,11 @@ cpl() {
   cp "$1" "$(tmux display-message -p -t {left} '#{pane_current_path}')"
 }
 
+phx() {
+  COOKIE="${1:-0vgI6EKkTE7Wf67tGdswA2qZkYCTYyM74jsxc_990ataMcytWFXkkw==}"
+  LIVE_DEBUGGER_DISABLED=true iex --name lee_node@127.0.0.1 --cookie "$1" -S mix phx.server
+}
+
 export GPG_TTY=$(tty)
 
 export ERL_AFLAGS="-kernel shell_history enabled"
