@@ -625,6 +625,25 @@ require("lazy").setup({
       { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
       { "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "Tags" },
       { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Today's daily note" },
+      {
+        "<leader>oi",
+        function()
+          -- resolve wikilink ![[image]] or markdown ![alt](path) under cursor
+          local line = vim.api.nvim_get_current_line()
+          local path = line:match("!%[%[(.-)%]%]") or line:match("!%[.-%]%((.-)%)")
+          if not path then
+            vim.notify("No image link found on this line", vim.log.levels.WARN)
+            return
+          end
+          if not path:match("^/") then
+            local workspace = vim.fn.expand("~/notes")
+            path = workspace .. "/" .. path
+          end
+          vim.fn.jobstart({ "open", path }, { detach = true })
+        end,
+        desc = "Open image in Preview",
+        ft = "markdown",
+      },
     },
   },
 
