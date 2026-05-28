@@ -824,6 +824,7 @@ end, { silent = true })
 
 map("n", "<leader>oa", function() require("agenda").open() end, { desc = "Open agenda" })
 map("n", "<leader>og", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
+map("n", "<leader>oc", "o- [ ] <Esc>A", { desc = "Insert checkbox" })
 
 local function strip_whitespace()
   local save_cursor = vim.fn.getpos(".")
