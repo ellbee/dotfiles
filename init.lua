@@ -616,7 +616,7 @@ require("lazy").setup({
       },
       note_id_func = function(title)
         if title ~= nil and title ~= "" then
-          local slug = title:gsub("[^A-Za-z0-9 -]", ""):gsub("%s+", "-"):lower()
+          local slug = title:gsub("[^A-Za-z0-9 _-]", ""):gsub("%s+", "-"):lower()
           if slug ~= "" then
             return slug
           end
