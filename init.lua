@@ -614,12 +614,34 @@ require("lazy").setup({
       workspaces = {
         { name = "notes", path = "~/notes" },
       },
+      note_id_func = function(title)
+        if title ~= nil and title ~= "" then
+          local slug = title:gsub("[^A-Za-z0-9 -]", ""):gsub("%s+", "-"):lower()
+          if slug ~= "" then
+            return slug
+          end
+        end
+        return tostring(os.time()) .. "-" .. tostring(math.random(100000, 999999))
+      end,
       completion = { nvim_cmp = true, min_chars = 2 },
       ui = { enable = false }, -- markview handles rendering
       legacy_commands = false,
     },
     keys = {
-      { "<leader>on", "<cmd>Obsidian new<cr>", desc = "New note" },
+      {
+        "<leader>on",
+        function()
+          vim.ui.input({ prompt = "New note title: " }, function(title)
+            if title == nil or vim.trim(title) == "" then
+              return
+            end
+            require("obsidian.note")
+              .create({ id = title, title = title, should_write = true })
+              :open({ sync = true })
+          end)
+        end,
+        desc = "New note",
+      },
       { "<leader>oo", "<cmd>Obsidian quick_switch<cr>", desc = "Quick switch" },
       { "<leader>of", "<cmd>Obsidian search<cr>", desc = "Search notes" },
       { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
