@@ -354,7 +354,7 @@ require("lazy").setup({
 
   -- Tree-sitter aware matchit replacement
   { "andymass/vim-matchup", event = "BufReadPost" },
-  
+
   -- ANSI escape sequences
   { "powerman/vim-plugin-AnsiEsc" },
 
@@ -787,6 +787,12 @@ map("", "Y", "y$")
 
 -- Break undo before CTRL-U
 map("i", "<C-U>", "<C-G>u<C-U>")
+
+-- Buffer switching
+map("n", "]b", "<cmd>bnext<cr>",  { desc = "Next buffer" })
+map("n", "[b", "<cmd>bprev<cr>",  { desc = "Prev buffer" })
+map("n", "]B", "<cmd>blast<cr>",  { desc = "Last buffer" })
+map("n", "[B", "<cmd>bfirst<cr>", { desc = "First buffer" })
 
 -- Insert mode: go to end/start of line
 map("i", "<C-e>", "<C-o>$")
