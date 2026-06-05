@@ -623,7 +623,6 @@ require("lazy").setup({
         end
         return tostring(os.time()) .. "-" .. tostring(math.random(100000, 999999))
       end,
-      completion = { nvim_cmp = true, min_chars = 2 },
       ui = { enable = false }, -- markview handles rendering
       legacy_commands = false,
     },
@@ -635,9 +634,9 @@ require("lazy").setup({
             if title == nil or vim.trim(title) == "" then
               return
             end
-            require("obsidian.note")
-              .create({ id = title, title = title, should_write = true })
-              :open({ sync = true })
+            local note = require("obsidian.note").create({ id = title, title = title })
+            note:write()
+            note:open({ sync = true })
           end)
         end,
         desc = "New note",
@@ -663,7 +662,7 @@ require("lazy").setup({
           end
           vim.fn.jobstart({ "open", path }, { detach = true })
         end,
-        desc = "Open image in Preview",
+        desc = "Open image in default app",
         ft = "markdown",
       },
     },
