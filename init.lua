@@ -872,7 +872,7 @@ map("n", "<leader>oa", function() require("agenda").open() end, { desc = "Open a
 map("n", "<leader>og", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
 map("n", "<leader>oc", "o- [ ] <Esc>A", { desc = "Insert checkbox" })
 
-map("n", "<leader>ot", function() require("timestamp").toggle() end,
+map("n", "<leader>ou", function() require("timestamp").toggle() end,
   { desc = "Toggle unix timestamp <-> ISO UTC" })
 
 local function strip_whitespace()
