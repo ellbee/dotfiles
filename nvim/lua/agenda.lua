@@ -7,12 +7,15 @@
 --
 -- Task syntax (in note body):
 --   - [ ] Task title | due: 2026-05-10 | priority: high
+--   - [>] In-progress task | due: 2026-05-09 | priority: high
 --   - [x] Done task | due: 2026-05-08 | priority: low
 --
 -- Keymaps in picker:
 --   <CR>      open note at task line
---   <C-d>     mark task done ([ ] → [x]), refresh picker
+--   <C-d>     mark task done ([ ] or [>] → [x]), refresh picker
 --   <C-t>     toggle display of done tasks
+--
+-- In-progress tasks ([>]) show a blue » icon but keep their due-date sort position.
 
 local pickers       = require("telescope.pickers")
 local finders       = require("telescope.finders")
@@ -29,6 +32,7 @@ local function setup_highlights()
   vim.api.nvim_set_hl(0, "AgendaOverdue",  { fg = "#E24B4A", bold = true })
   vim.api.nvim_set_hl(0, "AgendaToday",    { fg = "#EF9F27", bold = true })
   vim.api.nvim_set_hl(0, "AgendaUpcoming", { fg = "#1D9E75" })
+  vim.api.nvim_set_hl(0, "AgendaProgress", { fg = "#4A9EE2", bold = true })
   vim.api.nvim_set_hl(0, "AgendaDone",     { fg = "#888780", italic = true })
   vim.api.nvim_set_hl(0, "AgendaLabel",    { fg = "#888780" })
   vim.api.nvim_set_hl(0, "AgendaPriority", { fg = "#7F77DD", bold = true })
@@ -85,10 +89,11 @@ local function epic_from_path(path)
 end
 
 local function parse_task_line(line, lnum)
-  local done_marker, rest = line:match("^%s*%- %[([x ])%] (.+)$")
-  if not done_marker then return nil end
+  local marker, rest = line:match("^%s*%- %[([x >])%] (.+)$")
+  if not marker then return nil end
 
-  local done  = (done_marker == "x")
+  local done     = (marker == "x")
+  local progress = (marker == ">")
   local parts = vim.split(rest, "|", { plain = true, trimempty = false })
 
   local title    = vim.trim(parts[1] or "")
@@ -112,6 +117,7 @@ local function parse_task_line(line, lnum)
     due_raw  = due_raw,
     priority = priority,
     done     = done,
+    progress = progress,
     cls      = cls,
     lnum     = lnum,
   }
@@ -124,7 +130,7 @@ end
 local function collect_entries()
   local cmd = {
     "rg", "--files-with-matches", "--glob", "*.md",
-    "^\\s*- \\[[ x]\\]",
+    "^\\s*- \\[[ x>]\\]",
     NOTES_DIR,
   }
   local result = vim.system(cmd, { text = true }):wait()
@@ -154,6 +160,7 @@ local function collect_entries()
             due_raw  = task.due_raw,
             priority = task.priority,
             done     = task.done,
+            progress = task.progress,
             cls      = task.cls,
             lnum     = task.lnum,
           })
@@ -176,7 +183,7 @@ local function collect_entries()
 end
 
 -- ---------------------------------------------------------------------------
--- Mark done: rewrite [ ] → [x] on the task's line
+-- Mark done: rewrite [ ] or [>] → [x] on the task's line
 -- ---------------------------------------------------------------------------
 
 local function mark_done(path, lnum)
@@ -195,7 +202,7 @@ local function mark_done(path, lnum)
     return false
   end
 
-  local updated, n = target:gsub("%- %[ %]", "- [x]", 1)
+  local updated, n = target:gsub("%- %[[ >]%]", "- [x]", 1)
   if n == 0 then
     vim.notify("agenda: task already done or pattern mismatch", vim.log.levels.WARN)
     return false
@@ -221,9 +228,9 @@ function M.mark_done_at_cursor()
   local line = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum, false)[1] or ""
 
   local updated
-  if line:match("^%s*%- %[ %]") then
+  if line:match("^%s*%- %[[ >]%]") then
     local ts = os.date("%Y-%m-%d %H:%M:%S")
-    updated = line:gsub("%- %[ %]", "- [x]", 1) .. " | completed: " .. ts
+    updated = line:gsub("%- %[[ >]%]", "- [x]", 1) .. " | completed: " .. ts
     vim.notify("Done", vim.log.levels.INFO)
   elseif line:match("^%s*%- %[x%]") then
     updated = line:gsub("%- %[x%]", "- [ ]", 1)
@@ -258,6 +265,12 @@ local CLS_HL = {
   unknown  = "AgendaLabel",
 }
 
+-- In-progress is a separate axis from cls: cls still drives sort order (so an
+-- overdue [>] task stays with the other overdue ones), while these override
+-- only the icon and highlight.
+local PROGRESS_ICON = "» "
+local PROGRESS_HL   = "AgendaProgress"
+
 function M.open(opts)
   setup_highlights()
   opts = opts or {}
@@ -282,10 +295,11 @@ function M.open(opts)
   })
 
   local function make_display(entry)
-    local e  = entry.value
-    local hl = CLS_HL[e.cls] or "AgendaLabel"
+    local e    = entry.value
+    local hl   = e.progress and PROGRESS_HL or (CLS_HL[e.cls] or "AgendaLabel")
+    local icon = e.progress and PROGRESS_ICON or (ICON[e.cls] or "  ")
     return displayer({
-      { ICON[e.cls] or "  ", hl               },
+      { icon,                 hl               },
       { e.due_raw,            hl               },
       { e.priority,           "AgendaPriority" },
       { e.epic,               "AgendaLabel"    },
@@ -346,8 +360,9 @@ function M.open(opts)
         end
         local ok = mark_done(e.path, e.lnum)
         if ok then
-          e.done = true
-          e.cls  = "done"
+          e.done     = true
+          e.progress = false
+          e.cls      = "done"
           vim.notify("Done: " .. e.title, vim.log.levels.INFO)
           all_entries = collect_entries()
           local p = action_state.get_current_picker(prompt_bufnr)
