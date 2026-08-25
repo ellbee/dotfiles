@@ -941,6 +941,9 @@ autocmd("BufReadPost", {
   end,
 })
 
+-- Treesitter incremental selection (<CR>/<BS>), mapped per-buffer
+require("incremental_selection").setup()
+
 -- HTML indentation
 vim.g.html_indent_inctags = "html,body,head,tbody,p"
 
