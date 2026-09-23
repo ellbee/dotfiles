@@ -646,6 +646,7 @@ require("lazy").setup({
       { "<leader>ob", "<cmd>Obsidian backlinks<cr>", desc = "Backlinks" },
       { "<leader>ot", "<cmd>Obsidian tags<cr>", desc = "Tags" },
       { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Today's daily note" },
+      { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday's daily note" },
       {
         "<leader>oi",
         function()
