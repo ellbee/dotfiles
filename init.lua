@@ -648,6 +648,17 @@ require("lazy").setup({
       { "<leader>od", "<cmd>Obsidian today<cr>", desc = "Today's daily note" },
       { "<leader>oy", "<cmd>Obsidian yesterday<cr>", desc = "Yesterday's daily note" },
       {
+        "<leader>om",
+        function()
+          vim.ui.input({ prompt = "Copy open tasks from date (blank = yesterday): " }, function(input)
+            if input ~= nil then
+              require("daily_tasks").copy(input)
+            end
+          end)
+        end,
+        desc = "Copy open tasks into today's daily note",
+      },
+      {
         "<leader>oi",
         function()
           -- resolve wikilink ![[image]] or markdown ![alt](path) under cursor
@@ -875,6 +886,11 @@ map("n", "<leader>oc", "o- [ ] <Esc>A", { desc = "Insert checkbox" })
 
 map("n", "<leader>ou", function() require("timestamp").toggle() end,
   { desc = "Toggle unix timestamp <-> ISO UTC" })
+
+vim.api.nvim_create_user_command("ObsidianCopyOpenTasks", function(opts)
+  require("lazy").load({ plugins = { "obsidian.nvim" } })
+  require("daily_tasks").copy(opts.args)
+end, { nargs = "*", desc = "Copy open tasks from a daily note into today's note" })
 
 local function strip_whitespace()
   local save_cursor = vim.fn.getpos(".")
