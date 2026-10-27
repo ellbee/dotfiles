@@ -64,3 +64,11 @@
 	trustExitCode = true
 [push]
 	default = simple
+[user]
+  name = Lee Bannard
+  email = lee@ambrit.com
+  signingkey = 4470E1F739FB2AC9 
+[commit]
+  gpgsign = true
+
+
