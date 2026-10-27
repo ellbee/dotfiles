@@ -693,7 +693,9 @@ require("lazy").setup({
       { "<C-Space>", "<cmd>Checkbox toggle<cr>", desc = "Toggle checkbox", ft = "markdown" },
     },
     config = function()
-      require("markview").setup()
+      require("markview").setup({
+        preview = { enable = false }, -- start as plain markdown; <leader>mv to render
+      })
       require("markview.extras.checkboxes").setup()
     end,
   },
