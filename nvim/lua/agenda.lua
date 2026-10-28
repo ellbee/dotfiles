@@ -8,14 +8,17 @@
 -- Task syntax (in note body):
 --   - [ ] Task title | due: 2026-05-10 | priority: high
 --   - [>] In-progress task | due: 2026-05-09 | priority: high
+--   - [~] In-progress task (Obsidian's tilde state)
+--   - [!] Important task (defaults to high priority)
 --   - [x] Done task | due: 2026-05-08 | priority: low
+--   - [X] Done task (also recognised)
 --
 -- Keymaps in picker:
 --   <CR>      open note at task line
 --   <C-d>     mark task done ([ ] or [>] → [x]), refresh picker
 --   <C-t>     toggle display of done tasks
 --
--- In-progress tasks ([>]) show a blue » icon but keep their due-date sort position.
+-- In-progress tasks ([>] or [~]) show a blue » icon and keep their due-date sort position.
 
 local pickers       = require("telescope.pickers")
 local finders       = require("telescope.finders")
@@ -89,11 +92,11 @@ local function epic_from_path(path)
 end
 
 local function parse_task_line(line, lnum)
-  local marker, rest = line:match("^%s*%- %[([x >])%] (.+)$")
+  local marker, rest = line:match("^%s*%- %[([xX >~!])%] (.+)$")
   if not marker then return nil end
 
-  local done     = (marker == "x")
-  local progress = (marker == ">")
+  local done     = (marker == "x" or marker == "X")
+  local progress = (marker == ">" or marker == "~")
   local parts = vim.split(rest, "|", { plain = true, trimempty = false })
 
   local title    = vim.trim(parts[1] or "")
@@ -109,6 +112,7 @@ local function parse_task_line(line, lnum)
   end
 
   local due = parse_date(due_raw)
+  if marker == "!" and priority == "" then priority = "high" end
   local cls = classify(due, done)
 
   return {
@@ -130,7 +134,7 @@ end
 local function collect_entries()
   local cmd = {
     "rg", "--files-with-matches", "--glob", "*.md",
-    "^\\s*- \\[[ x>]\\]",
+    "^\\s*- \\[[ xX>~!]\\]",
     NOTES_DIR,
   }
   local result = vim.system(cmd, { text = true }):wait()
@@ -202,13 +206,13 @@ local function mark_done(path, lnum)
     return false
   end
 
-  local updated, n = target:gsub("%- %[[ >]%]", "- [x]", 1)
+  local updated, n = target:gsub("%- %[[ >~!]%]", "- [x]", 1)
   if n == 0 then
     vim.notify("agenda: task already done or pattern mismatch", vim.log.levels.WARN)
     return false
   end
 
-  lines[lnum] = updated
+  lines[lnum] = M.with_completion_date(updated)
   local out = io.open(path, "w")
   if not out then
     vim.notify("agenda: cannot write " .. path, vim.log.levels.ERROR)
@@ -223,18 +227,56 @@ end
 -- Mark done at cursor (normal mode, outside picker)
 -- ---------------------------------------------------------------------------
 
+local function without_completion_date(line)
+  line = line:gsub("%s*| completed: %d%d%d%d%-%d%d%-%d%d %d%d:%d%d:%d%d%s*$", "")
+  return (line:gsub("%s*| completed: %d%d%d%d%-%d%d%-%d%d%s*$", ""))
+end
+
+function M.with_completion_date(line)
+  return without_completion_date(line) .. " | completed: " .. os.date("%Y-%m-%d")
+end
+
+-- Wrap Obsidian's checkbox action so Smart Action retains its link/tag/fold
+-- behaviour, and checkbox commands (including ranges) also maintain dates.
+function M.setup_obsidian_completion()
+  if M.obsidian_completion_enabled then return end
+  local actions = require("obsidian.actions")
+  local toggle_checkbox = actions.toggle_checkbox
+  actions.toggle_checkbox = function(...)
+    local bufnr = vim.api.nvim_get_current_buf()
+    local before = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    toggle_checkbox(...)
+    local after = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    for i, line in ipairs(after) do
+      if line ~= before[i] then
+        local old = (before[i] or ""):match("^%s*[-*+]%s+%[([xX])%]")
+        local done = line:match("^%s*[-*+]%s+%[([xX])%]")
+        local updated = line
+        if done and not old then
+          updated = M.with_completion_date(line)
+        elseif old and not done then
+          updated = without_completion_date(line)
+        end
+        if updated ~= line then
+          vim.cmd("undojoin")
+          vim.api.nvim_buf_set_lines(bufnr, i - 1, i, false, { updated })
+        end
+      end
+    end
+  end
+  M.obsidian_completion_enabled = true
+end
+
 function M.mark_done_at_cursor()
   local lnum = vim.api.nvim_win_get_cursor(0)[1]
   local line = vim.api.nvim_buf_get_lines(0, lnum - 1, lnum, false)[1] or ""
 
   local updated
-  if line:match("^%s*%- %[[ >]%]") then
-    local ts = os.date("%Y-%m-%d %H:%M:%S")
-    updated = line:gsub("%- %[[ >]%]", "- [x]", 1) .. " | completed: " .. ts
+  if line:match("^%s*%- %[[ >~!]%]") then
+    updated = M.with_completion_date((line:gsub("%- %[[ >~!]%]", "- [x]", 1)))
     vim.notify("Done", vim.log.levels.INFO)
-  elseif line:match("^%s*%- %[x%]") then
-    updated = line:gsub("%- %[x%]", "- [ ]", 1)
-    updated = updated:gsub("%s*| completed: %d%d%d%d%-%d%d%-%d%d %d%d:%d%d:%d%d%s*$", "")
+  elseif line:match("^%s*%- %[[xX]%]") then
+    updated = without_completion_date((line:gsub("%- %[[xX]%]", "- [ ]", 1)))
     vim.notify("Marked incomplete", vim.log.levels.INFO)
   else
     vim.notify("agenda: cursor is not on a task line", vim.log.levels.WARN)

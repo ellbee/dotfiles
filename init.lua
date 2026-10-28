@@ -625,6 +625,11 @@ require("lazy").setup({
       end,
       ui = { enable = false }, -- markview handles rendering
       legacy_commands = false,
+      callbacks = {
+        post_setup = function()
+          require("agenda").setup_obsidian_completion()
+        end,
+      },
     },
     keys = {
       {
@@ -690,7 +695,6 @@ require("lazy").setup({
     },
     keys = {
       { "<leader>mv", "<cmd>Markview toggle<cr>", desc = "Toggle markview preview" },
-      { "<C-Space>", "<cmd>Checkbox toggle<cr>", desc = "Toggle checkbox", ft = "markdown" },
     },
     config = function()
       require("markview").setup({
