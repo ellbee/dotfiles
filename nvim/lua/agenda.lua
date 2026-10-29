@@ -8,7 +8,7 @@
 -- Task syntax (in note body):
 --   - [ ] Task title | due: 2026-05-10 | priority: high
 --   - [>] In-progress task | due: 2026-05-09 | priority: high
---   - [~] In-progress task (Obsidian's tilde state)
+--   - [~] On-hold task
 --   - [!] Important task (defaults to high priority)
 --   - [x] Done task | due: 2026-05-08 | priority: low
 --   - [X] Done task (also recognised)
@@ -18,7 +18,7 @@
 --   <C-d>     mark task done ([ ] or [>] → [x]), refresh picker
 --   <C-t>     toggle display of done tasks
 --
--- In-progress tasks ([>] or [~]) show a blue » icon and keep their due-date sort position.
+-- In-progress tasks ([>]) show a blue » icon and keep their due-date sort position.
 
 local pickers       = require("telescope.pickers")
 local finders       = require("telescope.finders")
@@ -96,7 +96,7 @@ local function parse_task_line(line, lnum)
   if not marker then return nil end
 
   local done     = (marker == "x" or marker == "X")
-  local progress = (marker == ">" or marker == "~")
+  local progress = (marker == ">")
   local parts = vim.split(rest, "|", { plain = true, trimempty = false })
 
   local title    = vim.trim(parts[1] or "")
@@ -232,8 +232,29 @@ local function without_completion_date(line)
   return (line:gsub("%s*| completed: %d%d%d%d%-%d%d%-%d%d%s*$", ""))
 end
 
+local function without_progress_date(line)
+  return (line:gsub("%s*| in progress: %d%d%d%d%-%d%d%-%d%d", ""))
+end
+
 function M.with_completion_date(line)
-  return without_completion_date(line) .. " | completed: " .. os.date("%Y-%m-%d")
+  return without_completion_date(without_progress_date(line)) .. " | completed: " .. os.date("%Y-%m-%d")
+end
+
+function M.toggle_task_at_cursor(marker)
+  local line = vim.api.nvim_get_current_line()
+  local prefix, current, rest = line:match("^(%s*[-*+]%s+)%[([ xX>~!])%](.*)$")
+  if not prefix then
+    vim.notify("agenda: cursor is not on a task line", vim.log.levels.WARN)
+    return
+  end
+
+  local next_marker = current == marker and " " or marker
+  local updated = without_completion_date(without_progress_date(prefix .. "[" .. next_marker .. "]" .. rest))
+  if next_marker == ">" then
+    updated = updated .. " | in progress: " .. os.date("%Y-%m-%d")
+  end
+  vim.api.nvim_set_current_line(updated)
+  vim.cmd("write")
 end
 
 -- Wrap Obsidian's checkbox action so Smart Action retains its link/tag/fold

@@ -888,6 +888,9 @@ end, { silent = true })
 
 map("n", "<leader>oa", function() require("agenda").open() end, { desc = "Open agenda" })
 map("n", "<leader>og", function() require("agenda").mark_done_at_cursor() end, { desc = "Mark task done at cursor" })
+map("n", "<leader>op", function() require("agenda").toggle_task_at_cursor(">") end, { desc = "Toggle task in progress" })
+map("n", "<leader>oh", function() require("agenda").toggle_task_at_cursor("~") end, { desc = "Toggle task on hold" })
+map("n", "<leader>o!", function() require("agenda").toggle_task_at_cursor("!") end, { desc = "Toggle task important" })
 map("n", "<leader>oc", "o- [ ] <Esc>A", { desc = "Insert checkbox" })
 
 map("n", "<leader>ou", function() require("timestamp").toggle() end,
