@@ -270,13 +270,20 @@ function M.setup_obsidian_completion()
     local after = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
     for i, line in ipairs(after) do
       if line ~= before[i] then
-        local old = (before[i] or ""):match("^%s*[-*+]%s+%[([xX])%]")
-        local done = line:match("^%s*[-*+]%s+%[([xX])%]")
+        local old = (before[i] or ""):match("^%s*[-*+]%s+%[(.)%]")
+        local marker = line:match("^%s*[-*+]%s+%[(.)%]")
+        local done = marker == "x" or marker == "X"
+        local was_done = old == "x" or old == "X"
         local updated = line
-        if done and not old then
+        if done and not was_done then
           updated = M.with_completion_date(line)
-        elseif old and not done then
+        elseif was_done and not done then
           updated = without_completion_date(line)
+        end
+        if marker == ">" and old ~= ">" then
+          updated = without_progress_date(updated) .. " | in progress: " .. os.date("%Y-%m-%d")
+        elseif old == ">" and marker ~= ">" then
+          updated = without_progress_date(updated)
         end
         if updated ~= line then
           vim.cmd("undojoin")
